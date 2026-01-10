@@ -1,12 +1,37 @@
-# JaZeR 2026 Launch Plan: Spotify Research System
+<div align="center">
+
+<img src="JZR Hexagon LaunchPlan Logo (450 x 150 px).svg" alt="JaZeR Launch Plan Logo" width="450">
+
+# JaZeR 2026 Launch Plan
+## Spotify Research System
+
+<img src="JZR Monogram Hexigon Logo (500 x 500 px).svg" alt="JaZeR Monogram" width="120">
+
+[![Status](https://img.shields.io/badge/Status-Active%20Development-brightgreen?style=for-the-badge)](https://github.com)
+[![Research Sprint](https://img.shields.io/badge/Research%20Sprint-10%20Modules-00d6a0?style=for-the-badge)](https://github.com)
+[![AI Powered](https://img.shields.io/badge/AI-Powered-c77dff?style=for-the-badge)](https://github.com)
 
 > **AI-Powered Strategic Intelligence Framework for Artist Development**
 
-A comprehensive, modular research system designed to transform Spotify growth strategy from guesswork into data-driven action. Built for emerging artists ready to scale from grassroots to industry recognition.
+*A comprehensive, modular research system designed to transform Spotify growth strategy from guesswork into data-driven action. Built for emerging artists ready to scale from grassroots to industry recognition.*
+
+[🚀 Quick Start](#-quick-start) • [📚 Modules](#-the-10-module-research-sprint) • [🌐 Website](website/) • [📊 Dashboard](website/dashboard.html)
+
+</div>
 
 ---
 
 ## 🎯 Overview
+
+<div align="center">
+
+| <img src="JZR Monogram Hexigon Logo (500 x 500 px).svg" width="60"> | **Data-Driven Intelligence** | **Hyper-Targeted Strategy** | **AI-Orchestrated Research** |
+|:---:|:---:|:---:|:---:|
+| ✅ | Real stats, verified metrics | Austin market focus | Gemini Deep Research powered |
+| ✅ | Current benchmarks | Melodic Rap niche | Structured prompt engineering |
+| ✅ | No hypotheticals | Actionable outputs | Negatively constrained AI |
+
+</div>
 
 This repository contains a **10-module strategic research framework** purpose-built for **JaZeR**, an Austin-based Hip-hop/Rap/R&B artist targeting 100k+ monthly Spotify listeners and regional touring expansion. Unlike generic "music marketing guides," this system uses AI-powered deep research to generate **actionable, artist-specific intelligence** across every dimension of Spotify growth.
 
@@ -23,24 +48,32 @@ This repository contains a **10-module strategic research framework** purpose-bu
 
 ## 📚 The 10-Module Research Sprint
 
+<div align="center">
+<img src="JZR Monogram Hexigon Logo (500 x 500 px).svg" alt="Research Framework" width="80">
+</div>
+
 Each module addresses a distinct strategic domain with its own dedicated prompt, research protocol, and structured output format:
 
-| # | Module | Strategic Focus |
-|---|--------|----------------|
-| **01** | [Research Brief and Scope](01%20-%20Research%20Brief%20and%20Scope/) | Foundation, reality check, genre positioning |
-| **02** | [Spotify Market Landscape](02%20-%20Spotify%20Market%20Landscape/) | Competitive analysis, peer benchmarking |
-| **03** | [Audience and Listener Profile](03%20-%20Audience%20and%20Listener%20Profile/) | Psychographics, demographics, behavior patterns |
-| **04** | [Playlist Strategy Intelligence](04%20-%20Playlist%20Strategy%20Intelligence/) | Curator mapping, playlist targeting, submission tactics |
-| **05** | [Release Strategy Benchmarks](05%20-%20Release%20Strategy%20Benchmarks/) | Drop cadence, single vs. album strategy |
-| **06** | [Algorithmic Growth Drivers](06%20-%20Algorithmic%20Growth%20Drivers/) | Spotify algorithm optimization, Discover Weekly triggers |
-| **07** | [Marketing Channel Effectiveness](07%20-%20Marketing%20Channel%20Effectiveness/) | Cross-platform promotion, influencer strategy |
-| **08** | [Touring and Spotify Demand Signals](08%20-%20Touring%20and%20Spotify%20Demand%20Signals/) | Geographic targeting, tour routing intelligence |
-| **09** | [Monetization and Pricing Benchmarks](09%20-%20Monetization%20and%20Pricing%20Benchmarks/) | Revenue streams, pricing strategy, label deals |
-| **10** | [Executive Summary and 90-Day Plan](10%20-%20Executive%20Summary%20and%2090-Day%20Plan/) | Synthesis, priorities, execution roadmap |
+| # | Module | Strategic Focus | Status |
+|---|--------|----------------|--------|
+| **01** | [Research Brief and Scope](01%20-%20Research%20Brief%20and%20Scope/) | Foundation, reality check, genre positioning | ✅ Complete |
+| **02** | [Spotify Market Landscape](02%20-%20Spotify%20Market%20Landscape/) | Competitive analysis, peer benchmarking | ✅ Complete |
+| **03** | [Audience and Listener Profile](03%20-%20Audience%20and%20Listener%20Profile/) | Psychographics, demographics, behavior patterns | ✅ Complete |
+| **04** | [Playlist Strategy Intelligence](04%20-%20Playlist%20Strategy%20Intelligence/) | Curator mapping, playlist targeting, submission tactics | ✅ Complete |
+| **05** | [Release Strategy Benchmarks](05%20-%20Release%20Strategy%20Benchmarks/) | Drop cadence, single vs. album strategy | ✅ Complete |
+| **06** | [Algorithmic Growth Drivers](06%20-%20Algorithmic%20Growth%20Drivers/) | Spotify algorithm optimization, Discover Weekly triggers | ✅ Complete |
+| **07** | [Marketing Channel Effectiveness](07%20-%20Marketing%20Channel%20Effectiveness/) | Cross-platform promotion, influencer strategy | ✅ Complete |
+| **08** | [Touring and Spotify Demand Signals](08%20-%20Touring%20and%20Spotify%20Demand%20Signals/) | Geographic targeting, tour routing intelligence | ✅ Complete |
+| **09** | [Monetization and Pricing Benchmarks](09%20-%20Monetization%20and%20Pricing%20Benchmarks/) | Revenue streams, pricing strategy, label deals | ✅ Complete |
+| **10** | [Executive Summary and 90-Day Plan](10%20-%20Executive%20Summary%20and%2090-Day%20Plan/) | Synthesis, priorities, execution roadmap | ✅ Complete |
 
 ---
 
 ## 🗂️ Universal Module Structure
+
+<div align="center">
+<img src="JZR Monogram Hexigon Logo (500 x 500 px).svg" alt="Module Architecture" width="60">
+</div>
 
 **Every module (01-10) follows an identical 8-folder architecture** for consistency and scalability:
 
@@ -144,6 +177,14 @@ python generate_folder_schema.py --style simple
 
 ## 🌐 Website Component
 
+<div align="center">
+<img src="website/assets/images/logo.svg" alt="Website Preview" width="300">
+
+**Modern, Interactive Research Dashboard**
+
+[🌐 View Live Demo](website/index.html) • [📊 Analytics Dashboard](website/dashboard.html) • [📥 Downloads](website/downloads.html)
+</div>
+
 The `website/` directory contains a static HTML presentation layer for viewing research outputs in a polished, shareable format.
 
 ### Features
@@ -152,6 +193,7 @@ The `website/` directory contains a static HTML presentation layer for viewing r
 - 📑 **Module Hub** - Grid view of all 10 research modules
 - 📥 **Downloads Center** - Export reports as PDF/DOCX/JSON
 - 🎨 **Modern UI** - Tailwind CSS with scroll animations (AOS)
+- 🎯 **Branded Experience** - Custom JaZeR logo and monogram favicon
 
 ### Local Preview
 
@@ -176,6 +218,24 @@ netlify deploy
 ```
 
 Or drag-and-drop the `website/` folder at [app.netlify.com/drop](https://app.netlify.com/drop)
+
+### Tech Stack & Assets
+
+<div align="center">
+
+| Component | Technology | Asset |
+|-----------|-----------|-------|
+| **Frontend** | HTML5, Tailwind CSS, Chart.js | 🎨 |
+| **Animations** | AOS, GSAP ScrollTrigger | ✨ |
+| **Branding** | Custom SVG logos & favicon | <img src="JZR Monogram Hexigon Logo (500 x 500 px).svg" width="30"> |
+| **Typography** | Space Grotesk, Inter, JetBrains Mono | 📝 |
+| **Deployment** | Vercel / Netlify (static) | 🚀 |
+
+**Logo Assets:**
+- `JZR Hexagon LaunchPlan Logo (450 x 150 px).svg` - Header/navigation logo
+- `JZR Monogram Hexigon Logo (500 x 500 px).svg` - Favicon/profile icon
+
+</div>
 
 ---
 
@@ -203,18 +263,26 @@ All research prompts in this system follow strict quality standards:
 
 ## 🎵 Artist Context: JaZeR
 
+<div align="center">
+<img src="JZR Monogram Hexigon Logo (500 x 500 px).svg" alt="JaZeR Profile" width="100">
+</div>
+
 This system is calibrated for the following artist profile:
+
+<div align="center">
 
 | Parameter | Value |
 |-----------|-------|
 | **Artist Name** | JaZeR |
 | **Genre** | Melodic Hip-hop, Rap, R&B |
 | **Style Comparisons** | Mac Miller, ProbCause, early Drake |
-| **Location** | Austin, Texas |
+| **Location** | 📍 Austin, Texas |
 | **Target Market** | USA (primary), Global (secondary) |
 | **Career Stage** | Emerging/Developing |
 | **Current Stats** | ~5k monthly listeners (estimated) |
-| **Goal** | 100k+ monthly listeners, regional touring, playlist placements |
+| **Goal** | 🎯 100k+ monthly listeners, regional touring, playlist placements |
+
+</div>
 
 When customizing prompts for other artists, update the `[INSERT]` variables in each module's `.md` file.
 
@@ -242,14 +310,16 @@ When customizing prompts for other artists, update the `[INSERT]` variables in e
 
 ## 📂 Key Files Reference
 
-| File | Purpose |
-|------|---------|
-| **`MASTER/MASTER_RUN_PROMPT.txt`** | Master orchestration prompt for full 10-module sprint |
-| **`XX - Module Name/XX - Module Name.md`** | Core prompt template for each module |
-| **`XX - Module Name/JaZeR-XX-Module-Name.md`** | Completed AI research output (found in `02 - Markdown Notes/`) |
-| **`MASTER/JaZeR-2026-Full-Research-Report.docx`** | Compiled final report (all modules) |
-| **`CLAUDE.md`** | Technical documentation for AI assistants working with this repo |
-| **`folder-schema.txt`** | Visual directory tree (generated by `generate_folder_schema.py`) |
+| File | Purpose | Icon |
+|------|---------|------|
+| **`MASTER/MASTER_RUN_PROMPT.txt`** | Master orchestration prompt for full 10-module sprint | 🎯 |
+| **`XX - Module Name/XX - Module Name.md`** | Core prompt template for each module | 📝 |
+| **`XX - Module Name/JaZeR-XX-Module-Name.md`** | Completed AI research output (found in `02 - Markdown Notes/`) | ✅ |
+| **`MASTER/JaZeR-2026-Full-Research-Report.docx`** | Compiled final report (all modules) | 📄 |
+| **`CLAUDE.md`** | Technical documentation for AI assistants working with this repo | 🤖 |
+| **`folder-schema.txt`** | Visual directory tree (generated by `generate_folder_schema.py`) | 🗂️ |
+| **`JZR Hexagon LaunchPlan Logo (450 x 150 px).svg`** | Main header logo for website and branding | 🎨 |
+| **`JZR Monogram Hexigon Logo (500 x 500 px).svg`** | Monogram favicon and profile icon | 🔷 |
 
 ---
 
@@ -283,15 +353,29 @@ This repository is provided as-is for educational and strategic planning purpose
 
 ## 📧 Contact
 
+<div align="center">
+<img src="JZR Monogram Hexigon Logo (500 x 500 px).svg" alt="JaZeR" width="80">
+
 **Artist:** JaZeR  
-**Location:** Austin, TX  
+**Location:** 📍 Austin, TX  
 **Genre:** Melodic Hip-hop / Rap / R&B  
 
 For inquiries about adapting this system or collaboration opportunities, open an issue in this repository.
 
+</div>
+
 ---
 
 <div align="center">
-  <strong>Built for artists who treat strategy like a craft.</strong><br>
-  Research system designed in 2026 • Powered by AI • Driven by data
+
+<img src="JZR Hexagon LaunchPlan Logo (450 x 150 px).svg" alt="JaZeR Launch Plan" width="300">
+
+**Built for artists who treat strategy like a craft.**
+
+*Research system designed in 2026 • Powered by AI • Driven by data*
+
+[![Website](https://img.shields.io/badge/🌐-View%20Website-00d6a0?style=for-the-badge)](website/index.html)
+[![Dashboard](https://img.shields.io/badge/📊-Analytics%20Dashboard-a3ff12?style=for-the-badge)](website/dashboard.html)
+[![Modules](https://img.shields.io/badge/📚-All%20Modules-c77dff?style=for-the-badge)](website/modules.html)
+
 </div>
