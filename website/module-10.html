@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 10: Executive Summary & 90-Day Plan | JaZeR Research</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <style>
+        :root { --bg: #050816; --surface: #1a1f3a; --cyan: #06d6a0; --lime: #a3ff12; --violet: #c77dff; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: #f8fafc; margin: 0; overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+        
+        .cursor { width: 20px; height: 20px; background: linear-gradient(135deg, var(--violet), var(--cyan)); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99999; mix-blend-mode: difference; transform: translate(-50%, -50%); }
+        @media (max-width: 768px) { .cursor { display: none; } }
+        
+        .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--violet), var(--cyan)); z-index: 9999; width: 0%; }
+        
+        .gradient-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .gradient-orb { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.4; }
+        .orb-1 { width: 400px; height: 400px; background: var(--violet); top: -100px; right: -100px; }
+        .orb-2 { width: 300px; height: 300px; background: var(--cyan); bottom: 20%; left: -50px; }
+        .orb-3 { width: 250px; height: 250px; background: var(--lime); bottom: -100px; right: 20%; }
+        
+        .glass { background: rgba(26, 31, 58, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .glass-strong { background: rgba(26, 31, 58, 0.8); backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.15); }
+        
+        .gradient-text { background: linear-gradient(135deg, var(--cyan), var(--lime), var(--violet)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .neon-cyan { text-shadow: 0 0 10px rgba(6, 214, 160, 0.8); }
+        
+        .badge-violet { background: rgba(199, 125, 255, 0.2); color: var(--violet); border: 1px solid rgba(199, 125, 255, 0.4); padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .badge-cyan { background: rgba(6, 214, 160, 0.2); color: var(--cyan); border: 1px solid rgba(6, 214, 160, 0.4); padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .badge-lime { background: rgba(163, 255, 18, 0.2); color: var(--lime); border: 1px solid rgba(163, 255, 18, 0.4); padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .badge-progress { background: rgba(6, 214, 160, 0.2); color: var(--cyan); border: 1px solid rgba(6, 214, 160, 0.4); padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 600; }
+        
+        .content-card { background: rgba(26, 31, 58, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.4s; }
+        .content-card:hover { border-color: var(--cyan); box-shadow: 0 20px 60px rgba(6, 214, 160, 0.15); transform: translateY(-4px); }
+        
+        .btn-primary { background: linear-gradient(135deg, var(--cyan), var(--lime)); color: var(--bg); font-weight: 700; transition: all 0.3s; }
+        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 40px rgba(6, 214, 160, 0.4); }
+        .btn-secondary { background: transparent; border: 2px solid rgba(255, 255, 255, 0.2); color: #f8fafc; font-weight: 600; }
+        
+        /* Snapshot Cards */
+        .snapshot-card { transition: all 0.4s; }
+        .snapshot-card:hover { transform: scale(1.03); }
+        
+        /* Timeline with Progress */
+        .timeline-month { position: relative; transition: all 0.4s; }
+        .timeline-month.active { transform: scale(1.02); }
+        .timeline-dot { width: 20px; height: 20px; border-radius: 50%; box-shadow: 0 0 20px rgba(6, 214, 160, 0.6); transition: all 0.3s; }
+        .timeline-dot.pulsing { animation: pulse 2s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 20px rgba(6, 214, 160, 0.6); } 50% { box-shadow: 0 0 40px rgba(6, 214, 160, 1); } }
+        .timeline-progress { position: absolute; left: 10px; top: 50px; bottom: 0; width: 3px; background: rgba(255, 255, 255, 0.1); }
+        .timeline-progress-fill { width: 100%; background: linear-gradient(180deg, var(--cyan), var(--lime), var(--violet)); transition: height 1s ease-out; }
+        
+        /* KPI Cards with Counters */
+        .kpi-card { text-align: center; transition: all 0.4s; }
+        .kpi-card:hover { transform: translateY(-4px); }
+        .kpi-value { font-size: 3.5rem; font-weight: 900; line-height: 1; }
+        .kpi-value.counter { font-variant-numeric: tabular-nums; }
+        
+        /* Completion Banner */
+        .completion-banner { background: linear-gradient(135deg, rgba(6, 214, 160, 0.1), rgba(163, 255, 18, 0.1), rgba(199, 125, 255, 0.1)); border: 2px solid rgba(6, 214, 160, 0.3); position: relative; overflow: hidden; }
+        .completion-banner::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); animation: shimmer 3s infinite; }
+        @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+        
+        .sticky-nav { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 100; }
+        footer { background: rgba(5, 8, 22, 0.9); border-top: 1px solid rgba(255, 255, 255, 0.05); }
+        .back-to-top { position: fixed; bottom: 6rem; right: 2rem; width: 48px; height: 48px; border-radius: 50%; background: rgba(26, 31, 58, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s; z-index: 50; }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: var(--cyan); color: var(--bg); }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="progress-bar" id="progress-bar"></div>
+    <div class="gradient-bg"><div class="gradient-orb orb-1"></div><div class="gradient-orb orb-2"></div><div class="gradient-orb orb-3"></div></div>
+    
+    <nav class="glass-strong sticky top-0 z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index-premium.html" class="text-2xl font-bold neon-cyan">JaZeR</a>
+            <div class="flex items-center gap-6">
+                <span class="badge-progress hidden md:inline">Module 10 of 10 · FINAL</span>
+                <div class="hidden md:flex space-x-6">
+                    <a href="modules.html" class="text-slate-300 hover:text-cyan-400 transition">All Modules</a>
+                    <a href="dashboard.html" class="text-slate-300 hover:text-cyan-400 transition">Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero with Animation -->
+    <section class="py-20 px-6">
+        <div class="max-w-5xl mx-auto text-center">
+            <span class="badge-violet mb-6 inline-block hero-badge opacity-0">MODULE 10 · EXECUTION · FINAL</span>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                <span class="hero-title opacity-0">Executive Summary &</span><br/>
+                <span class="gradient-text hero-title opacity-0">90-Day Plan</span>
+            </h1>
+            <p class="text-xl text-slate-400 hero-subtitle opacity-0">Complete strategic synthesis and tactical execution roadmap</p>
+            <div class="flex flex-wrap justify-center gap-4 mt-8">
+                <a href="../10 - Executive Summary and 90-Day Plan/JaZeR-10-Executive-Summary-and-90-Day-Plan.md" download class="btn-primary px-8 py-4 rounded-full inline-flex items-center gap-2 hero-cta opacity-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    Download Markdown
+                </a>
+                <a href="../10 - Executive Summary and 90-Day Plan/JaZeR_Austin_Market_Strategy.pdf" download class="btn-secondary px-8 py-4 rounded-full inline-flex items-center gap-2 hero-cta opacity-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Download PDF
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 px-6">
+        <div class="max-w-5xl mx-auto space-y-12">
+            <!-- Executive Snapshot -->
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-3"><span class="text-3xl">📊</span> Executive Snapshot</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="snapshot-card p-6 bg-slate-900/50 rounded-xl">
+                        <span class="badge-violet mb-3 inline-block text-xs">CURRENT</span>
+                        <div class="text-4xl mb-3">🔴</div>
+                        <h3 class="text-2xl font-bold text-violet-400">Launch Phase</h3>
+                        <p class="text-slate-300 mt-2">No footprint, blank canvas. Starting from zero.</p>
+                    </div>
+                    <div class="snapshot-card p-6 bg-slate-900/50 rounded-xl" style="border: 2px solid var(--cyan)">
+                        <span class="badge-cyan mb-3 inline-block text-xs">OPPORTUNITY</span>
+                        <div class="text-4xl mb-3">🌊</div>
+                        <h3 class="text-2xl font-bold neon-cyan">"Blue Ocean"</h3>
+                        <p class="text-slate-300 mt-2">Void in Austin for melodic, electronic hip-hop.</p>
+                    </div>
+                    <div class="snapshot-card p-6 bg-slate-900/50 rounded-xl">
+                        <span class="badge-lime mb-3 inline-block text-xs">RISK</span>
+                        <div class="text-4xl mb-3">⚠️</div>
+                        <h3 class="text-2xl font-bold" style="color: var(--lime)">Obscurity</h3>
+                        <p class="text-slate-300 mt-2">Failing to establish distinct brand identity.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 90-Day Sprint Timeline -->
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-3"><span class="text-3xl">📅</span> The 90-Day Sprint</h2>
+                <div class="space-y-0">
+                    <!-- Month 1 -->
+                    <div class="timeline-month glass p-6 rounded-2xl mb-6" data-month="1">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="timeline-dot pulsing" style="background: var(--cyan)"></div>
+                                <div class="timeline-progress"><div class="timeline-progress-fill" style="height: 0%" data-height="100"></div></div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <h3 class="text-2xl font-bold neon-cyan">Month 1: Foundation</h3>
+                                    <span class="badge-cyan text-xs">STEALTH PHASE</span>
+                                </div>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="bg-slate-900/50 p-4 rounded-xl">
+                                        <p class="text-cyan-400 font-bold text-sm mb-2">WEEK 1-2</p>
+                                        <ul class="text-slate-300 text-sm space-y-1">
+                                            <li>✓ Finalize Single 1</li>
+                                            <li>✓ Shoot cover art & Canvas</li>
+                                            <li>✓ Set up Spotify for Artists</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-slate-900/50 p-4 rounded-xl">
+                                        <p class="text-cyan-400 font-bold text-sm mb-2">WEEK 3-4</p>
+                                        <ul class="text-slate-300 text-sm space-y-1">
+                                            <li>✓ Upload to DistroKid</li>
+                                            <li>✓ Pitch to Spotify Editorial</li>
+                                            <li>✓ Start teasing on TikTok/Reels</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Month 2 -->
+                    <div class="timeline-month glass p-6 rounded-2xl mb-6" data-month="2">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="timeline-dot" style="background: var(--lime)"></div>
+                                <div class="timeline-progress"><div class="timeline-progress-fill" style="height: 0%" data-height="100"></div></div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <h3 class="text-2xl font-bold" style="color: var(--lime)">Month 2: Launch</h3>
+                                    <span class="badge-lime text-xs">HELLO PHASE</span>
+                                </div>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="bg-slate-900/50 p-4 rounded-xl">
+                                        <p class="text-lime-400 font-bold text-sm mb-2">WEEK 5-6</p>
+                                        <ul class="text-slate-300 text-sm space-y-1">
+                                            <li>🚀 RELEASE DAY</li>
+                                            <li>• Push all socials to Spotify</li>
+                                            <li>• Submit to indie curators</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-slate-900/50 p-4 rounded-xl">
+                                        <p class="text-lime-400 font-bold text-sm mb-2">WEEK 7-8</p>
+                                        <ul class="text-slate-300 text-sm space-y-1">
+                                            <li>• Continue daily content</li>
+                                            <li>• Upload Single 2</li>
+                                            <li>• Network at local shows</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Month 3 -->
+                    <div class="timeline-month glass p-6 rounded-2xl" data-month="3">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="timeline-dot" style="background: var(--violet)"></div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <h3 class="text-2xl font-bold text-violet-400">Month 3: Sustain</h3>
+                                    <span class="badge-violet text-xs">PROOF PHASE</span>
+                                </div>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="bg-slate-900/50 p-4 rounded-xl">
+                                        <p class="text-violet-400 font-bold text-sm mb-2">WEEK 9-10</p>
+                                        <ul class="text-slate-300 text-sm space-y-1">
+                                            <li>• Single 2 release</li>
+                                            <li>• Analyze listener data</li>
+                                            <li>• Cities, age, playlists</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-slate-900/50 p-4 rounded-xl">
+                                        <p class="text-violet-400 font-bold text-sm mb-2">WEEK 11-12</p>
+                                        <ul class="text-slate-300 text-sm space-y-1">
+                                            <li>🎤 First local showcase</li>
+                                            <li>👕 First merch drop</li>
+                                            <li>📊 Review all metrics</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI Dashboard -->
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-3"><span class="text-3xl">🎯</span> 90-Day KPI Targets</h2>
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="kpi-card glass p-6 rounded-2xl">
+                        <h3 class="text-slate-400 text-sm mb-2">Save Rate</h3>
+                        <div class="kpi-value neon-cyan counter" data-target="30">>0%</div>
+                        <p class="text-slate-500 text-xs mt-2">Triggers Discover Weekly</p>
+                    </div>
+                    <div class="kpi-card glass p-6 rounded-2xl">
+                        <h3 class="text-slate-400 text-sm mb-2">Follower Growth</h3>
+                        <div class="kpi-value counter" style="color: var(--lime)" data-target="50">+0</div>
+                        <p class="text-slate-500 text-xs mt-2">per month</p>
+                    </div>
+                    <div class="kpi-card glass p-6 rounded-2xl">
+                        <h3 class="text-slate-400 text-sm mb-2">Monthly Listeners</h3>
+                        <div class="kpi-value text-violet-400 counter" data-target="1000">0</div>
+                        <p class="text-slate-500 text-xs mt-2">by day 90</p>
+                    </div>
+                    <div class="kpi-card glass p-6 rounded-2xl">
+                        <h3 class="text-slate-400 text-sm mb-2">Local Connections</h3>
+                        <div class="kpi-value neon-cyan">1+3</div>
+                        <p class="text-slate-500 text-xs mt-2">booker + artists</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Completion Banner -->
+            <div class="completion-banner p-8 rounded-3xl text-center">
+                <div class="text-5xl mb-4">🎉</div>
+                <h2 class="text-3xl font-bold gradient-text mb-4">Research System Complete</h2>
+                <p class="text-slate-300 max-w-2xl mx-auto mb-6">You've reviewed all 10 modules of the JaZeR Strategic Research System. It's time to execute.</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="modules.html" class="btn-secondary px-6 py-3 rounded-full">Review All Modules</a>
+                    <a href="dashboard.html" class="btn-primary px-6 py-3 rounded-full">View Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="sticky-nav">
+        <div class="glass-strong px-6 py-3 rounded-full flex items-center gap-4">
+            <a href="module-09.html" class="btn-secondary px-4 py-2 rounded-full text-sm">← Prev</a>
+            <span class="text-slate-400 text-sm hidden md:inline">Module 10 of 10 · FINAL</span>
+            <span class="btn-secondary px-4 py-2 rounded-full text-sm opacity-50 cursor-not-allowed">Next →</span>
+        </div>
+    </div>
+
+    <button class="back-to-top" id="back-to-top"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
+
+    <footer class="py-12 px-6 mt-20">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-4"><span class="text-2xl font-bold neon-cyan">JaZeR</span><span class="text-slate-500">// Research System Complete</span></div>
+                <div class="flex gap-6 text-slate-400">
+                    <a href="modules.html" class="hover:text-cyan-400 transition">All Modules</a>
+                    <a href="dashboard.html" class="hover:text-cyan-400 transition">Dashboard</a>
+                    <a href="index-premium.html" class="hover:text-cyan-400 transition">Home</a>
+                </div>
+            </div>
+            <div class="text-center mt-8 text-slate-600 text-sm">© 2026 JaZeR Strategic Research System · All 10 Modules</div>
+        </div>
+    </footer>
+
+    <script src="assets/js/premium-ui.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            document.getElementById('progress-bar').style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100) + '%';
+        });
+        
+        // Back to Top
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => backToTop.classList.toggle('visible', window.scrollY > 500));
+        backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        
+        // Hero Animation
+        gsap.set('.hero-badge, .hero-title, .hero-subtitle, .hero-cta', { y: 30 });
+        const heroTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        heroTL
+            .to('.hero-badge', { opacity: 1, y: 0, duration: 0.6, delay: 0.2 })
+            .to('.hero-title', { opacity: 1, y: 0, duration: 0.8, stagger: 0.2 }, '-=0.3')
+            .to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
+            .to('.hero-cta', { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }, '-=0.2');
+        
+        // Content Card Animations
+        gsap.from('.content-card', { y: 60, opacity: 0, stagger: 0.15, duration: 0.8, ease: 'power2.out', scrollTrigger: { trigger: '.content-card', start: 'top 85%' } });
+        
+        // Snapshot Cards Animation
+        gsap.from('.snapshot-card', { scale: 0.9, opacity: 0, stagger: 0.15, duration: 0.6, ease: 'back.out(1.5)', scrollTrigger: { trigger: '.snapshot-card', start: 'top 85%' } });
+        
+        // Timeline Animation
+        gsap.from('.timeline-month', { x: -50, opacity: 0, stagger: 0.3, duration: 0.8, ease: 'power2.out', scrollTrigger: { trigger: '.timeline-month', start: 'top 85%' } });
+        
+        // Timeline Progress Fill
+        document.querySelectorAll('.timeline-progress-fill').forEach(fill => {
+            const height = fill.getAttribute('data-height');
+            ScrollTrigger.create({
+                trigger: fill,
+                start: 'top 80%',
+                once: true,
+                onEnter: () => { fill.style.height = height + '%'; }
+            });
+        });
+        
+        // KPI Counter Animation
+        function animateCounter(el, target, prefix = '', suffix = '') {
+            const duration = 2000;
+            const start = 0;
+            const startTime = performance.now();
+            
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(start + (target - start) * easeOut);
+                el.textContent = prefix + current.toLocaleString() + suffix;
+                if (progress < 1) requestAnimationFrame(update);
+            }
+            requestAnimationFrame(update);
+        }
+        
+        ScrollTrigger.create({
+            trigger: '.kpi-card',
+            start: 'top 80%',
+            once: true,
+            onEnter: () => {
+                document.querySelectorAll('.counter[data-target]').forEach(el => {
+                    const target = parseInt(el.getAttribute('data-target'));
+                    const text = el.textContent;
+                    const prefix = text.startsWith('>') ? '>' : (text.startsWith('+') ? '+' : '');
+                    const suffix = text.includes('%') ? '%' : '';
+                    animateCounter(el, target, prefix, suffix);
+                });
+            }
+        });
+        
+        // Floating Orbs
+        gsap.to('.orb-1', { x: 50, y: 30, duration: 15, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+        gsap.to('.orb-2', { x: -30, y: -50, duration: 20, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+        gsap.to('.orb-3', { x: 40, y: 20, duration: 18, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+    </script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+{
+  "title": "Venue Targeting & Touring Strategy",
+  "source": "Module 08 - Touring and Spotify Demand Signals",
+  "lastUpdated": "2026-01-09",
+  "homeBase": {
+    "city": "Austin, TX",
+    "strategy": "Must conquer home first before regional expansion",
+    "venues": [
+      {
+        "name": "Empire Control Room",
+        "type": "Primary target",
+        "capacity": null,
+        "genre": "Hip-Hop/Electronic",
+        "contact": "BookingAssistant@heardent.com",
+        "importance": "THE spot for Hip-Hop/Electronic in Austin",
+        "priority": 1
+      },
+      {
+        "name": "Flamingo Cantina",
+        "type": "Secondary",
+        "capacity": null,
+        "description": "Good for smaller, energetic shows",
+        "priority": 2
+      },
+      {
+        "name": "Far Out Lounge",
+        "type": "Alternative",
+        "capacity": null,
+        "description": "Great for 'Chill/Vibe' outdoor shows",
+        "priority": 3
+      }
+    ]
+  },
+  "texasTriangle": {
+    "description": "Weekend warrior touring circuit - 3 cities within 3 hours",
+    "cities": [
+      {
+        "city": "Houston, TX",
+        "venue": "White Oak Music Hall - Upstairs",
+        "distance": "2.5 hours from Austin",
+        "marketSize": "Massive",
+        "strategy": "Very accessible expansion market"
+      },
+      {
+        "city": "San Antonio, TX",
+        "venue": "Paper Tiger",
+        "distance": "1.5 hours from Austin",
+        "marketSize": "Medium",
+        "strategy": "Easy first out-of-town show"
+      },
+      {
+        "city": "Dallas, TX",
+        "venue": "Deep Ellum Art Co",
+        "distance": "3 hours from Austin",
+        "marketSize": "Large",
+        "strategy": "Major Texas market"
+      }
+    ],
+    "weekendRun": [
+      {
+        "day": "Friday",
+        "city": "San Antonio",
+        "venue": "Paper Tiger"
+      },
+      {
+        "day": "Saturday",
+        "city": "Austin",
+        "venue": "Empire Control Room",
+        "note": "Home show"
+      },
+      {
+        "day": "Sunday",
+        "city": "Houston",
+        "venue": "White Oak"
+      }
+    ]
+  },
+  "showcaseStrategy": {
+    "approach": "Don't book tour yet - focus on showcases and opening slots",
+    "rationale": "0 listeners = not ready to headline",
+    "tactics": [
+      {
+        "name": "Reason and Rhyme",
+        "type": "Regular showcase night",
+        "action": "Submit for showcase slots"
+      },
+      {
+        "name": "Opening Slot Hunter",
+        "description": "Monitor Mohawk and Empire calendars for melodic rap touring acts",
+        "action": "Email booker immediately when similar artist announced, send EPK + Spotify links"
+      }
+    ]
+  },
+  "localActivation": [
+    {
+      "tactic": "Ticket for a Follow",
+      "description": "Offer cheap entry if they show Spotify follow at door",
+      "useCase": "Door deal shows"
+    },
+    {
+      "tactic": "The Local Legend",
+      "description": "Collaborate with Austin visual artists for cover art",
+      "benefit": "They bring their crowd to the show"
+    }
+  ],
+  "tier1Markets": {
+    "description": "Geographic expansion targets beyond Texas (from Module 03)",
+    "markets": [
+      {
+        "city": "Denver, CO",
+        "reason": "Massive market for 'Electronic Hip-Hop' (ProbCause/GRiZ influence)",
+        "priority": "High"
+      },
+      {
+        "city": "Portland, OR",
+        "reason": "Strong demographic fit for 'Melodic/Indie Rap'",
+        "priority": "Medium"
+      },
+      {
+        "city": "Seattle, WA",
+        "reason": "Strong demographic fit for 'Melodic/Indie Rap'",
+        "priority": "Medium"
+      },
+      {
+        "city": "Los Angeles, CA",
+        "reason": "Epicenter of the 'Mac Miller' sound",
+        "priority": "High"
+      }
+    ]
+  }
+}

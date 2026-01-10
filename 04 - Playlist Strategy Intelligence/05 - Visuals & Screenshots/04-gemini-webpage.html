@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JaZeR | Strategic Artist Dashboard</title>
+    
+    <!-- Dependencies -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent-primary: #6366f1; /* Indigo 500 */
+            --accent-secondary: #06b6d4; /* Cyan 500 */
+            --accent-tertiary: #f43f5e; /* Rose 500 */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #a5b4fc 0%, #67e8f9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020617; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569; 
+        }
+
+        /* Animations */
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.3; }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        /* Tab Navigation */
+        .nav-btn.active {
+            background-color: rgba(99, 102, 241, 0.2);
+            color: #818cf8;
+            border-color: #6366f1;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-fixed bg-cover bg-no-repeat">
+    
+    <!-- Dark Overlay -->
+    <div class="fixed inset-0 bg-slate-950/90 z-[-1]"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-50 border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center font-bold text-white">J</div>
+                    <span class="font-display font-bold text-xl tracking-tight text-white">JaZeR <span class="text-slate-500 text-sm font-normal">| Strategy Dashboard</span></span>
+                </div>
+                <div class="hidden md:flex items-center space-x-4">
+                    <button onclick="scrollToSection('persona')" class="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Persona</button>
+                    <button onclick="scrollToSection('geography')" class="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Austin Geo</button>
+                    <button onclick="scrollToSection('playlists')" class="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Playlist Ops</button>
+                    <span class="px-2 py-1 bg-rose-500/10 text-rose-400 border border-rose-500/20 rounded text-xs font-mono">CONFIDENTIAL</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+
+        <!-- Header / Executive Summary -->
+        <section class="relative">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-cyan-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow"></div>
+
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 text-cyan-400 text-xs font-mono mb-6">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                    </span>
+                    STRATEGY REPORT 2026
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">The Conscious <br/><span class="text-gradient">Vibe Curator</span></h1>
+                <p class="text-xl text-slate-400 leading-relaxed">
+                    Triangulating the artistic lineage of <strong class="text-indigo-400">Mac Miller</strong>'s vulnerability and <strong class="text-cyan-400">Smino</strong>'s versatility within the cultural geography of the <strong class="text-white">Austin Creative Class</strong>.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-6 border-l-4 border-l-indigo-500">
+                    <div class="flex items-center gap-3 mb-2">
+                        <i data-lucide="brain-circuit" class="text-indigo-400 w-5 h-5"></i>
+                        <h3 class="font-bold text-white">Psychographic</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">The "Vulnerable Hedonist." Values emotional transparency ("Swimming") and productive creativity ("Zero Fatigue").</p>
+                </div>
+                <div class="glass-card p-6 border-l-4 border-l-cyan-500">
+                    <div class="flex items-center gap-3 mb-2">
+                        <i data-lucide="map-pin" class="text-cyan-400 w-5 h-5"></i>
+                        <h3 class="font-bold text-white">Demographic</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">Austin Creative Class (23-34). Tech-adjacent workers living in East Austin (78702). High rent, high taste.</p>
+                </div>
+                <div class="glass-card p-6 border-l-4 border-l-rose-500">
+                    <div class="flex items-center gap-3 mb-2">
+                        <i data-lucide="music-2" class="text-rose-400 w-5 h-5"></i>
+                        <h3 class="font-bold text-white">Sonic Identity</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">"Melodic Neo-Psych." Lo-fi textures meet electro-funk bounce. The soundtrack for deep work and late drives.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-slate-800" />
+
+        <!-- SECTION 1: PERSONA & AESTHETICS -->
+        <section id="persona" class="scroll-mt-24">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-3xl font-bold text-white flex items-center gap-3">
+                    <span class="text-indigo-500">01.</span> The Listener Persona
+                </h2>
+                <div class="text-xs font-mono text-slate-500">TARGET: "CREATIVE CASEY"</div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- Left Column: Visual Identity -->
+                <div class="lg:col-span-4 space-y-6">
+                    <div class="glass-card p-6 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <i data-lucide="shirt" class="w-24 h-24 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4">The "Thrifted Hypebeast"</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <div class="bg-indigo-500/20 p-2 rounded text-indigo-400"><i data-lucide="shopping-bag" class="w-4 h-4"></i></div>
+                                <div>
+                                    <div class="text-white font-medium text-sm">The "Grail" Hoodie</div>
+                                    <div class="text-slate-400 text-xs">Online Ceramics, Brain Dead, A24 Merch.</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="bg-cyan-500/20 p-2 rounded text-cyan-400"><i data-lucide="hammer" class="w-4 h-4"></i></div>
+                                <div>
+                                    <div class="text-white font-medium text-sm">Workwear Bottoms</div>
+                                    <div class="text-slate-400 text-xs">Carhartt WIP Double Knees, Dickies 874.</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="bg-rose-500/20 p-2 rounded text-rose-400"><i data-lucide="camera" class="w-4 h-4"></i></div>
+                                <div>
+                                    <div class="text-white font-medium text-sm">Analog Accessories</div>
+                                    <div class="text-slate-400 text-xs">Olympus Stylus, Canvas Tote, Nalgene.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6">
+                        <h3 class="text-lg font-bold text-white mb-4">Brand Affinity</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-slate-800 rounded-full text-xs text-slate-300 border border-slate-700">Waterloo Sparkling</span>
+                            <span class="px-3 py-1 bg-slate-800 rounded-full text-xs text-slate-300 border border-slate-700">Rambler</span>
+                            <span class="px-3 py-1 bg-slate-800 rounded-full text-xs text-slate-300 border border-slate-700">A24 Films</span>
+                            <span class="px-3 py-1 bg-slate-800 rounded-full text-xs text-slate-300 border border-slate-700">New Balance 990s</span>
+                            <span class="px-3 py-1 bg-slate-800 rounded-full text-xs text-slate-300 border border-slate-700">Discord</span>
+                            <span class="px-3 py-1 bg-slate-800 rounded-full text-xs text-slate-300 border border-slate-700">Yerba Mate</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Data Viz -->
+                <div class="lg:col-span-8">
+                    <div class="glass-card p-6 h-full">
+                        <h3 class="text-lg font-bold text-white mb-2">Psychographic Drivers</h3>
+                        <p class="text-slate-400 text-sm mb-6">Why they connect with the music (JaZeR vs Mainstream Trap).</p>
+                        <div class="h-80 w-full relative">
+                            <canvas id="personaChart"></canvas>
+                        </div>
+                        <div class="mt-6 grid grid-cols-2 gap-4">
+                            <div class="bg-slate-800/50 p-3 rounded border border-slate-700">
+                                <div class="text-cyan-400 text-xs font-bold uppercase mb-1">Key Driver</div>
+                                <div class="text-white text-sm font-medium">Vulnerability as Capital</div>
+                                <div class="text-slate-500 text-xs">Respects the "flawed genius" (Mac Miller arc).</div>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded border border-slate-700">
+                                <div class="text-cyan-400 text-xs font-bold uppercase mb-1">Key Driver</div>
+                                <div class="text-white text-sm font-medium">Relaxed Ambition</div>
+                                <div class="text-slate-500 text-xs">"Zero Fatigue" ethos. Hustle that looks like vibes.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: AUSTIN GEOGRAPHY -->
+        <section id="geography" class="scroll-mt-24">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-3xl font-bold text-white flex items-center gap-3">
+                    <span class="text-cyan-500">02.</span> Austin "Trigger City" Map
+                </h2>
+                <div class="text-xs font-mono text-slate-500">MARKET: 78702 / 78704</div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- East Side Card -->
+                <div class="glass-card p-0 overflow-hidden group">
+                    <div class="h-32 bg-indigo-900/40 relative">
+                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1585929653634-927011d8c114?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-40 group-hover:opacity-60 transition duration-500"></div>
+                        <div class="absolute bottom-4 left-6">
+                            <h3 class="text-2xl font-bold text-white">East Austin (78702)</h3>
+                            <p class="text-indigo-300 text-sm font-medium">The Creative Soul</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-4">
+                            <li class="flex gap-4">
+                                <div class="flex-shrink-0 w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center text-xs font-bold text-white">1</div>
+                                <div>
+                                    <h4 class="text-white font-bold text-sm">Dear Diary Coffee</h4>
+                                    <p class="text-slate-400 text-xs">The "Third Place". Vegan, zine-fests, art markets. Where they work.</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <div class="flex-shrink-0 w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center text-xs font-bold text-white">2</div>
+                                <div>
+                                    <h4 class="text-white font-bold text-sm">The Sahara Lounge</h4>
+                                    <p class="text-slate-400 text-xs">Eclectic, unpretentious. "Old Austin" vibes in a gentrifying area.</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <div class="flex-shrink-0 w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center text-xs font-bold text-white">3</div>
+                                <div>
+                                    <h4 class="text-white font-bold text-sm">Canopy</h4>
+                                    <p class="text-slate-400 text-xs">Arts complex. Attending "Open Canopy" signals support for local ecosystem.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SoCo Card -->
+                <div class="glass-card p-0 overflow-hidden group">
+                    <div class="h-32 bg-rose-900/40 relative">
+                         <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1531218150217-54595bc2b934?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-40 group-hover:opacity-60 transition duration-500"></div>
+                        <div class="absolute bottom-4 left-6">
+                            <h3 class="text-2xl font-bold text-white">South Congress (78704)</h3>
+                            <p class="text-rose-300 text-sm font-medium">The Aesthetic Playground</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-4">
+                            <li class="flex gap-4">
+                                <div class="flex-shrink-0 w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center text-xs font-bold text-white">1</div>
+                                <div>
+                                    <h4 class="text-white font-bold text-sm">The Continental Club</h4>
+                                    <p class="text-slate-400 text-xs">Legacy venue. Playing here signals "Real Musician" status.</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <div class="flex-shrink-0 w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center text-xs font-bold text-white">2</div>
+                                <div>
+                                    <h4 class="text-white font-bold text-sm">Stag Provisions</h4>
+                                    <p class="text-slate-400 text-xs">High-end heritage wear. Where they window shop and "peacock".</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <div class="flex-shrink-0 w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center text-xs font-bold text-white">3</div>
+                                <div>
+                                    <h4 class="text-white font-bold text-sm">Hotel San José</h4>
+                                    <p class="text-slate-400 text-xs">The aesthetic ideal. Minimalist, desert-chic, expensive but "cool".</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Venue Matrix -->
+            <div class="mt-8 glass-card p-6 overflow-x-auto">
+                <h3 class="text-lg font-bold text-white mb-4">Venue Progression Strategy</h3>
+                <table class="w-full text-left text-sm text-slate-400">
+                    <thead class="text-xs uppercase bg-slate-800/50 text-slate-300 font-mono">
+                        <tr>
+                            <th class="px-4 py-3 rounded-l-lg">Tier</th>
+                            <th class="px-4 py-3">Venue Examples</th>
+                            <th class="px-4 py-3">Alignment Rationale</th>
+                            <th class="px-4 py-3 rounded-r-lg">Activation</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800">
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="px-4 py-4 font-bold text-white">The Incubator</td>
+                            <td class="px-4 py-4">Dear Diary, Sahara Lounge</td>
+                            <td class="px-4 py-4">Low barrier, high community value.</td>
+                            <td class="px-4 py-4 text-cyan-400">Pop-up acoustic sets, zine launches.</td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="px-4 py-4 font-bold text-white">The Validator</td>
+                            <td class="px-4 py-4">Empire Control Room, Cheer Up Charlies</td>
+                            <td class="px-4 py-4">The "Cool" stamp. Fits electro-funk crossover.</td>
+                            <td class="px-4 py-4 text-cyan-400">Single release parties, support slots.</td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="px-4 py-4 font-bold text-white">The Shrine</td>
+                            <td class="px-4 py-4">Continental Club, Cactus Cafe</td>
+                            <td class="px-4 py-4">Historic prestige. "Old Austin" respect.</td>
+                            <td class="px-4 py-4 text-cyan-400">"Tiny Desk" style live recordings.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECTION 3: PLAYLIST STRATEGY -->
+        <section id="playlists" class="scroll-mt-24">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-3xl font-bold text-white flex items-center gap-3">
+                    <span class="text-rose-500">03.</span> Playlist Intelligence
+                </h2>
+                <div class="text-xs font-mono text-slate-500">OPS: ALGORITHMIC BRIDGE</div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Ecosystem Map -->
+                <div class="lg:col-span-2 glass-card p-6">
+                    <h3 class="text-xl font-bold text-white mb-6">Playlist Ecosystem Map</h3>
+                    <div class="space-y-4">
+                        <!-- High Tier -->
+                        <div class="flex items-center p-4 bg-slate-800/30 border border-slate-700 rounded-lg opacity-50">
+                            <div class="w-12 h-12 bg-green-900/50 text-green-500 rounded flex items-center justify-center font-bold mr-4">ED</div>
+                            <div class="flex-1">
+                                <div class="flex justify-between">
+                                    <h4 class="text-white font-bold">"Mellow Bars" / "Jazz Rap"</h4>
+                                    <span class="text-xs text-rose-400 font-mono">DIFFICULTY: VERY HIGH</span>
+                                </div>
+                                <p class="text-slate-400 text-sm">Spotify Editorial. The Destination. 500k+ Followers.</p>
+                            </div>
+                        </div>
+
+                        <!-- Arrow Down -->
+                        <div class="flex justify-center text-slate-600"><i data-lucide="arrow-down" class="w-6 h-6"></i></div>
+
+                        <!-- Mid Tier (Target) -->
+                        <div class="flex items-center p-4 bg-indigo-900/20 border border-indigo-500/50 rounded-lg shadow-[0_0_15px_rgba(99,102,241,0.15)] relative overflow-hidden">
+                            <div class="absolute right-0 top-0 bg-indigo-500 text-white text-[10px] font-bold px-2 py-1">PRIMARY TARGET</div>
+                            <div class="w-12 h-12 bg-indigo-600 text-white rounded flex items-center justify-center font-bold mr-4">GW</div>
+                            <div class="flex-1">
+                                <div class="flex justify-between">
+                                    <h4 class="text-white font-bold">The "Gateway" Layer</h4>
+                                    <span class="text-xs text-green-400 font-mono">ENTRY: ACCESSIBLE</span>
+                                </div>
+                                <p class="text-slate-300 text-sm">Independent Curators. Feed the algorithm data.</p>
+                                <div class="mt-2 flex gap-2">
+                                    <span class="text-xs bg-slate-800 px-2 py-1 rounded text-indigo-300">Sphere of Hip Hop</span>
+                                    <span class="text-xs bg-slate-800 px-2 py-1 rounded text-indigo-300">Impulse</span>
+                                    <span class="text-xs bg-slate-800 px-2 py-1 rounded text-indigo-300">College Radio</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Arrow Down -->
+                        <div class="flex justify-center text-slate-600"><i data-lucide="arrow-down" class="w-6 h-6"></i></div>
+
+                        <!-- Low Tier -->
+                        <div class="flex items-center p-4 bg-slate-800/30 border border-slate-700 rounded-lg">
+                            <div class="w-12 h-12 bg-slate-700 text-slate-300 rounded flex items-center justify-center font-bold mr-4">UG</div>
+                            <div class="flex-1">
+                                <div class="flex justify-between">
+                                    <h4 class="text-white font-bold">User Generated / "Study Beats"</h4>
+                                    <span class="text-xs text-green-400 font-mono">ENTRY: LOW</span>
+                                </div>
+                                <p class="text-slate-400 text-sm">Passive streaming volume. Good for save rate stats.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actionable Targets -->
+                <div class="lg:col-span-1 space-y-6">
+                    <div class="glass-card p-6 border-t-4 border-t-cyan-500">
+                        <h3 class="text-lg font-bold text-white mb-4">Target: Sphere of Hip Hop</h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between border-b border-slate-700 pb-2">
+                                <span class="text-slate-400">Vibe</span>
+                                <span class="text-white">Jazzy, Boom-Bap, Lofi</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-700 pb-2">
+                                <span class="text-slate-400">Pitch Angle</span>
+                                <span class="text-white text-right">"For fans of Mac Miller's jazzier side."</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-400">Platform</span>
+                                <span class="text-cyan-400">SubmitHub / Groover</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 border-t-4 border-t-indigo-500">
+                        <h3 class="text-lg font-bold text-white mb-4">Target: Impulse</h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between border-b border-slate-700 pb-2">
+                                <span class="text-slate-400">Vibe</span>
+                                <span class="text-white">Neo-soul, Alt R&B</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-700 pb-2">
+                                <span class="text-slate-400">Constraint</span>
+                                <span class="text-white text-right">No Heavy Autotune.</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-400">Est. Followers</span>
+                                <span class="text-indigo-400">20k+</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 bg-gradient-to-br from-indigo-900/50 to-slate-900">
+                        <h3 class="text-lg font-bold text-white mb-2"><i data-lucide="zap" class="inline w-4 h-4 text-yellow-400 mr-2"></i>Algorithmic Trigger</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            <strong>The Goal:</strong> Trigger "Discover Weekly".<br/>
+                            <strong>The Math:</strong> Need ~30% Save Rate & <35% Skip Rate in Week 1.<br/>
+                            <strong>The Tactic:</strong> Use Gateway lists to get first 1k "Quality" listeners.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Optimization Checklist -->
+            <div class="mt-8 glass-card p-8">
+                <h3 class="text-xl font-bold text-white mb-6">Pre-Release Optimization Checklist</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="flex items-start gap-3">
+                        <div class="mt-1"><i data-lucide="check-circle" class="text-green-500 w-5 h-5"></i></div>
+                        <div>
+                            <h4 class="font-bold text-white">Sonic Fit</h4>
+                            <p class="text-xs text-slate-400 mt-1">Intro under 15s? Critical for skip rate.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="mt-1"><i data-lucide="check-circle" class="text-green-500 w-5 h-5"></i></div>
+                        <div>
+                            <h4 class="font-bold text-white">Metadata Tags</h4>
+                            <p class="text-xs text-slate-400 mt-1">"Chill", "Melodic", "Urban", "Alternative".</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="mt-1"><i data-lucide="check-circle" class="text-green-500 w-5 h-5"></i></div>
+                        <div>
+                            <h4 class="font-bold text-white">Timing</h4>
+                            <p class="text-xs text-slate-400 mt-1">Pitch to Editorial 2+ weeks prior via S4A.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="mt-1"><i data-lucide="check-circle" class="text-green-500 w-5 h-5"></i></div>
+                        <div>
+                            <h4 class="font-bold text-white">Visuals</h4>
+                            <p class="text-xs text-slate-400 mt-1">Canvas uploaded? Looping 3-8s animation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-slate-950 py-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-500 text-sm font-mono">JaZeR Strategy Intelligence // Generated 2026</p>
+            <p class="text-slate-600 text-xs mt-2">Confidential Internal Document</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Smooth Scroll
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Chart.js Configuration
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.borderColor = '#334155';
+        Chart.defaults.font.family = "'Inter', sans-serif";
+
+        const ctxPersona = document.getElementById('personaChart').getContext('2d');
+        new Chart(ctxPersona, {
+            type: 'radar',
+            data: {
+                labels: ['Vulnerability', 'Lyrical Depth', 'Chill Vibe', 'Hype/Energy', 'Melody', 'Social Status'],
+                datasets: [{
+                    label: 'JaZeR / Creative Casey',
+                    data: [95, 85, 90, 50, 80, 60],
+                    backgroundColor: 'rgba(99, 102, 241, 0.2)', // Indigo
+                    borderColor: '#6366f1',
+                    pointBackgroundColor: '#6366f1',
+                    pointBorderColor: '#fff',
+                    borderWidth: 2
+                },
+                {
+                    label: 'Generic Trap Listener',
+                    data: [30, 40, 50, 95, 50, 85],
+                    backgroundColor: 'rgba(148, 163, 184, 0.1)', // Slate
+                    borderColor: '#475569',
+                    pointBackgroundColor: 'transparent',
+                    pointBorderColor: 'transparent',
+                    borderWidth: 1,
+                    borderDash: [5, 5]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#cbd5e1', font: { size: 11 } }
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: '#334155' },
+                        grid: { color: '#1e293b' },
+                        pointLabels: { color: '#cbd5e1', font: { size: 11, weight: '600' } },
+                        ticks: { display: false, backdropColor: 'transparent' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

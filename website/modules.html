@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Research Modules | JaZeR Strategic System</title>
+
+    <!-- SEO -->
+    <meta name="description" content="Complete index of all 10 strategic research modules for JaZeR's Spotify growth system.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- GSAP for Enhanced Animations -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #22d3ee 0%, #a3e635 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(20px) saturate(150%);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .card:hover {
+            border-color: #22d3ee;
+            transform: translateY(-8px) rotateX(2deg);
+            box-shadow: 0 20px 60px rgba(34, 211, 238, 0.25), 0 0 40px rgba(34, 211, 238, 0.1);
+        }
+
+        /* Command Palette Styles */
+        .command-palette {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 9999; display: none;
+            justify-content: center; align-items: flex-start;
+            padding-top: 15vh;
+        }
+        .command-palette.active { display: flex; }
+        .command-box {
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            border-radius: 16px; width: 90%; max-width: 600px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5), 0 0 60px rgba(34, 211, 238, 0.1);
+            overflow: hidden;
+        }
+        .command-input {
+            width: 100%; padding: 20px 24px;
+            background: transparent; border: none; border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+            color: #f8fafc; font-size: 18px; outline: none;
+        }
+        .command-input::placeholder { color: #64748b; }
+        .command-results { max-height: 400px; overflow-y: auto; }
+        .command-item {
+            padding: 14px 24px; display: flex; align-items: center; gap: 12px;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .command-item:hover, .command-item.selected {
+            background: rgba(34, 211, 238, 0.1);
+        }
+        .command-item .icon { font-size: 1.5rem; }
+        .command-item .title { font-weight: 600; color: #f8fafc; }
+        .command-item .desc { font-size: 0.875rem; color: #94a3b8; }
+        .command-hint {
+            padding: 12px 24px; border-top: 1px solid rgba(51, 65, 85, 0.5);
+            font-size: 0.75rem; color: #64748b; display: flex; gap: 16px;
+        }
+        .kbd { background: #334155; padding: 2px 8px; border-radius: 4px; font-family: monospace; }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-cyan {
+            background: rgba(34, 211, 238, 0.2);
+            color: #67e8f9;
+            border: 1px solid #22d3ee;
+        }
+
+        .badge-lime {
+            background: rgba(163, 230, 53, 0.2);
+            color: #d9f99d;
+            border: 1px solid #a3e635;
+        }
+
+        .badge-violet {
+            background: rgba(139, 92, 246, 0.2);
+            color: #c4b5fd;
+            border: 1px solid #8b5cf6;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(34, 211, 238, 0.4);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        .search-box {
+            background: #1e293b;
+            border: 1px solid #334155;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #22d3ee;
+            box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
+        }
+
+        .filter-btn {
+            background: #1e293b;
+            border: 1px solid #334155;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            border-color: #22d3ee;
+            background: rgba(34, 211, 238, 0.1);
+            color: #22d3ee;
+        }
+
+        .module-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 1px solid #334155;
+        }
+    </style>
+</head>
+<body>
+    <!-- Premium UI Components -->
+    <div class="cursor"></div>
+    <div class="transition-overlay fixed inset-0 bg-slate-950 z-[10000] pointer-events-none opacity-0"></div>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <a href="index.html" class="text-2xl font-bold gradient-text">JaZeR</a>
+                    <span class="text-slate-400 text-sm hidden sm:inline">| All Modules</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="index.html" class="text-slate-300 hover:text-cyan-400 transition">Home</a>
+                    <a href="dashboard.html" class="text-slate-300 hover:text-cyan-400 transition">Dashboard</a>
+                    <a href="downloads.html" class="text-slate-300 hover:text-cyan-400 transition">Downloads</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="pt-32 pb-12 px-4">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6" data-aos="fade-up">
+                Research <span class="gradient-text">Modules</span>
+            </h1>
+            <p class="text-xl text-slate-300 max-w-3xl mx-auto mb-8" data-aos="fade-up" data-aos-delay="100">
+                10 strategic intelligence modules covering every domain of Spotify growth, from market analysis to monetization.
+            </p>
+            <div class="flex items-center justify-center gap-4 text-sm" data-aos="fade-up" data-aos-delay="200">
+                <span class="badge badge-cyan">10 Modules Complete</span>
+                <span class="badge badge-lime">50+ Actionable Tactics</span>
+                <span class="badge badge-violet">100% Data-Driven</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search and Filter -->
+    <section class="py-8 px-4 bg-slate-800/50 sticky top-16 z-40 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div class="w-full md:w-96">
+                    <input
+                        type="text"
+                        id="search-input"
+                        placeholder="Search modules..."
+                        class="search-box w-full px-4 py-3 rounded-lg text-slate-200"
+                    >
+                </div>
+                <div class="flex gap-2 flex-wrap justify-center">
+                    <button class="filter-btn active px-4 py-2 rounded-lg text-sm font-semibold" data-filter="all">All</button>
+                    <button class="filter-btn px-4 py-2 rounded-lg text-sm font-semibold" data-filter="intelligence">Intelligence</button>
+                    <button class="filter-btn px-4 py-2 rounded-lg text-sm font-semibold" data-filter="strategy">Strategy</button>
+                    <button class="filter-btn px-4 py-2 rounded-lg text-sm font-semibold" data-filter="execution">Execution</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Module Grid -->
+    <section class="py-12 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div id="module-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Module 01 -->
+                <div class="module-card card p-6 rounded-xl" data-category="intelligence" data-aos="fade-up">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="module-icon">📋</div>
+                        <div class="flex-1">
+                            <div class="badge badge-cyan mb-2">Module 01</div>
+                            <h3 class="text-xl font-bold mb-1">Research Brief & Scope</h3>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 mb-4">Foundation and reality check. Establishing the "Zero to One" launch phase context, Austin scene analysis, and strategic research roadmap.</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs text-slate-500">Intelligence Phase</span>
+                        <span class="text-xs text-slate-500">54 lines</span>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-sm font-bold mb-2 text-slate-300">Key Insights:</h4>
+                        <ul class="text-sm text-slate-400 space-y-1">
+                            <li>• Launch phase artist tier verification</li>
+                            <li>• Austin market fit analysis</li>
+                            <li>• Zero-to-one growth framework</li>
+                        </ul>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="module-01.html" class="flex-1 btn-primary px-4 py-2 rounded-lg text-white text-center font-semibold text-sm">View Details</a>
+                        <a href="../01 - Research Brief and Scope/JaZeR-01-Project-Profile-&-Reality-Check.md" download class="px-4 py-2 rounded-lg border border-slate-600 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 transition text-sm" title="Download markdown">⬇</a>
+                    </div>
+                </div>
+
+                <!-- Module 02 -->
+                <div class="module-card card p-6 rounded-xl" data-category="intelligence" data-aos="fade-up" data-aos-delay="50">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="module-icon">🗺️</div>
+                        <div class="flex-1">
+                            <div class="badge badge-cyan mb-2">Module 02</div>
+                            <h3 class="text-xl font-bold mb-1">Spotify Market Landscape</h3>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 mb-4">Competitive positioning analysis. Mapping Austin's hip-hop ecosystem, competitor benchmarks, and blue ocean opportunity identification.</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs text-slate-500">Intelligence Phase</span>
+                        <span class="text-xs text-slate-500">28 lines</span>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-sm font-bold mb-2 text-slate-300">Key Insights:</h4>
+                        <ul class="text-sm text-slate-400 space-y-1">
+                            <li>• 5 competitor benchmark matrix</li>
+                            <li>• "Electronic-Soul" niche gap</li>
+                            <li>• Austin gatekeepers (KUTX, Empire)</li>
+                        </ul>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="module-02.html" class="flex-1 btn-primary px-4 py-2 rounded-lg text-white text-center font-semibold text-sm">View Details</a>
+                        <a href="../02 - Spotify Market Landscape/JaZeR-02-Spotify-Market-Landscape.md" download class="px-4 py-2 rounded-lg border border-slate-600 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 transition text-sm" title="Download markdown">⬇</a>
+                    </div>
+                </div>
+
+                <!-- Module 03 -->
+                <div class="module-card card p-6 rounded-xl" data-category="intelligence" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="module-icon">👤</div>
+                        <div class="flex-1">
+                            <div class="badge badge-cyan mb-2">Module 03</div>
+                            <h3 class="text-xl font-bold mb-1">Audience & Listener Profile</h3>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 mb-4">Target audience intelligence. "Creative Casey" persona development, geographic heatmaps, and lifestyle mapping for precision targeting.</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs text-slate-500">Intelligence Phase</span>
+                        <span class="text-xs text-slate-500">41 lines</span>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-sm font-bold mb-2 text-slate-300">Key Insights:</h4>
+                        <ul class="text-sm text-slate-400 space-y-1">
+                            <li>• "Creative Casey" superfan persona</li>
+                            <li>• Geographic tier 1 markets (Austin, Denver, LA)</li>
+                            <li>• Digital habitat mapping (Reddit, Discord)</li>
+                        </ul>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="module-03.html" class="flex-1 btn-primary px-4 py-2 rounded-lg text-white text-center font-semibold text-sm">View Details</a>
+                        <a href="../03 - Audience and Listener Profile/JaZeR-03-Audience-and-Listener-Profile.md" download class="px-4 py-2 rounded-lg border border-slate-600 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 transition text-sm" title="Download markdown">⬇</a>
+                    </div>
+                </div>
+
+                <!-- Module 04 -->
+                <div class="module-card card p-6 rounded-xl" data-category="strategy" data-aos="fade-up">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="module-icon">📝</div>
+                        <div class="flex-1">
+                            <div class="badge badge-lime mb-2">Module 04</div>
+                            <h3 class="text-xl font-bold mb-1">Playlist Strategy Intelligence</h3>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 mb-4">Playlist ecosystem mapping. Editorial vs. indie curator targets, gateway playlist identification, and algorithmic bridge strategy.</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs text-slate-500">Strategy Phase</span>
+                        <span class="text-xs text-slate-500">41 lines</span>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-sm font-bold mb-2 text-slate-300">Key Insights:</h4>
+                        <ul class="text-sm text-slate-400 space-y-1">
+                            <li>• 6 playlist targets (Mellow Bars, Jazz Rap)</li>
+                            <li>• Gateway curator tactics (SubmitHub)</li>
+                            <li>• 30% save rate threshold for Discover Weekly</li>
+                        </ul>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="module-04.html" class="flex-1 btn-primary px-4 py-2 rounded-lg text-white text-center font-semibold text-sm">View Details</a>
+                        <a href="../04 - Playlist Strategy Intelligence/JaZeR-04-Playlist-Strategy-Intelligence.md" download class="px-4 py-2 rounded-lg border border-slate-600 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 transition text-sm" title="Download markdown">⬇</a>
+                    </div>
+                </div>
+
+                <!-- Module 05 -->
+                <div class="module-card card p-6 rounded-xl" data-category="strategy" data-aos="fade-up" data-aos-delay="50">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="module-icon">🎵</div>
+                        <div class="flex-1">
+                            <div class="badge badge-lime mb-2">Module 05</div>
+                            <h3 class="text-xl font-bold mb-1">Release Strategy Benchmarks</h3>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 mb-4">Release timing optimization. Waterfall vs. album strategies, 4-6 week cadence planning, and asset creation checklist.</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs text-slate-500">Strategy Phase</span>
+                        <span class="text-xs text-slate-500">39 lines</span>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-sm font-bold mb-2 text-slate-300">Key Insights:</h4>
+                        <ul class="text-sm text-slate-400 space-y-1">
+                            <li>• Waterfall strategy (singles → EP)</li>
+                            <li>• 4-month release timeline</li>
+                            <li>• Asset checklist (Canvas, vertical video)</li>
+                        </ul>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="module-05.html" class="flex-1 btn-primary px-4 py-2 rounded-lg text-white text-center font-semibold text-sm">View Details</a>
+                        <a href="../05 - Release Strategy Benchmarks/JaZeR-05-Release-Strategy-Benchmarks.md" download class="px-4 py-2 rounded-lg border border-slate-600 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 transition text-sm" title="Download markdown">⬇</a>
+                    </div>
+                </div>
+
+                <!-- Module 06 -->
+                <div class="module-card card p-6 rounded-xl" data-category="strategy" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="module-icon">⚙️</div>
+                        <div class="flex-1">
+                            <div class="badge badge-lime mb-2">Module 06</div>
+                            <h3 class="text-xl font-bold mb-1">Algorithmic Growth Drivers</h3>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 mb-4">Algorithm optimization. Spotify signal weights, save/skip rate benchmarks, and Radio/Autoplay trigger tactics.</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs text-slate-500">Strategy Phase</span>
+                        <span class="text-xs text-slate-500">30 lines</span>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-sm font-bold mb-2 text-slate-300">Key Insights:</h4>
+                        <ul class="text-sm text-slate-400 space-y-1">
+                            <li>• Save rate >30%, skip rate <35%</li>
+                            <li>• 0:00 rule (vocals in first 3 seconds)</li>
+                            <li>• Marquee eligibility at 1k streams</li>
+                        </ul>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="module-06.html" class="flex-1 btn-primary px-4 py-2 rounded-lg text-white text-center font-semibold text-sm">View Details</a>
+                        <a href="../06 - Algorithmic Growth Drivers/JaZeR-06-Algorithmic-Growth-Drivers.md" download class="px-4 py-2 rounded-lg border border-slate-600 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 transition text-sm" title="Download markdown">⬇</a>
+                    </div>
+                </div>
+
+                <!-- Module 07 -->
+                <div class="module-card card p-6 rounded-xl" data-category="execution" data-aos="fade-up">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="module-icon">📱</div>
+                        <div class="flex-1">
+                            <div class="badge badge-violet mb-2">Module 07</div>
+                            <h3 class="text-xl font-bold mb-1">Marketing Channel Effectiveness</h3>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 mb-4">Cross-platform marketing ROI. Instagram Reels vs. TikTok, conversion funnel design, and budget allocation strategies.</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs text-slate-500">Execution Phase</span>
+                        <span class="text-xs text-slate-500">37 lines</span>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-sm font-bold mb-2 text-slate-300">Key Insights:</h4>
+                        <ul class="text-sm text-slate-400 space-y-1">
+                            <li>• Reels/TikTok essential for discovery</li>
+                            <li>• 3-stage conversion funnel</li>
+                            <li>• Bootstrap ($0-500) vs. Seed ($500-2k)</li>
+                        </ul>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="module-07.html" class="flex-1 btn-primary px-4 py-2 rounded-lg text-white text-center font-semibold text-sm">View Details</a>
+                        <a href="../07 - Marketing Channel Effectiveness/JaZeR-07-Marketing-Channel-Effectiveness.md" download class="px-4 py-2 rounded-lg border border-slate-600 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 transition text-sm" title="Download markdown">⬇</a>
+                    </div>
+                </div>
+
+                <!-- Module 08 -->
+                <div class="module-card card p-6 rounded-xl" data-category="execution" data-aos="fade-up" data-aos-delay="50">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="module-icon">🎤</div>
+                        <div class="flex-1">
+                            <div class="badge badge-violet mb-2">Module 08</div>
+                            <h3 class="text-xl font-bold mb-1">Touring & Spotify Demand Signals</h3>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 mb-4">Geographic and live show strategy. Austin venue targeting, Texas Triangle routing, and local showcase activation tactics.</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs text-slate-500">Execution Phase</span>
+                        <span class="text-xs text-slate-500">35 lines</span>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-sm font-bold mb-2 text-slate-300">Key Insights:</h4>
+                        <ul class="text-sm text-slate-400 space-y-1">
+                            <li>• Empire Control Room booking contact</li>
+                            <li>• Texas Triangle (Austin/SA/Houston)</li>
+                            <li>• Showcase strategy (Reason and Rhyme)</li>
+                        </ul>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="module-08.html" class="flex-1 btn-primary px-4 py-2 rounded-lg text-white text-center font-semibold text-sm">View Details</a>
+                        <a href="../08 - Touring and Spotify Demand Signals/JaZeR-08-Touring-and-Spotify-Demand-Signals.md" download class="px-4 py-2 rounded-lg border border-slate-600 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 transition text-sm" title="Download markdown">⬇</a>
+                    </div>
+                </div>
+
+                <!-- Module 09 -->
+                <div class="module-card card p-6 rounded-xl" data-category="execution" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="module-icon">💰</div>
+                        <div class="flex-1">
+                            <div class="badge badge-violet mb-2">Module 09</div>
+                            <h3 class="text-xl font-bold mb-1">Monetization & Pricing Benchmarks</h3>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 mb-4">Revenue optimization. Merch pricing strategy, product tier design, and "First 100" drop tactics for early supporters.</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs text-slate-500">Execution Phase</span>
+                        <span class="text-xs text-slate-500">31 lines</span>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-sm font-bold mb-2 text-slate-300">Key Insights:</h4>
+                        <ul class="text-sm text-slate-400 space-y-1">
+                            <li>• T-shirt pricing: $25-30 (40-50% margin)</li>
+                            <li>• Minimalist streetwear (no billboards)</li>
+                            <li>• Merchbar integration on Spotify</li>
+                        </ul>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="module-09.html" class="flex-1 btn-primary px-4 py-2 rounded-lg text-white text-center font-semibold text-sm">View Details</a>
+                        <a href="../09 - Monetization and Pricing Benchmarks/JaZeR-09-Monetization-and-Pricing-Benchmarks.md" download class="px-4 py-2 rounded-lg border border-slate-600 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 transition text-sm" title="Download markdown">⬇</a>
+                    </div>
+                </div>
+
+                <!-- Module 10 -->
+                <div class="module-card card p-6 rounded-xl border-2 border-cyan-400" data-category="execution" data-aos="fade-up" data-aos-delay="150">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="module-icon">🎯</div>
+                        <div class="flex-1">
+                            <div class="badge badge-violet mb-2">Module 10</div>
+                            <h3 class="text-xl font-bold mb-1">Executive Summary & 90-Day Plan</h3>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 mb-4">Synthesis and execution roadmap. Complete 90-day sprint calendar, strategic pillars, KPI targets, and phase-by-phase action plan.</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs text-cyan-400">⭐ Featured Module</span>
+                        <span class="text-xs text-slate-500">51 lines</span>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-sm font-bold mb-2 text-slate-300">Key Insights:</h4>
+                        <ul class="text-sm text-slate-400 space-y-1">
+                            <li>• 12-week sprint (Stealth → Hello → Proof)</li>
+                            <li>• 4 KPIs (Save rate, followers, listeners, local)</li>
+                            <li>• Strategic pillars (Brand/Music/Local)</li>
+                        </ul>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="module-10.html" class="flex-1 btn-primary px-4 py-2 rounded-lg text-white text-center font-semibold text-sm">View Details</a>
+                        <a href="../10 - Executive Summary and 90-Day Plan/JaZeR-10-Executive-Summary-and-90-Day-Plan.md" download class="px-4 py-2 rounded-lg border border-slate-600 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 transition text-sm" title="Download markdown">⬇</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- No Results Message -->
+            <div id="no-results" class="hidden text-center py-12">
+                <div class="text-6xl mb-4">🔍</div>
+                <h3 class="text-2xl font-bold mb-2 text-slate-300">No modules found</h3>
+                <p class="text-slate-400">Try adjusting your search or filter</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-4 bg-slate-800/50">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Dive Deeper?</h2>
+            <p class="text-xl text-slate-300 mb-8">Access the interactive dashboard for visualizations and data analysis, or download all reports for offline review.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="dashboard.html" class="btn-primary px-8 py-4 rounded-lg text-white font-semibold text-lg">
+                    Open Dashboard
+                </a>
+                <a href="downloads.html" class="border border-slate-600 hover:border-cyan-400 px-8 py-4 rounded-lg text-slate-300 hover:text-cyan-400 font-semibold text-lg transition">
+                    Download All Reports
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 bg-slate-900 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold gradient-text mb-4">JaZeR Research</h3>
+                    <p class="text-slate-400">Strategic Spotify growth intelligence system for Austin melodic hip-hop.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-slate-300">Quick Links</h4>
+                    <ul class="space-y-2 text-slate-400">
+                        <li><a href="index.html" class="hover:text-cyan-400 transition">Home</a></li>
+                        <li><a href="dashboard.html" class="hover:text-cyan-400 transition">Dashboard</a></li>
+                        <li><a href="downloads.html" class="hover:text-cyan-400 transition">Downloads</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-slate-300">System Info</h4>
+                    <ul class="space-y-2 text-slate-400">
+                        <li>10 Research Modules</li>
+                        <li>90-Day Execution Plan</li>
+                        <li>100% Data-Driven</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center text-slate-500 text-sm pt-8 border-t border-slate-800">
+                <p>&copy; 2026 JaZeR Strategic Research System. Built for artist development.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Command Palette -->
+    <div class="command-palette" id="commandPalette">
+        <div class="command-box">
+            <input type="text" class="command-input" id="commandInput" placeholder="Search modules, pages, or actions...">
+            <div class="command-results" id="commandResults">
+                <a href="index-premium.html" class="command-item"><span class="icon">🏠</span><div><div class="title">Home</div><div class="desc">Main landing page</div></div></a>
+                <a href="dashboard.html" class="command-item"><span class="icon">📊</span><div><div class="title">Dashboard</div><div class="desc">Strategic command center</div></div></a>
+                <a href="module-01.html" class="command-item"><span class="icon">📋</span><div><div class="title">Module 01</div><div class="desc">Research Brief & Scope</div></div></a>
+                <a href="module-02.html" class="command-item"><span class="icon">🗺️</span><div><div class="title">Module 02</div><div class="desc">Spotify Market Landscape</div></div></a>
+                <a href="module-03.html" class="command-item"><span class="icon">👤</span><div><div class="title">Module 03</div><div class="desc">Audience & Listener Profile</div></div></a>
+                <a href="module-04.html" class="command-item"><span class="icon">🎵</span><div><div class="title">Module 04</div><div class="desc">Playlist Strategy</div></div></a>
+                <a href="module-05.html" class="command-item"><span class="icon">📅</span><div><div class="title">Module 05</div><div class="desc">Release Strategy</div></div></a>
+                <a href="module-06.html" class="command-item"><span class="icon">⚙️</span><div><div class="title">Module 06</div><div class="desc">Algorithmic Growth</div></div></a>
+                <a href="module-07.html" class="command-item"><span class="icon">📱</span><div><div class="title">Module 07</div><div class="desc">Marketing Channels</div></div></a>
+                <a href="module-08.html" class="command-item"><span class="icon">🎤</span><div><div class="title">Module 08</div><div class="desc">Touring & Demand</div></div></a>
+                <a href="module-09.html" class="command-item"><span class="icon">💰</span><div><div class="title">Module 09</div><div class="desc">Monetization</div></div></a>
+                <a href="module-10.html" class="command-item"><span class="icon">🎯</span><div><div class="title">Module 10</div><div class="desc">90-Day Sprint Plan</div></div></a>
+                <a href="downloads.html" class="command-item"><span class="icon">📥</span><div><div class="title">Downloads</div><div class="desc">Download all reports</div></div></a>
+            </div>
+            <div class="command-hint">
+                <span><span class="kbd">↑↓</span> Navigate</span>
+                <span><span class="kbd">Enter</span> Open</span>
+                <span><span class="kbd">Esc</span> Close</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize AOS
+        AOS.init({ duration: 600, once: true });
+
+        // Register GSAP
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 3D Card Tilt Effect (Moved to premium-ui.js)
+
+        // Search functionality
+        const searchInput = document.getElementById('search-input');
+        const moduleCards = document.querySelectorAll('.module-card');
+        const noResults = document.getElementById('no-results');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            let visibleCount = 0;
+            moduleCards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                const isVisible = text.includes(searchTerm);
+                gsap.to(card, { opacity: isVisible ? 1 : 0.3, scale: isVisible ? 1 : 0.95, duration: 0.3 });
+                card.style.pointerEvents = isVisible ? 'auto' : 'none';
+                if (isVisible) visibleCount++;
+            });
+            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+        });
+
+        // Filter functionality with animation
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.getAttribute('data-filter');
+                let visibleCount = 0;
+                moduleCards.forEach((card, i) => {
+                    const category = card.getAttribute('data-category');
+                    const isVisible = filter === 'all' || category === filter;
+                    gsap.to(card, {
+                        opacity: isVisible ? 1 : 0,
+                        scale: isVisible ? 1 : 0.8,
+                        y: isVisible ? 0 : 20,
+                        duration: 0.4,
+                        delay: isVisible ? i * 0.05 : 0
+                    });
+                    card.style.pointerEvents = isVisible ? 'auto' : 'none';
+                    if (isVisible) visibleCount++;
+                });
+                noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+                searchInput.value = '';
+            });
+        });
+
+        // Command Palette
+        const palette = document.getElementById('commandPalette');
+        const commandInput = document.getElementById('commandInput');
+        const commandItems = document.querySelectorAll('.command-item');
+        let selectedIndex = 0;
+
+        // Open with Ctrl+K / Cmd+K
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                palette.classList.add('active');
+                commandInput.focus();
+                commandInput.value = '';
+                filterCommands('');
+            }
+            if (e.key === 'Escape') palette.classList.remove('active');
+        });
+
+        // Close on backdrop click
+        palette.addEventListener('click', (e) => {
+            if (e.target === palette) palette.classList.remove('active');
+        });
+
+        // Filter commands
+        function filterCommands(query) {
+            const q = query.toLowerCase();
+            commandItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(q) ? 'flex' : 'none';
+            });
+            updateSelection(0);
+        }
+
+        commandInput.addEventListener('input', (e) => filterCommands(e.target.value));
+
+        // Keyboard navigation
+        commandInput.addEventListener('keydown', (e) => {
+            const visible = [...commandItems].filter(i => i.style.display !== 'none');
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                selectedIndex = Math.min(selectedIndex + 1, visible.length - 1);
+                updateSelection(selectedIndex);
+            }
+            if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                selectedIndex = Math.max(selectedIndex - 1, 0);
+                updateSelection(selectedIndex);
+            }
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (visible[selectedIndex]) window.location.href = visible[selectedIndex].href;
+            }
+        });
+
+        function updateSelection(index) {
+            const visible = [...commandItems].filter(i => i.style.display !== 'none');
+            commandItems.forEach(i => i.classList.remove('selected'));
+            if (visible[index]) visible[index].classList.add('selected');
+            selectedIndex = index;
+        }
+
+        console.log('✨ Modules page loaded — Press Ctrl+K for command palette');
+    </script>
+    <!-- Premium UI Scripts -->
+    <script src="assets/js/premium-ui.js" defer></script>
+</body>
+</html>

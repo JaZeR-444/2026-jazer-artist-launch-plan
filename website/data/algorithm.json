@@ -1,0 +1,110 @@
+{
+  "title": "Spotify Algorithm Optimization",
+  "source": "Module 06 - Algorithmic Growth Drivers",
+  "lastUpdated": "2026-01-09",
+  "algorithmScorecard": [
+    {
+      "signal": "Save Ratio",
+      "weight": "Highest",
+      "importance": "Critical",
+      "explanation": "Tells Spotify 'This song is good'",
+      "optimization": "Ask fans to 'Heart' the track in every CTA",
+      "targetBenchmark": ">30% (Excellent), <10% is poor"
+    },
+    {
+      "signal": "Repeat Listens",
+      "weight": "High",
+      "importance": "High",
+      "explanation": "Tells Spotify 'This song is addictive'",
+      "optimization": "Catchy hooks, interesting transitions",
+      "targetBenchmark": "Multiple plays per user within 28 days"
+    },
+    {
+      "signal": "Skip Rate (<30s)",
+      "weight": "Negative",
+      "importance": "Critical",
+      "explanation": "Tells Spotify 'This song is trash'",
+      "optimization": "Start the song IMMEDIATELY. No 20s intro skits",
+      "targetBenchmark": "<35% (Target), >50% indicates poor intro"
+    },
+    {
+      "signal": "Playlist Adds",
+      "weight": "Med/High",
+      "importance": "High",
+      "explanation": "Tells Spotify 'People want to keep this'",
+      "optimization": "Create your own 'JaZeR's Vibe' playlist",
+      "targetBenchmark": "Encourage users to add to personal playlists"
+    }
+  ],
+  "radioAutoplayTriggers": {
+    "goal": "Get on 'Mac Miller Radio' or 'ProbCause Radio'",
+    "requirement": "Data Associations - Spotify sees: 'User A listened to Mac Miller, then JaZeR, and didn't skip'",
+    "tactics": [
+      "Drive external traffic (Ads/Socials) targeting Mac Miller fans specifically",
+      "Collab with artists who are already in that algorithm (smaller artists who sound like them)"
+    ]
+  },
+  "metricBenchmarks": [
+    {
+      "metric": "Save Rate",
+      "target": ">30%",
+      "quality": "Excellent",
+      "threshold": "<10% is poor"
+    },
+    {
+      "metric": "Skip Rate",
+      "target": "<35%",
+      "quality": "Good",
+      "threshold": ">50% means intro too long or playlist mismatch"
+    },
+    {
+      "metric": "Marquee Eligibility",
+      "target": "1,000 streams in last 28 days OR 5,000 monthly active listeners",
+      "quality": "Entry level for paid promotion",
+      "threshold": "Region dependent"
+    },
+    {
+      "metric": "Discovery Mode",
+      "target": "25,000 monthly listeners",
+      "quality": "Long-term goal",
+      "threshold": "Required for algorithmic commission trading"
+    }
+  ],
+  "tacticalRecommendations": [
+    {
+      "rule": "The '0:00' Rule",
+      "description": "Vocals or melody must start within 0-3 seconds",
+      "rationale": "Do not have a 15-second slow fade-in - instant skip"
+    },
+    {
+      "rule": "Structure",
+      "description": "Verse-Chorus within the first 45 seconds",
+      "rationale": "Don't make them wait for the hook"
+    },
+    {
+      "rule": "Canvas",
+      "description": "High-quality Canvas can increase share rate by 145%",
+      "rationale": "Visual engagement drives social sharing"
+    }
+  ],
+  "successMetrics": {
+    "phase1": {
+      "name": "Launch (0-30 days)",
+      "saveRate": ">25%",
+      "skipRate": "<40%",
+      "goal": "Prove quality to algorithm"
+    },
+    "phase2": {
+      "name": "Growth (30-60 days)",
+      "saveRate": ">30%",
+      "skipRate": "<35%",
+      "goal": "Trigger Discover Weekly"
+    },
+    "phase3": {
+      "name": "Scale (60-90 days)",
+      "saveRate": ">35%",
+      "skipRate": "<30%",
+      "goal": "Radio and Autoplay pickup"
+    }
+  }
+}

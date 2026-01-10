@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 05: Release Strategy | JaZeR Research</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --bg: #050816;
+            --surface: #1a1f3a;
+            --cyan: #06d6a0;
+            --lime: #a3ff12;
+            --violet: #c77dff;
+        }
+        
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: #f8fafc;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+        
+        /* Premium Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, var(--cyan), var(--lime));
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+            mix-blend-mode: difference;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease;
+        }
+        
+        @media (max-width: 768px) { .cursor { display: none; } }
+        
+        /* Transition Overlay */
+        .transition-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 10000;
+            pointer-events: none;
+            opacity: 0;
+        }
+        
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--cyan), var(--lime));
+            z-index: 9999;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+        
+        /* Animated Background */
+        .gradient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.4;
+        }
+        
+        .orb-1 { width: 400px; height: 400px; background: var(--cyan); top: -100px; right: -100px; }
+        .orb-2 { width: 300px; height: 300px; background: var(--violet); bottom: 20%; left: -50px; }
+        .orb-3 { width: 250px; height: 250px; background: var(--lime); bottom: -100px; right: 20%; }
+        
+        /* Glass Morphism */
+        .glass {
+            background: rgba(26, 31, 58, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-strong {
+            background: rgba(26, 31, 58, 0.8);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        /* Typography */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--cyan), var(--lime));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .neon-lime { text-shadow: 0 0 10px rgba(163, 255, 18, 0.8); }
+        .neon-cyan { text-shadow: 0 0 10px rgba(6, 214, 160, 0.8); }
+        
+        /* Badges */
+        .badge-lime {
+            background: rgba(163, 255, 18, 0.2);
+            color: var(--lime);
+            border: 1px solid rgba(163, 255, 18, 0.4);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .badge-progress {
+            background: rgba(6, 214, 160, 0.2);
+            color: var(--cyan);
+            border: 1px solid rgba(6, 214, 160, 0.4);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        /* Content Cards */
+        .content-card {
+            background: rgba(26, 31, 58, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .content-card:hover {
+            border-color: var(--lime);
+            box-shadow: 0 20px 60px rgba(163, 255, 18, 0.15);
+            transform: translateY(-4px);
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--cyan), var(--lime));
+            color: var(--bg);
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn-primary:hover::before { left: 100%; }
+        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 40px rgba(6, 214, 160, 0.4); }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: #f8fafc;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--cyan);
+            background: rgba(6, 214, 160, 0.1);
+        }
+        
+        /* TL;DR Box */
+        .tldr-box {
+            background: linear-gradient(135deg, rgba(163, 255, 18, 0.1), rgba(163, 255, 18, 0.03));
+            border-left: 4px solid var(--lime);
+            position: relative;
+        }
+        
+        .tldr-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(163, 255, 18, 0.05));
+            pointer-events: none;
+        }
+        
+        /* Table Styles */
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        
+        .data-table th {
+            background: rgba(163, 255, 18, 0.1);
+            color: var(--lime);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid rgba(163, 255, 18, 0.3);
+        }
+        
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .data-table tr:hover td {
+            background: rgba(163, 255, 18, 0.05);
+        }
+        
+        /* Animated Checkboxes */
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .checkbox-item:hover {
+            background: rgba(15, 23, 42, 0.8);
+            transform: translateX(4px);
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: 1.25rem;
+            height: 1.25rem;
+            accent-color: var(--lime);
+            cursor: pointer;
+        }
+        
+        .checkbox-item input[type="checkbox"]:checked + span {
+            color: var(--lime);
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        
+        /* Timeline Cards */
+        .timeline-card {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--lime), var(--cyan), var(--violet));
+        }
+        
+        .timeline-card::after {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 1.5rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--lime);
+            box-shadow: 0 0 10px var(--lime);
+        }
+        
+        /* Sticky Navigation */
+        .sticky-nav {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(5, 8, 22, 0.9);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 6rem;
+            right: 2rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(26, 31, 58, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 50;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: var(--lime);
+            color: var(--bg);
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    
+    <!-- Page Transition Overlay -->
+    <div class="transition-overlay"></div>
+    
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progress-bar"></div>
+    
+    <!-- Animated Background -->
+    <div class="gradient-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="glass-strong sticky top-0 z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index-premium.html" class="text-2xl font-bold neon-lime nav-link">JaZeR</a>
+            <div class="flex items-center gap-6">
+                <span class="badge-progress hidden md:inline">Module 5 of 10</span>
+                <div class="hidden md:flex space-x-6">
+                    <a href="modules.html" class="text-slate-300 hover:text-lime-400 nav-link transition-all">All Modules</a>
+                    <a href="dashboard.html" class="text-slate-300 hover:text-lime-400 nav-link transition-all">Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-20 px-6">
+        <div class="max-w-5xl mx-auto text-center">
+            <span class="badge-lime mb-6 inline-block hero-badge opacity-0">MODULE 05 · STRATEGY</span>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                <span class="hero-title opacity-0">Release Strategy</span><br/>
+                <span class="gradient-text hero-title opacity-0">Benchmarks</span>
+            </h1>
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto hero-subtitle opacity-0">Optimal release schedule for maximum algorithmic pickup</p>
+            <div class="flex flex-wrap justify-center gap-4 mt-8">
+                <a href="../05 - Release Strategy Benchmarks/02 - Markdown Notes/JaZeR-05-Release-Strategy-Benchmarks.md" 
+                   download 
+                   class="btn-primary px-8 py-4 rounded-full inline-flex items-center gap-2 hero-cta opacity-0"
+                   title="Download the full research markdown file">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    </svg>
+                    Download Markdown
+                </a>
+                <a href="#tldr" class="btn-secondary px-8 py-4 rounded-full inline-flex items-center gap-2 hero-cta opacity-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                    </svg>
+                    Jump to TL;DR
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TL;DR Section -->
+    <section id="tldr" class="py-8 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="tldr-box p-8 rounded-2xl content-card">
+                <h2 class="text-2xl font-bold mb-4 neon-lime flex items-center gap-3">
+                    <span class="text-3xl">📌</span> TL;DR
+                </h2>
+                <p class="text-lg text-slate-300 mb-6">
+                    Use <strong class="text-lime-400">"Waterfall"</strong> — singles every 4-6 weeks. 
+                    <strong class="text-red-400">Don't drop an album</strong> until established. 
+                    After 3 singles, compile into EP.
+                </p>
+                <ul class="space-y-3 text-slate-300">
+                    <li class="flex items-start gap-3">
+                        <span class="text-lime-400 text-xl">→</span>
+                        <span>Release Single 1 (most catchy track first)</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-cyan-400 text-xl">→</span>
+                        <span>Wait 4-6 weeks, release Single 2 as waterfall</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-violet-400 text-xl">→</span>
+                        <span>Every release needs: Cover + Canvas + 3 Videos + Pre-Save</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-12 px-6">
+        <div class="max-w-5xl mx-auto space-y-12">
+            
+            <!-- Strategy Comparison -->
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+                    <span class="text-3xl">⚖️</span> Strategy Comparison
+                </h2>
+                <div class="overflow-x-auto">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Strategy</th>
+                                <th>Pros</th>
+                                <th>Cons</th>
+                                <th>Verdict</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-slate-300">
+                            <tr>
+                                <td class="font-bold">Album Drop</td>
+                                <td>Artistic statement</td>
+                                <td class="text-red-400">Algorithm hates it</td>
+                                <td class="text-red-400 font-bold">❌ AVOID</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold neon-lime">Waterfall</td>
+                                <td class="text-green-400">Constant growth</td>
+                                <td>High asset demand</td>
+                                <td class="neon-lime font-bold">✅ BEST</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">EP Tease</td>
+                                <td>Builds a world</td>
+                                <td>Slower</td>
+                                <td class="text-yellow-400 font-bold">Phase 2</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Waterfall Blueprint -->
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+                    <span class="text-3xl">💧</span> Waterfall Blueprint
+                </h2>
+                <div class="space-y-6">
+                    <div class="timeline-card">
+                        <div class="glass p-6 rounded-2xl ml-4">
+                            <h3 class="text-xl font-bold neon-lime">Month 1: Single 1</h3>
+                            <p class="text-slate-300 mt-2">Most catchy track. Pitch to "Fresh Finds."</p>
+                        </div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="glass p-6 rounded-2xl ml-4">
+                            <h3 class="text-xl font-bold neon-cyan">Month 2: Single 2</h3>
+                            <p class="text-slate-300 mt-2">Deeper cut. Waterfall S1 (S2=Track1, S1=Track2).</p>
+                        </div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="glass p-6 rounded-2xl ml-4">
+                            <h3 class="text-xl font-bold text-violet-400">Month 3: Single 3</h3>
+                            <p class="text-slate-300 mt-2">High energy or collab. Waterfall S2+S1.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="glass p-6 rounded-2xl ml-4 border-2 border-lime-400/50">
+                            <h3 class="text-xl font-bold neon-lime">Month 4: EP</h3>
+                            <p class="text-slate-300 mt-2">3 singles + 2-3 new. EP Release Party at Empire.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Asset Checklist -->
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+                    <span class="text-3xl">📦</span> Asset Checklist (Per Single)
+                </h2>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <label class="checkbox-item">
+                        <input type="checkbox">
+                        <span>Cover Art (high-quality, consistent)</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox">
+                        <span>Spotify Canvas (3-8s loop)</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox">
+                        <span>Teaser Video</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox">
+                        <span>Launch Video</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox">
+                        <span>BTS Story Video</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox">
+                        <span>Pre-Save Link</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sticky Navigation -->
+    <div class="sticky-nav">
+        <div class="glass-strong px-6 py-3 rounded-full flex items-center gap-4">
+            <a href="module-04.html" class="btn-secondary px-4 py-2 rounded-full text-sm nav-link">← Prev</a>
+            <span class="text-slate-400 text-sm hidden md:inline">Module 5 of 10</span>
+            <a href="module-06.html" class="btn-primary px-4 py-2 rounded-full text-sm nav-link">Next →</a>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    </button>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 mt-20">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-4">
+                    <span class="text-2xl font-bold neon-lime">JaZeR</span>
+                    <span class="text-slate-500">// Research System</span>
+                </div>
+                <div class="flex gap-6 text-slate-400">
+                    <a href="modules.html" class="hover:text-lime-400 transition-colors nav-link">All Modules</a>
+                    <a href="dashboard.html" class="hover:text-lime-400 transition-colors nav-link">Dashboard</a>
+                    <a href="index-premium.html" class="hover:text-lime-400 transition-colors nav-link">Home</a>
+                </div>
+            </div>
+            <div class="text-center mt-8 text-slate-600 text-sm">
+                © 2026 JaZeR Strategic Research System · Module 05
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/premium-ui.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Hero Animation
+        gsap.set('.hero-badge, .hero-title, .hero-subtitle, .hero-cta', { y: 30 });
+        const heroTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        heroTL
+            .to('.hero-badge', { opacity: 1, y: 0, duration: 0.6, delay: 0.2 })
+            .to('.hero-title', { opacity: 1, y: 0, duration: 0.8, stagger: 0.2 }, '-=0.3')
+            .to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
+            .to('.hero-cta', { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }, '-=0.2');
+        
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+        });
+        
+        // Back to Top Button
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Content Cards Animation
+        gsap.from('.content-card', {
+            y: 60,
+            opacity: 0,
+            stagger: 0.15,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: '.content-card',
+                start: 'top 85%'
+            }
+        });
+        
+        // Timeline Cards Animation
+        gsap.from('.timeline-card', {
+            x: -30,
+            opacity: 0,
+            stagger: 0.1,
+            duration: 0.6,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: '.timeline-card',
+                start: 'top 85%'
+            }
+        });
+        
+        // Floating Orbs Animation
+        gsap.utils.toArray('.gradient-orb').forEach((orb, i) => {
+            gsap.to(orb, {
+                x: 'random(-50, 50)',
+                y: 'random(-50, 50)',
+                scale: 'random(0.9, 1.1)',
+                duration: 'random(10, 20)',
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut',
+                delay: i * 1.5
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 03: Audience & Listener Profile | JaZeR Research</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --bg: #050816;
+            --surface: #1a1f3a;
+            --cyan: #06d6a0;
+            --lime: #a3ff12;
+            --violet: #c77dff;
+        }
+        
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: #f8fafc; margin: 0; overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+        
+        .cursor { width: 20px; height: 20px; background: linear-gradient(135deg, var(--cyan), var(--lime)); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99999; mix-blend-mode: difference; transform: translate(-50%, -50%); }
+        @media (max-width: 768px) { .cursor { display: none; } }
+        
+        .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--cyan), var(--lime)); z-index: 9999; width: 0%; }
+        
+        .gradient-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .gradient-orb { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.4; }
+        .orb-1 { width: 400px; height: 400px; background: var(--cyan); top: -100px; right: -100px; }
+        .orb-2 { width: 300px; height: 300px; background: var(--violet); bottom: 20%; left: -50px; }
+        
+        .glass { background: rgba(26, 31, 58, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .glass-strong { background: rgba(26, 31, 58, 0.8); backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.15); }
+        
+        .gradient-text { background: linear-gradient(135deg, var(--cyan), var(--lime), var(--violet)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .neon-cyan { text-shadow: 0 0 10px rgba(6, 214, 160, 0.8); }
+        
+        .badge-cyan { background: rgba(6, 214, 160, 0.2); color: var(--cyan); border: 1px solid rgba(6, 214, 160, 0.4); padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        
+        .content-card { background: rgba(26, 31, 58, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.4s; }
+        .content-card:hover { border-color: var(--cyan); box-shadow: 0 20px 60px rgba(6, 214, 160, 0.15); transform: translateY(-4px); }
+        
+        .persona-card { background: linear-gradient(135deg, rgba(6, 214, 160, 0.15), rgba(199, 125, 255, 0.1)); border: 2px solid var(--cyan); }
+        
+        .btn-primary { background: linear-gradient(135deg, var(--cyan), var(--lime)); color: var(--bg); font-weight: 700; transition: all 0.3s; }
+        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 40px rgba(6, 214, 160, 0.4); }
+        .btn-secondary { background: transparent; border: 2px solid rgba(255, 255, 255, 0.2); color: #f8fafc; font-weight: 600; }
+        
+        .tldr-box { background: linear-gradient(135deg, rgba(6, 214, 160, 0.1), rgba(6, 214, 160, 0.03)); border-left: 4px solid var(--cyan); }
+        
+        .sticky-nav { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 100; }
+        footer { background: rgba(5, 8, 22, 0.9); border-top: 1px solid rgba(255, 255, 255, 0.05); }
+        .back-to-top { position: fixed; bottom: 6rem; right: 2rem; width: 48px; height: 48px; border-radius: 50%; background: rgba(26, 31, 58, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s; z-index: 50; }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: var(--cyan); color: var(--bg); }
+        
+        /* Animated Avatar */
+        .avatar-container { position: relative; width: 150px; height: 150px; margin: 0 auto; }
+        .avatar { width: 100%; height: 100%; border-radius: 50%; background: linear-gradient(135deg, var(--cyan), var(--violet)); display: flex; align-items: center; justify-content: center; font-size: 4rem; animation: float 4s ease-in-out infinite; position: relative; z-index: 2; }
+        .avatar-ring { position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 50%; border: 3px solid transparent; border-top-color: var(--cyan); border-right-color: var(--lime); animation: spin 8s linear infinite; }
+        .avatar-glow { position: absolute; top: 50%; left: 50%; width: 120%; height: 120%; transform: translate(-50%, -50%); background: radial-gradient(circle, rgba(6, 214, 160, 0.3), transparent 70%); animation: pulse 2s ease-in-out infinite; z-index: 1; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+        
+        /* Map Visual */
+        .map-container { position: relative; min-height: 250px; background: linear-gradient(135deg, rgba(6, 214, 160, 0.05), rgba(199, 125, 255, 0.05)); border-radius: 1rem; overflow: hidden; }
+        .map-dot { position: absolute; width: 16px; height: 16px; border-radius: 50%; transform: translate(-50%, -50%); cursor: pointer; transition: all 0.3s; }
+        .map-dot::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; background: inherit; opacity: 0.3; animation: ping 1.5s ease-out infinite; }
+        .map-dot:hover { transform: translate(-50%, -50%) scale(1.5); z-index: 10; }
+        .map-dot .tooltip { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); background: rgba(26, 31, 58, 0.95); padding: 8px 12px; border-radius: 8px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.3s; font-size: 12px; border: 1px solid var(--cyan); z-index: 100; }
+        .map-dot:hover .tooltip { opacity: 1; }
+        @keyframes ping { 0% { transform: scale(1); opacity: 0.4; } 100% { transform: scale(2.5); opacity: 0; } }
+        
+        /* Social Proof */
+        .spotify-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(30, 215, 96, 0.1); border: 1px solid rgba(30, 215, 96, 0.3); padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.75rem; }
+        .spotify-icon { width: 16px; height: 16px; }
+        
+        /* Content Carousel Indicators */
+        .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 1.5rem; }
+        .carousel-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); cursor: pointer; transition: all 0.3s; }
+        .carousel-dot.active { background: var(--cyan); width: 30px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="progress-bar" id="progress-bar"></div>
+    <div class="gradient-bg"><div class="gradient-orb orb-1"></div><div class="gradient-orb orb-2"></div></div>
+    
+    <nav class="glass-strong sticky top-0 z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index-premium.html" class="text-2xl font-bold neon-cyan">JaZeR</a>
+            <div class="hidden md:flex space-x-6">
+                <a href="modules.html" class="text-slate-300 hover:text-cyan-400 transition">All Modules</a>
+                <a href="dashboard.html" class="text-slate-300 hover:text-cyan-400 transition">Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="py-20 px-6">
+        <div class="max-w-5xl mx-auto text-center">
+            <span class="badge-cyan mb-6 inline-block hero-badge opacity-0">MODULE 03 · INTELLIGENCE</span>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                <span class="hero-title opacity-0">Audience &</span><br/>
+                <span class="gradient-text hero-title opacity-0">Listener Profile</span>
+            </h1>
+            <p class="text-xl text-slate-400 hero-subtitle opacity-0">Target audience intelligence · Meet "Creative Casey"</p>
+            <a href="../03 - Audience and Listener Profile/02 - Markdown Notes/JaZeR-03-Audience-and-Listener-Profile.md" download class="btn-primary px-8 py-4 rounded-full mt-8 inline-block hero-cta opacity-0">Download Markdown</a>
+        </div>
+    </section>
+
+    <!-- TL;DR -->
+    <section class="py-8 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="tldr-box p-8 rounded-2xl content-card">
+                <h2 class="text-2xl font-bold mb-4 neon-cyan">📌 TL;DR</h2>
+                <p class="text-lg text-slate-300 mb-4">Your superfan is <strong>"Creative Casey"</strong> - a 24-year-old graphic designer who vibes to Mac Miller while working. They hang out on r/MacMiller, love thrifted vintage fashion.</p>
+                <ul class="space-y-2 text-slate-300 mt-4">
+                    <li>→ Make cover art that looks like museum-quality art, not generic rap covers</li>
+                    <li>→ Post "behind-the-scenes" creative process content</li>
+                    <li>→ Target Austin, Denver, Portland/Seattle, LA for campaigns</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-12 px-6">
+        <div class="max-w-5xl mx-auto space-y-12">
+            <!-- Persona with Animated Avatar -->
+            <div class="persona-card p-10 rounded-3xl content-card">
+                <h2 class="text-3xl font-bold mb-8">👤 The "Superfan" Persona</h2>
+                <div class="grid md:grid-cols-3 gap-6 items-center">
+                    <div class="text-center">
+                        <div class="avatar-container">
+                            <div class="avatar-glow"></div>
+                            <div class="avatar-ring"></div>
+                            <div class="avatar">🎨</div>
+                        </div>
+                        <h3 class="text-3xl font-bold neon-cyan mt-6">"Creative Casey"</h3>
+                        <p class="text-slate-400">Age 24 · Graphic Designer</p>
+                    </div>
+                    <div class="md:col-span-2 space-y-4">
+                        <div class="p-4 bg-slate-900/50 rounded-xl">
+                            <p class="text-xl italic text-slate-300">"I just need something to vibe to while I create."</p>
+                        </div>
+                        <div class="p-4 bg-slate-900/50 rounded-xl">
+                            <h4 class="font-bold text-cyan-400 mb-3">Top 5 Artists (with Social Proof):</h4>
+                            <div class="flex flex-wrap gap-3">
+                                <div class="spotify-badge">
+                                    <svg class="spotify-icon" fill="#1DB954" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                                    <span>Mac Miller</span>
+                                    <span class="text-green-400 font-bold">30M+</span>
+                                </div>
+                                <div class="spotify-badge">
+                                    <svg class="spotify-icon" fill="#1DB954" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                                    <span>Anderson .Paak</span>
+                                    <span class="text-green-400 font-bold">15M+</span>
+                                </div>
+                                <div class="spotify-badge">
+                                    <svg class="spotify-icon" fill="#1DB954" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                                    <span>Smino</span>
+                                    <span class="text-green-400 font-bold">5M+</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-2 mt-3">
+                                <span class="badge-cyan">ProbCause</span>
+                                <span class="badge-cyan">Still Woozy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Geographic Heatmap -->
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-4">🗺️ Geographic Heatmap</h2>
+                <p class="text-slate-400 mb-6 text-sm">Hover over cities to see market details</p>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="map-container p-6">
+                        <div class="text-center text-slate-500 text-xs mb-4">Interactive US Map</div>
+                        <!-- Map dots positioned approximately on US map -->
+                        <div class="map-dot" style="background: var(--cyan); top: 75%; left: 45%;">
+                            <div class="tooltip"><strong>Austin, TX</strong><br/>Home base · Live music lovers</div>
+                        </div>
+                        <div class="map-dot" style="background: var(--lime); top: 45%; left: 35%;">
+                            <div class="tooltip"><strong>Denver, CO</strong><br/>Electronic Hip-Hop massive market</div>
+                        </div>
+                        <div class="map-dot" style="background: var(--violet); top: 25%; left: 15%;">
+                            <div class="tooltip"><strong>Portland/Seattle</strong><br/>Melodic/Indie Rap fit</div>
+                        </div>
+                        <div class="map-dot" style="background: var(--cyan); top: 55%; left: 12%;">
+                            <div class="tooltip"><strong>Los Angeles, CA</strong><br/>Epicenter of Mac Miller sound</div>
+                        </div>
+                        <!-- US outline SVG (simplified) -->
+                        <svg viewBox="0 0 100 60" class="absolute inset-0 w-full h-full opacity-10">
+                            <path d="M5,20 L15,15 L25,18 L35,12 L45,15 L55,10 L65,12 L75,8 L85,15 L95,12 L95,45 L85,50 L75,48 L65,52 L55,48 L45,55 L35,50 L25,52 L15,48 L5,50 Z" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                        </svg>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-xl" style="border: 2px solid var(--cyan)">
+                            <h3 class="text-lg font-bold neon-cyan mb-2">Tier 1: "The Vibe Hubs"</h3>
+                            <ul class="space-y-2 text-slate-300 text-sm">
+                                <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-full" style="background: var(--cyan)"></span> <strong>Austin, TX</strong> - Home base</li>
+                                <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-full" style="background: var(--lime)"></span> <strong>Denver, CO</strong> - Electronic Hip-Hop</li>
+                                <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-full" style="background: var(--violet)"></span> <strong>Portland/Seattle</strong> - Indie Rap</li>
+                                <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-full" style="background: var(--cyan)"></span> <strong>Los Angeles, CA</strong> - Mac Miller lane</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-slate-900/50 rounded-xl">
+                            <h3 class="text-lg font-bold text-violet-400 mb-2">Tier 2: Global Pockets</h3>
+                            <ul class="space-y-2 text-slate-300 text-sm">
+                                <li>🌎 <strong>Santiago, Chile</strong> - High "Chill Rap" consumption</li>
+                                <li>🌎 <strong>Mexico City</strong> - Latin American opportunity</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strategic Implications Carousel -->
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-8">⚡ Strategic Implications</h2>
+                <div class="relative overflow-hidden" id="carousel">
+                    <div class="carousel-track flex transition-transform duration-500" id="carouselTrack">
+                        <div class="carousel-slide w-full flex-shrink-0 p-6 rounded-xl" style="border: 2px solid var(--lime)">
+                            <h3 class="text-2xl font-bold mb-4" style="color: var(--lime)">🎨 Visuals Matter</h3>
+                            <p class="text-slate-300 text-lg">"Casey" is a creative. Cover art must look like <strong>art</strong> — abstract, painted, or highly stylized photography. Think museum quality, not generic rap covers.</p>
+                        </div>
+                        <div class="carousel-slide w-full flex-shrink-0 p-6 rounded-xl" style="border: 2px solid var(--violet)">
+                            <h3 class="text-2xl font-bold mb-4 text-violet-400">📸 Content Angle</h3>
+                            <p class="text-slate-300 text-lg">Don't just post "New Music Out Now." Post <strong>"The process of making this beat"</strong> or <strong>"Late night studio vibes."</strong></p>
+                        </div>
+                        <div class="carousel-slide w-full flex-shrink-0 p-6 rounded-xl" style="border: 2px solid var(--cyan)">
+                            <h3 class="text-2xl font-bold mb-4 neon-cyan">👕 Merch Philosophy</h3>
+                            <p class="text-slate-300 text-lg">No cheap Gildan tees. Think <strong>"Museum Gift Shop"</strong> quality. Premium materials, thoughtful design.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-dots" id="carouselDots">
+                    <div class="carousel-dot active" data-slide="0"></div>
+                    <div class="carousel-dot" data-slide="1"></div>
+                    <div class="carousel-dot" data-slide="2"></div>
+                </div>
+            </div>
+
+            <!-- CTA to Marketing Module -->
+            <div class="glass p-8 rounded-3xl text-center" style="border: 2px solid var(--lime)">
+                <h3 class="text-2xl font-bold mb-4" style="color: var(--lime)">Now That You Know Your Audience...</h3>
+                <p class="text-slate-300 mb-6">Ready to reach "Creative Casey" where they hang out?</p>
+                <a href="module-07.html" class="btn-primary px-8 py-4 rounded-full inline-flex items-center gap-2">
+                    <span>Explore Marketing Channels</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="sticky-nav">
+        <div class="glass-strong px-6 py-3 rounded-full flex items-center gap-4">
+            <a href="module-02.html" class="btn-secondary px-4 py-2 rounded-full text-sm hover:border-cyan-400 transition">← Prev</a>
+            <span class="text-slate-400 text-sm">3 of 10</span>
+            <a href="module-04.html" class="btn-primary px-4 py-2 rounded-full text-sm">Next →</a>
+        </div>
+    </div>
+
+    <button class="back-to-top" id="back-to-top">↑</button>
+
+    <footer class="py-12 px-6 mt-20">
+        <div class="max-w-5xl mx-auto text-center">
+            <span class="text-2xl font-bold neon-cyan">JaZeR</span>
+            <p class="text-slate-600 text-sm mt-4">© 2026 JaZeR Strategic Research System · Module 03</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/premium-ui.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            document.getElementById('progress-bar').style.width = 
+                (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100) + '%';
+        });
+        
+        // Back to Top
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => backToTop.classList.toggle('visible', window.scrollY > 500));
+        backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        
+        // Hero Animation
+        gsap.set('.hero-badge, .hero-title, .hero-subtitle, .hero-cta', { y: 30 });
+        const heroTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        heroTL
+            .to('.hero-badge', { opacity: 1, y: 0, duration: 0.6, delay: 0.2 })
+            .to('.hero-title', { opacity: 1, y: 0, duration: 0.8, stagger: 0.2 }, '-=0.3')
+            .to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
+            .to('.hero-cta', { opacity: 1, y: 0, duration: 0.5 }, '-=0.2');
+        
+        // Content Card Animations
+        gsap.from('.content-card', {
+            y: 60, opacity: 0, stagger: 0.15, duration: 0.8, ease: 'power2.out',
+            scrollTrigger: { trigger: '.content-card', start: 'top 85%' }
+        });
+        
+        // Carousel
+        let currentSlide = 0;
+        const track = document.getElementById('carouselTrack');
+        const dots = document.querySelectorAll('.carousel-dot');
+        
+        function goToSlide(index) {
+            currentSlide = index;
+            track.style.transform = `translateX(-${index * 100}%)`;
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+        }
+        
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.slide)));
+        });
+        
+        // Auto-advance carousel every 5 seconds
+        setInterval(() => {
+            goToSlide((currentSlide + 1) % 3);
+        }, 5000);
+        
+        // Floating Orbs
+        gsap.to('.orb-1', { x: 50, y: 30, duration: 15, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+        gsap.to('.orb-2', { x: -30, y: -50, duration: 20, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+    </script>
+</body>
+</html>

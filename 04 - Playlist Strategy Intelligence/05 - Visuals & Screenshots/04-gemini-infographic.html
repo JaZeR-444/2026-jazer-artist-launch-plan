@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JaZeR: Audience & Listener Intelligence Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Slate 900 */
+            color: #f8fafc;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        /* Chart Container Utilities */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6366f1; 
+            border-radius: 4px;
+        }
+        /* Card Hover Effects */
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .glass-panel:hover {
+            transform: translateY(-2px);
+            border-color: #818cf8;
+        }
+    </style>
+    <!-- Vibrant Palette: Indigo (Primary), Cyan (Accent), Rose (Highlight) -->
+    <!-- Palette Name: Deep Tech & Neon Soul -->
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <!-- Header Section -->
+    <header class="w-full py-12 px-6 md:px-12 bg-gradient-to-r from-indigo-900 to-slate-900 border-b border-indigo-500/30">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                    <h2 class="text-cyan-400 font-bold tracking-wider text-sm uppercase mb-2">Consumer Insights Report // 03</h2>
+                    <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight">JaZeR <span class="text-indigo-400">Audience Profile</span></h1>
+                    <p class="mt-4 text-slate-300 max-w-2xl text-lg">
+                        Deconstructing the human behind the stream. Analysis of the "Mac Miller / Austin-Modern" psychographic to drive content strategy.
+                    </p>
+                </div>
+                <div class="flex gap-4">
+                    <div class="text-center px-6 py-3 bg-indigo-600/20 border border-indigo-500 rounded-lg">
+                        <span class="block text-2xl font-bold text-white">Gen Z/Millennial</span>
+                        <span class="text-xs text-indigo-300 uppercase tracking-widest">Core Gen</span>
+                    </div>
+                    <div class="text-center px-6 py-3 bg-cyan-600/20 border border-cyan-500 rounded-lg">
+                        <span class="block text-2xl font-bold text-white">Eclectic</span>
+                        <span class="text-xs text-cyan-300 uppercase tracking-widest">Vibe</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-12 gap-8">
+
+        <!-- Introduction / Context -->
+        <div class="md:col-span-12 mb-4">
+            <div class="glass-panel p-8 rounded-xl">
+                <h3 class="text-2xl font-bold text-white mb-4 border-l-4 border-cyan-500 pl-4">Research Context</h3>
+                <p class="text-slate-300 leading-relaxed text-lg">
+                    This deep research constructs a detailed persona for JaZeR's core listener. By analyzing the intersection of <strong>Melodic Hip-Hop</strong>, <strong>Mental Health Awareness</strong>, and the <strong>"Keep Austin Weird"</strong> creative culture, we identify a listener who values authenticity over hype. This isn't just a rap fan; this is a consumer of "Artistic Lifestyle" content, bridging the gap between Lo-Fi study beats and lyrical substance.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 1: The "Superfan" Persona -->
+        <div class="md:col-span-5 flex flex-col gap-6">
+            <!-- Persona Card -->
+            <div class="glass-panel p-8 rounded-xl bg-gradient-to-br from-slate-800 to-indigo-900/50 border-t-4 border-indigo-500 relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-cyan-500 rounded-full blur-3xl opacity-20"></div>
+                
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-16 h-16 rounded-full bg-slate-700 flex items-center justify-center text-3xl shadow-lg border-2 border-indigo-400">
+                        🎧
+                    </div>
+                    <div>
+                        <h3 class="text-xl text-indigo-200 uppercase font-bold tracking-wide">The Superfan</h3>
+                        <h2 class="text-3xl font-extrabold text-white">"Creative Casey"</h2>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <p class="text-xs text-slate-400 uppercase tracking-widest font-bold mb-1">Mantra</p>
+                        <p class="text-xl text-cyan-300 italic font-serif">"Growth is a process, not a destination. Keep it real, keep it creating."</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-xs text-slate-400 uppercase tracking-widest font-bold mb-1">Age Bracket</p>
+                            <p class="text-white font-semibold">22 - 29 (Late Gen Z / Early Millennial)</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400 uppercase tracking-widest font-bold mb-1">Occupation</p>
+                            <p class="text-white font-semibold">Freelance Creative, Tech, or Student</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="text-xs text-slate-400 uppercase tracking-widest font-bold mb-2">Core Rotation</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-slate-700 rounded-full text-sm text-indigo-200">Mac Miller</span>
+                            <span class="px-3 py-1 bg-slate-700 rounded-full text-sm text-indigo-200">ProbCause</span>
+                            <span class="px-3 py-1 bg-slate-700 rounded-full text-sm text-indigo-200">Smino</span>
+                            <span class="px-3 py-1 bg-slate-700 rounded-full text-sm text-indigo-200">Kota the Friend</span>
+                            <span class="px-3 py-1 bg-slate-700 rounded-full text-sm text-indigo-200">Anderson .Paak</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Psychographic Radar Chart -->
+            <div class="glass-panel p-6 rounded-xl">
+                <h3 class="text-lg font-bold text-white mb-2">Psychographic Drivers</h3>
+                <p class="text-slate-400 text-sm mb-4">Why they connect with the music.</p>
+                <div class="chart-container" style="height: 300px;">
+                    <canvas id="psychographicChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Geographic & Platform Data -->
+        <div class="md:col-span-7 flex flex-col gap-6">
+            
+            <!-- Geographic Heatmap -->
+            <div class="glass-panel p-6 rounded-xl">
+                <div class="flex justify-between items-end mb-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Geographic Heatmap: "Super Markets"</h3>
+                        <p class="text-slate-400 text-sm mt-1">Cities with high overlap of "Tech/Creative" & "Indie Hip-Hop" cultures.</p>
+                    </div>
+                    <div class="text-right hidden md:block">
+                        <span class="text-cyan-400 font-bold text-2xl">#1</span>
+                        <span class="text-slate-500 text-xs block uppercase">Target: Austin</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="geoChart"></canvas>
+                </div>
+                <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div class="p-2 bg-slate-800/50 rounded">
+                        <span class="block text-indigo-400 font-bold">Austin</span>
+                        <span class="text-xs text-slate-500">Home Base</span>
+                    </div>
+                    <div class="p-2 bg-slate-800/50 rounded">
+                        <span class="block text-indigo-400 font-bold">Denver</span>
+                        <span class="text-xs text-slate-500">Vibe Match</span>
+                    </div>
+                    <div class="p-2 bg-slate-800/50 rounded">
+                        <span class="block text-indigo-400 font-bold">Chicago</span>
+                        <span class="text-xs text-slate-500">Midwest Soul</span>
+                    </div>
+                    <div class="p-2 bg-slate-800/50 rounded">
+                        <span class="block text-indigo-400 font-bold">Melbourne</span>
+                        <span class="text-xs text-slate-500">Intl. Hotspot</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Digital Habitat Breakdown -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass-panel p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-white mb-4">Digital Habitat</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center justify-between">
+                            <span class="flex items-center gap-2 text-slate-300"><span class="text-indigo-500">●</span> Discord</span>
+                            <span class="text-sm text-slate-500">Lofi/Producer Servers</span>
+                        </li>
+                        <li class="flex items-center justify-between">
+                            <span class="flex items-center gap-2 text-slate-300"><span class="text-cyan-500">●</span> Reddit</span>
+                            <span class="text-sm text-slate-500">r/hiphopheads, r/streetwear</span>
+                        </li>
+                        <li class="flex items-center justify-between">
+                            <span class="flex items-center gap-2 text-slate-300"><span class="text-rose-500">●</span> TikTok</span>
+                            <span class="text-sm text-slate-500">"Day in Life" & BTS</span>
+                        </li>
+                        <li class="flex items-center justify-between">
+                            <span class="flex items-center gap-2 text-slate-300"><span class="text-yellow-500">●</span> Instagram</span>
+                            <span class="text-sm text-slate-500">Curated Aesthetics</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="glass-panel p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-white mb-4">Consumption Habits</h3>
+                    <div class="space-y-3">
+                        <div class="p-3 bg-slate-800 rounded border-l-2 border-indigo-500">
+                            <h4 class="text-sm font-bold text-white">Late Night Drives</h4>
+                            <p class="text-xs text-slate-400">High engagement 10 PM - 2 AM.</p>
+                        </div>
+                        <div class="p-3 bg-slate-800 rounded border-l-2 border-cyan-500">
+                            <h4 class="text-sm font-bold text-white">Creative Flow/Study</h4>
+                            <p class="text-xs text-slate-400">Passive listening during work hours.</p>
+                        </div>
+                        <div class="p-3 bg-slate-800 rounded border-l-2 border-rose-500">
+                            <h4 class="text-sm font-bold text-white">Social Chill</h4>
+                            <p class="text-xs text-slate-400">Background for small gatherings.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Lifestyle & Brands -->
+        <div class="md:col-span-12 mt-4">
+            <h3 class="text-2xl font-bold text-white mb-6 pl-4 border-l-4 border-rose-500">Lifestyle & Brand Affinity</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Fashion -->
+                <div class="glass-panel p-6 rounded-xl text-center hover:bg-slate-800 transition">
+                    <div class="text-4xl mb-4">🧢</div>
+                    <h4 class="text-xl font-bold text-indigo-400 mb-2">Fashion</h4>
+                    <p class="text-slate-300 text-sm mb-4">"Workwear & Vintage"</p>
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <span class="px-2 py-1 border border-slate-600 rounded text-xs text-slate-400">Carhartt WIP</span>
+                        <span class="px-2 py-1 border border-slate-600 rounded text-xs text-slate-400">Dickies</span>
+                        <span class="px-2 py-1 border border-slate-600 rounded text-xs text-slate-400">Thrift/Depop</span>
+                        <span class="px-2 py-1 border border-slate-600 rounded text-xs text-slate-400">Vans</span>
+                    </div>
+                </div>
+                
+                <!-- Tech -->
+                <div class="glass-panel p-6 rounded-xl text-center hover:bg-slate-800 transition">
+                    <div class="text-4xl mb-4">📷</div>
+                    <h4 class="text-xl font-bold text-cyan-400 mb-2">Creative Tech</h4>
+                    <p class="text-slate-300 text-sm mb-4">"Tools of the Trade"</p>
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <span class="px-2 py-1 border border-slate-600 rounded text-xs text-slate-400">Sony Alpha</span>
+                        <span class="px-2 py-1 border border-slate-600 rounded text-xs text-slate-400">Audio-Technica</span>
+                        <span class="px-2 py-1 border border-slate-600 rounded text-xs text-slate-400">Ableton</span>
+                        <span class="px-2 py-1 border border-slate-600 rounded text-xs text-slate-400">Apple</span>
+                    </div>
+                </div>
+
+                <!-- Interests -->
+                <div class="glass-panel p-6 rounded-xl text-center hover:bg-slate-800 transition">
+                    <div class="text-4xl mb-4">☕</div>
+                    <h4 class="text-xl font-bold text-rose-400 mb-2">Lifestyle</h4>
+                    <p class="text-slate-300 text-sm mb-4">"Daily Rituals"</p>
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <span class="px-2 py-1 border border-slate-600 rounded text-xs text-slate-400">Specialty Coffee</span>
+                        <span class="px-2 py-1 border border-slate-600 rounded text-xs text-slate-400">Craft Beer</span>
+                        <span class="px-2 py-1 border border-slate-600 rounded text-xs text-slate-400">Skating</span>
+                        <span class="px-2 py-1 border border-slate-600 rounded text-xs text-slate-400">Modern Art</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Strategic Implications -->
+        <div class="md:col-span-12 mt-8 mb-12">
+            <div class="bg-gradient-to-r from-indigo-900 to-slate-900 border border-indigo-500/30 rounded-2xl p-8 relative overflow-hidden">
+                <div class="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-indigo-600/10 to-transparent"></div>
+                <h3 class="text-2xl font-bold text-white mb-6 relative z-10">Strategic Action Plan</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+                    <div>
+                        <h4 class="text-cyan-400 font-bold uppercase tracking-wider text-sm mb-3">Content Strategy</h4>
+                        <ul class="space-y-3">
+                            <li class="flex gap-3">
+                                <span class="text-indigo-400 font-bold">01.</span>
+                                <p class="text-slate-300 text-sm"><strong>Show the Process:</strong> Casey values "Authenticity." Post BTS of the beat-making process or lyric writing. Imperfection is a feature, not a bug.</p>
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="text-indigo-400 font-bold">02.</span>
+                                <p class="text-slate-300 text-sm"><strong>Aesthetic Consistency:</strong> Use warm, film-grain filters on visuals. Align with the "Vintage/Thrift" aesthetic of the listener.</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-rose-400 font-bold uppercase tracking-wider text-sm mb-3">Community Growth</h4>
+                        <ul class="space-y-3">
+                            <li class="flex gap-3">
+                                <span class="text-indigo-400 font-bold">03.</span>
+                                <p class="text-slate-300 text-sm"><strong>Discord Engagement:</strong> Don't just promote; participate in "Feedback Friday" threads in producer communities.</p>
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="text-indigo-400 font-bold">04.</span>
+                                <p class="text-slate-300 text-sm"><strong>Local Anchoring:</strong> Lean into the "Austin Modern" vibe. Tag local coffee spots or skate parks to trigger local algo-relevance.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 text-slate-500 text-sm border-t border-slate-800">
+        <p>JaZeR Strategy Data // Generated via Gemini Deep Research Protocol</p>
+    </footer>
+
+    <script>
+        // Chart Configuration Standard
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.borderColor = '#1e293b';
+        Chart.defaults.font.family = "'Inter', sans-serif";
+
+        // 1. Geographic Heatmap (Horizontal Bar)
+        const ctxGeo = document.getElementById('geoChart').getContext('2d');
+        new Chart(ctxGeo, {
+            type: 'bar',
+            data: {
+                labels: ['Austin, TX', 'Denver, CO', 'Chicago, IL', 'Los Angeles, CA', 'New York, NY', 'Melbourne, AU', 'London, UK'],
+                datasets: [{
+                    label: 'Listener Density Score',
+                    data: [95, 88, 75, 70, 65, 60, 55],
+                    backgroundColor: [
+                        '#818cf8', // Austin (Primary)
+                        '#22d3ee', // Denver
+                        '#334155', // Others
+                        '#334155',
+                        '#334155',
+                        '#334155',
+                        '#334155'
+                    ],
+                    borderRadius: 4,
+                    barPercentage: 0.7
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                        titleColor: '#fff',
+                        bodyColor: '#cbd5e1',
+                        padding: 12,
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                return Array.isArray(label) ? label.join(' ') : label;
+                            },
+                            label: function(context) {
+                                return context.raw + ' (Index Score)';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { display: false }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: { font: { size: 12, weight: 'bold' }, color: '#cbd5e1' }
+                    }
+                }
+            }
+        });
+
+        // 2. Psychographic Radar Chart
+        const ctxPsych = document.getElementById('psychographicChart').getContext('2d');
+        new Chart(ctxPsych, {
+            type: 'radar',
+            data: {
+                labels: ['Authenticity', 'Lyrical Depth', 'Chill Vibe', 'Hype/Energy', 'Melody', 'Social Status'],
+                datasets: [{
+                    label: 'JaZeR Listener Profile',
+                    data: [90, 85, 95, 40, 80, 50],
+                    backgroundColor: 'rgba(34, 211, 238, 0.2)', // Cyan transparent
+                    borderColor: '#22d3ee',
+                    pointBackgroundColor: '#22d3ee',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#22d3ee',
+                    borderWidth: 2
+                },
+                {
+                    label: 'Mainstream Trap Listener',
+                    data: [50, 40, 60, 95, 60, 85],
+                    backgroundColor: 'rgba(99, 102, 241, 0.05)', // Indigo very transparent
+                    borderColor: 'rgba(99, 102, 241, 0.3)',
+                    pointBackgroundColor: 'transparent',
+                    pointBorderColor: 'transparent',
+                    borderWidth: 1,
+                    borderDash: [5, 5]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { 
+                        position: 'bottom',
+                        labels: { boxWidth: 10, padding: 20, color: '#94a3b8' }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                return Array.isArray(label) ? label.join(' ') : label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: '#334155' },
+                        grid: { color: '#1e293b' },
+                        pointLabels: { color: '#cbd5e1', font: { size: 11 } },
+                        ticks: { display: false, backdropColor: 'transparent' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

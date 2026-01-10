@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 04: Playlist Strategy Intelligence | JaZeR Research</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <style>
+        :root { --bg: #050816; --surface: #1a1f3a; --cyan: #06d6a0; --lime: #a3ff12; --violet: #c77dff; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: #f8fafc; margin: 0; overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+        
+        .cursor { width: 20px; height: 20px; background: linear-gradient(135deg, var(--lime), var(--cyan)); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99999; mix-blend-mode: difference; transform: translate(-50%, -50%); }
+        @media (max-width: 768px) { .cursor { display: none; } }
+        
+        .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--lime), var(--cyan)); z-index: 9999; width: 0%; }
+        
+        .gradient-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .gradient-orb { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.4; }
+        .orb-1 { width: 400px; height: 400px; background: var(--lime); top: -100px; right: -100px; }
+        .orb-2 { width: 300px; height: 300px; background: var(--violet); bottom: 20%; left: -50px; }
+        
+        .glass { background: rgba(26, 31, 58, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .glass-strong { background: rgba(26, 31, 58, 0.8); backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.15); }
+        
+        .gradient-text { background: linear-gradient(135deg, var(--cyan), var(--lime), var(--violet)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .neon-lime { text-shadow: 0 0 10px rgba(163, 255, 18, 0.8); }
+        
+        .badge-lime { background: rgba(163, 255, 18, 0.2); color: var(--lime); border: 1px solid rgba(163, 255, 18, 0.4); padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .badge-progress { background: rgba(163, 255, 18, 0.2); color: var(--lime); border: 1px solid rgba(163, 255, 18, 0.4); padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 600; }
+        
+        .content-card { background: rgba(26, 31, 58, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.4s; }
+        .content-card:hover { border-color: var(--lime); box-shadow: 0 20px 60px rgba(163, 255, 18, 0.15); transform: translateY(-4px); }
+        
+        .btn-primary { background: linear-gradient(135deg, var(--cyan), var(--lime)); color: var(--bg); font-weight: 700; transition: all 0.3s; }
+        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 40px rgba(6, 214, 160, 0.4); }
+        .btn-secondary { background: transparent; border: 2px solid rgba(255, 255, 255, 0.2); color: #f8fafc; font-weight: 600; transition: all 0.3s; }
+        .btn-secondary:hover { border-color: var(--lime); }
+        
+        .tldr-box { background: linear-gradient(135deg, rgba(163, 255, 18, 0.1), rgba(163, 255, 18, 0.03)); border-left: 4px solid var(--lime); }
+        
+        /* Interactive Playlist Cards */
+        .playlist-card { position: relative; cursor: pointer; transition: all 0.4s; }
+        .playlist-card:hover { transform: scale(1.03); }
+        .playlist-card::before { content: ''; position: absolute; inset: -2px; border-radius: 1rem; background: linear-gradient(135deg, var(--lime), var(--cyan)); z-index: -1; opacity: 0; transition: opacity 0.3s; }
+        .playlist-card:hover::before { opacity: 1; }
+        
+        /* Difficulty Meter */
+        .difficulty-meter { height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden; }
+        .difficulty-fill { height: 100%; border-radius: 4px; transition: width 1s ease-out; }
+        
+        /* Funnel Visualization */
+        .funnel-step { position: relative; padding-left: 3rem; }
+        .funnel-step::before { content: ''; position: absolute; left: 1rem; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, var(--lime), var(--cyan), var(--violet)); }
+        .funnel-step::after { content: attr(data-step); position: absolute; left: 0; top: 0.5rem; width: 2rem; height: 2rem; border-radius: 50%; background: var(--lime); color: var(--bg); font-weight: 900; display: flex; align-items: center; justify-content: center; font-size: 0.875rem; }
+        .funnel-step:nth-child(2)::after { background: var(--cyan); }
+        .funnel-step:nth-child(3)::after { background: var(--violet); }
+        
+        /* Checkbox Styling */
+        .checkbox-item { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: rgba(15, 23, 42, 0.5); border-radius: 0.75rem; cursor: pointer; transition: all 0.3s; }
+        .checkbox-item:hover { background: rgba(15, 23, 42, 0.8); transform: translateX(4px); }
+        .checkbox-item input[type="checkbox"] { width: 1.25rem; height: 1.25rem; accent-color: var(--lime); cursor: pointer; }
+        .checkbox-item input[type="checkbox"]:checked + span { color: var(--lime); text-decoration: line-through; opacity: 0.7; }
+        
+        .sticky-nav { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 100; }
+        footer { background: rgba(5, 8, 22, 0.9); border-top: 1px solid rgba(255, 255, 255, 0.05); }
+        .back-to-top { position: fixed; bottom: 6rem; right: 2rem; width: 48px; height: 48px; border-radius: 50%; background: rgba(26, 31, 58, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s; z-index: 50; }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: var(--lime); color: var(--bg); }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="progress-bar" id="progress-bar"></div>
+    <div class="gradient-bg"><div class="gradient-orb orb-1"></div><div class="gradient-orb orb-2"></div></div>
+    
+    <nav class="glass-strong sticky top-0 z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index-premium.html" class="text-2xl font-bold neon-lime">JaZeR</a>
+            <div class="flex items-center gap-6">
+                <span class="badge-progress hidden md:inline">Module 4 of 10</span>
+                <div class="hidden md:flex space-x-6">
+                    <a href="modules.html" class="text-slate-300 hover:text-lime-400 transition">All Modules</a>
+                    <a href="dashboard.html" class="text-slate-300 hover:text-lime-400 transition">Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero with Animation -->
+    <section class="py-20 px-6">
+        <div class="max-w-5xl mx-auto text-center">
+            <span class="badge-lime mb-6 inline-block hero-badge opacity-0">MODULE 04 · STRATEGY</span>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                <span class="hero-title opacity-0">Playlist Strategy</span><br/>
+                <span class="gradient-text hero-title opacity-0">Intelligence</span>
+            </h1>
+            <p class="text-xl text-slate-400 hero-subtitle opacity-0">Precision targeting of curators who program this sub-genre</p>
+            <div class="flex flex-wrap justify-center gap-4 mt-8">
+                <a href="../04 - Playlist Strategy Intelligence/02 - Markdown Notes/JaZeR-04-Playlist-Strategy-Intelligence.md" download class="btn-primary px-8 py-4 rounded-full inline-flex items-center gap-2 hero-cta opacity-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    Download Markdown
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TL;DR -->
+    <section class="py-8 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="tldr-box p-8 rounded-2xl content-card">
+                <h2 class="text-2xl font-bold mb-4 neon-lime flex items-center gap-3"><span class="text-3xl">📌</span> TL;DR</h2>
+                <p class="text-lg text-slate-300 mb-4">Target <strong class="text-lime-400">"Mellow Bars"</strong> and <strong class="text-lime-400">"Jazz Rap"</strong> as reach goals. Start with indie curators like <strong class="text-lime-400">Sphere of Hip Hop</strong> via SubmitHub. You need a <strong class="text-lime-400">30% Save Rate</strong> to trigger Discover Weekly.</p>
+                <ul class="space-y-2 text-slate-300 mt-4">
+                    <li class="flex items-start gap-3"><span class="text-lime-400 text-xl">→</span> Submit to Sphere of Hip Hop first - pitch as "For fans of Mac Miller's jazzier side"</li>
+                    <li class="flex items-start gap-3"><span class="text-cyan-400 text-xl">→</span> Pitch to Spotify Editorial at least 2 weeks before release via S4A</li>
+                    <li class="flex items-start gap-3"><span class="text-violet-400 text-xl">→</span> Upload a Canvas for every track (critical for engagement)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 px-6">
+        <div class="max-w-5xl mx-auto space-y-12">
+            <!-- Interactive Playlist Ecosystem -->
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-4 flex items-center gap-3"><span class="text-3xl">🎵</span> Playlist Ecosystem Map</h2>
+                <p class="text-slate-400 mb-6 text-sm">Hover over playlists to see targeting details</p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="playlist-card glass p-6 rounded-xl">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-bold">"Mellow Bars"</h3>
+                            <span class="text-xs px-2 py-1 rounded bg-violet-500/20 text-violet-400">Editorial</span>
+                        </div>
+                        <div class="text-3xl font-black neon-lime mb-2">500k+</div>
+                        <p class="text-slate-400 text-sm mb-4">Followers</p>
+                        <div class="mb-2"><span class="text-xs text-slate-400">Difficulty</span></div>
+                        <div class="difficulty-meter"><div class="difficulty-fill" style="background: linear-gradient(90deg, #ef4444, #f97316); width: 0%;" data-difficulty="90"></div></div>
+                        <p class="text-lime-400 font-bold mt-4 text-sm">🏆 Holy Grail Target</p>
+                    </div>
+                    <div class="playlist-card glass p-6 rounded-xl">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-bold">"Jazz Rap"</h3>
+                            <span class="text-xs px-2 py-1 rounded bg-violet-500/20 text-violet-400">Editorial</span>
+                        </div>
+                        <div class="text-3xl font-black text-cyan-400 mb-2">1.5M+</div>
+                        <p class="text-slate-400 text-sm mb-4">Followers</p>
+                        <div class="mb-2"><span class="text-xs text-slate-400">Difficulty</span></div>
+                        <div class="difficulty-meter"><div class="difficulty-fill" style="background: linear-gradient(90deg, #ef4444, #f97316); width: 0%;" data-difficulty="85"></div></div>
+                        <p class="text-slate-300 mt-4 text-sm">Massive exposure potential</p>
+                    </div>
+                    <div class="playlist-card glass p-6 rounded-xl">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-bold">"Fresh Finds"</h3>
+                            <span class="text-xs px-2 py-1 rounded bg-violet-500/20 text-violet-400">Editorial</span>
+                        </div>
+                        <div class="text-3xl font-black text-yellow-400 mb-2">100k+</div>
+                        <p class="text-slate-400 text-sm mb-4">Followers</p>
+                        <div class="mb-2"><span class="text-xs text-slate-400">Difficulty</span></div>
+                        <div class="difficulty-meter"><div class="difficulty-fill" style="background: linear-gradient(90deg, #eab308, #f97316); width: 0%;" data-difficulty="70"></div></div>
+                        <p class="text-yellow-400 mt-4 text-sm">Best entry point</p>
+                    </div>
+                    <div class="playlist-card glass p-6 rounded-xl" style="border: 2px solid var(--lime)">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-bold neon-lime">"Sphere of Hip Hop"</h3>
+                            <span class="text-xs px-2 py-1 rounded bg-lime-500/20 text-lime-400">Indie ⭐</span>
+                        </div>
+                        <div class="text-3xl font-black text-lime-400 mb-2">50k+</div>
+                        <p class="text-slate-400 text-sm mb-4">Followers</p>
+                        <div class="mb-2"><span class="text-xs text-slate-400">Difficulty</span></div>
+                        <div class="difficulty-meter"><div class="difficulty-fill" style="background: linear-gradient(90deg, #22c55e, #a3ff12); width: 0%;" data-difficulty="45"></div></div>
+                        <p class="text-lime-400 font-bold mt-4 text-sm">🎯 START HERE</p>
+                    </div>
+                    <div class="playlist-card glass p-6 rounded-xl">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-bold">"Impulse"</h3>
+                            <span class="text-xs px-2 py-1 rounded bg-lime-500/20 text-lime-400">Indie</span>
+                        </div>
+                        <div class="text-3xl font-black text-green-400 mb-2">20k+</div>
+                        <p class="text-slate-400 text-sm mb-4">Followers</p>
+                        <div class="mb-2"><span class="text-xs text-slate-400">Difficulty</span></div>
+                        <div class="difficulty-meter"><div class="difficulty-fill" style="background: linear-gradient(90deg, #22c55e, #a3ff12); width: 0%;" data-difficulty="30"></div></div>
+                        <p class="text-slate-300 mt-4 text-sm">Gateway playlist</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Algorithmic Bridge Funnel -->
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-3"><span class="text-3xl">🌉</span> The "Algorithmic Bridge"</h2>
+                <div class="glass p-8 rounded-2xl mb-6" style="border: 2px solid var(--lime)">
+                    <h3 class="text-2xl font-bold neon-lime mb-4">Goal: Trigger Discover Weekly</h3>
+                    <p class="text-slate-300 mb-6">You need <strong class="text-lime-400">~30% Save Rate</strong> and <strong class="text-red-400">low Skip Rate (&lt;35%)</strong> in the first week.</p>
+                    <div class="space-y-6">
+                        <div class="funnel-step" data-step="1">
+                            <div class="glass p-4 rounded-xl">
+                                <h4 class="font-bold text-lime-400">Use Gateway Playlists</h4>
+                                <p class="text-slate-300 text-sm mt-1">Get the first 1,000 listeners from indie curators</p>
+                            </div>
+                        </div>
+                        <div class="funnel-step" data-step="2">
+                            <div class="glass p-4 rounded-xl">
+                                <h4 class="font-bold text-cyan-400">Accumulate "Saves"</h4>
+                                <p class="text-slate-300 text-sm mt-1">Tells Spotify: "People who like Mac Miller also like JaZeR"</p>
+                            </div>
+                        </div>
+                        <div class="funnel-step" data-step="3">
+                            <div class="glass p-4 rounded-xl">
+                                <h4 class="font-bold text-violet-400">Algorithm Amplification</h4>
+                                <p class="text-slate-300 text-sm mt-1">Spotify serves JaZeR to more Mac Miller fans automatically</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gateway Targets -->
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-3"><span class="text-3xl">🎯</span> "Gateway" Pitch Templates</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="glass p-6 rounded-xl" style="border: 2px solid var(--lime)">
+                        <h3 class="text-xl font-bold neon-lime mb-2">Sphere of Hip Hop</h3>
+                        <p class="text-slate-400 text-sm mb-3">Accepts: Jazzy, Boom-Bap, Lofi, Soulful</p>
+                        <div class="p-4 bg-slate-900/50 rounded-lg">
+                            <p class="text-sm text-slate-300 italic">"For fans of Mac Miller's jazzier side — melodic, introspective, with electronic production undertones."</p>
+                        </div>
+                    </div>
+                    <div class="glass p-6 rounded-xl" style="border: 2px solid var(--violet)">
+                        <h3 class="text-xl font-bold text-violet-400 mb-2">Impulse</h3>
+                        <p class="text-slate-400 text-sm mb-3">Focus: Neo-soul, Alternative R&B</p>
+                        <div class="p-4 bg-slate-900/50 rounded-lg">
+                            <p class="text-sm text-slate-300 italic">"Soulful vibes without the autotune. Think Anderson .Paak meets ProbCause."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Optimization Checklist -->
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-3"><span class="text-3xl">✅</span> Release Optimization Checklist</h2>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <label class="checkbox-item"><input type="checkbox"><span><strong>Sonic Fit:</strong> Track has a &lt;15 second intro?</span></label>
+                    <label class="checkbox-item"><input type="checkbox"><span><strong>Metadata:</strong> Tagged "Chill," "Melodic," "Alternative"</span></label>
+                    <label class="checkbox-item"><input type="checkbox"><span><strong>Timing:</strong> Pitch to S4A 2+ weeks before release</span></label>
+                    <label class="checkbox-item"><input type="checkbox"><span><strong>Canvas:</strong> Uploaded and matches the "Vibe"</span></label>
+                    <label class="checkbox-item"><input type="checkbox"><span><strong>Pre-Save:</strong> Link created and promoted</span></label>
+                    <label class="checkbox-item"><input type="checkbox"><span><strong>SubmitHub:</strong> Credits loaded for indie playlists</span></label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="sticky-nav">
+        <div class="glass-strong px-6 py-3 rounded-full flex items-center gap-4">
+            <a href="module-03.html" class="btn-secondary px-4 py-2 rounded-full text-sm">← Prev</a>
+            <span class="text-slate-400 text-sm hidden md:inline">Module 4 of 10</span>
+            <a href="module-05.html" class="btn-primary px-4 py-2 rounded-full text-sm">Next →</a>
+        </div>
+    </div>
+
+    <button class="back-to-top" id="back-to-top"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
+
+    <footer class="py-12 px-6 mt-20">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-4"><span class="text-2xl font-bold neon-lime">JaZeR</span><span class="text-slate-500">// Research System</span></div>
+                <div class="flex gap-6 text-slate-400">
+                    <a href="modules.html" class="hover:text-lime-400 transition">All Modules</a>
+                    <a href="dashboard.html" class="hover:text-lime-400 transition">Dashboard</a>
+                    <a href="index-premium.html" class="hover:text-lime-400 transition">Home</a>
+                </div>
+            </div>
+            <div class="text-center mt-8 text-slate-600 text-sm">© 2026 JaZeR Strategic Research System · Module 04</div>
+        </div>
+    </footer>
+
+    <script src="assets/js/premium-ui.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            document.getElementById('progress-bar').style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100) + '%';
+        });
+        
+        // Back to Top
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => backToTop.classList.toggle('visible', window.scrollY > 500));
+        backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        
+        // Hero Animation
+        gsap.set('.hero-badge, .hero-title, .hero-subtitle, .hero-cta', { y: 30 });
+        const heroTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        heroTL
+            .to('.hero-badge', { opacity: 1, y: 0, duration: 0.6, delay: 0.2 })
+            .to('.hero-title', { opacity: 1, y: 0, duration: 0.8, stagger: 0.2 }, '-=0.3')
+            .to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
+            .to('.hero-cta', { opacity: 1, y: 0, duration: 0.5 }, '-=0.2');
+        
+        // Content Card Animations
+        gsap.from('.content-card', { y: 60, opacity: 0, stagger: 0.15, duration: 0.8, ease: 'power2.out', scrollTrigger: { trigger: '.content-card', start: 'top 85%' } });
+        
+        // Difficulty Meter Animation
+        document.querySelectorAll('.difficulty-fill').forEach(bar => {
+            const difficulty = bar.getAttribute('data-difficulty');
+            ScrollTrigger.create({
+                trigger: bar,
+                start: 'top 85%',
+                once: true,
+                onEnter: () => { bar.style.width = difficulty + '%'; }
+            });
+        });
+        
+        // Playlist Card Stagger
+        gsap.from('.playlist-card', { scale: 0.9, opacity: 0, stagger: 0.1, duration: 0.6, ease: 'back.out(1.5)', scrollTrigger: { trigger: '.playlist-card', start: 'top 85%' } });
+        
+        // Funnel Animation
+        gsap.from('.funnel-step', { x: -50, opacity: 0, stagger: 0.2, duration: 0.6, ease: 'power2.out', scrollTrigger: { trigger: '.funnel-step', start: 'top 85%' } });
+        
+        // Floating Orbs
+        gsap.to('.orb-1', { x: 50, y: 30, duration: 15, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+        gsap.to('.orb-2', { x: -30, y: -50, duration: 20, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+    </script>
+</body>
+</html>

@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JaZeR: Strategic Touring Roadmap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-dark': '#0f172a',
+                        'brand-purple': '#8b5cf6',
+                        'brand-blue': '#06b6d4',
+                        'brand-pink': '#ec4899',
+                        'brand-gold': '#f59e0b',
+                        'card-bg': '#1e293b',
+                    },
+                    fontFamily: {
+                        'heading': ['Montserrat', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .neon-text {
+            text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+        .gradient-border {
+            position: relative;
+            background: #1e293b;
+            border-radius: 0.5rem;
+        }
+        .gradient-border::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            border-radius: 0.6rem;
+            background: linear-gradient(45deg, #8b5cf6, #06b6d4);
+            z-index: -1;
+            opacity: 0.7;
+        }
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #334155;
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+        .stat-circle {
+            background: conic-gradient(#8b5cf6 var(--percent), #334155 0);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8b5cf6;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <!-- Hero Section -->
+    <header class="relative min-h-[80vh] flex flex-col justify-center items-center text-center px-4 overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-transparent"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto space-y-6">
+            <span class="inline-block px-4 py-1 rounded-full border border-brand-blue text-brand-blue text-sm font-bold tracking-widest uppercase mb-4">Confidential Strategy</span>
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-white neon-text mb-2">
+                JaZeR
+            </h1>
+            <h2 class="text-2xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-brand-blue">
+                Texas Triangle to Southwest Rockies
+            </h2>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto mt-4">
+                Strategic Touring Roadmap & Digital Demand Analysis
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 mt-8">
+                <a href="#strategy" class="bg-brand-purple hover:bg-brand-purple/80 text-white font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105 shadow-lg shadow-brand-purple/50">
+                    Explore Strategy
+                </a>
+                <a href="#logistics" class="bg-transparent border-2 border-brand-blue text-brand-blue hover:bg-brand-blue/10 font-bold py-3 px-8 rounded-full transition-all">
+                    View Logistics
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Executive Overview -->
+    <section id="strategy" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h3 class="text-brand-purple font-bold tracking-widest uppercase mb-2">Executive Overview</h3>
+                <h2 class="text-4xl font-bold text-white mb-6">The New Paradigm</h2>
+                <p class="text-gray-400 max-w-3xl mx-auto text-lg">
+                    Moving from "Spray and Pray" to Precision-Based Touring. We synchronize physical routing with digital demand sensing (Spotify Ad Studio) to minimize risk and maximize audience acquisition in the "Goldilocks" zone (200-500 cap rooms).
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Phase 1 -->
+                <div class="gradient-border p-6 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="bg-brand-dark/50 w-12 h-12 rounded-full flex items-center justify-center mb-4 text-brand-purple">
+                        <i class="fas fa-flask text-xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Phase I: Incubation</h4>
+                    <p class="text-gray-400 text-sm mb-3">Austin & The Triangle Loop</p>
+                    <p class="text-gray-300 text-sm">Utilizing Austin as a content lab. Short-haul weekend runs to Houston, Dallas, and San Antonio to generate capital without heavy overhead.</p>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="gradient-border p-6 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="bg-brand-dark/50 w-12 h-12 rounded-full flex items-center justify-center mb-4 text-brand-blue">
+                        <i class="fas fa-wifi text-xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Phase II: Demand Sensing</h4>
+                    <p class="text-gray-400 text-sm mb-3">Digital Heat Mapping</p>
+                    <p class="text-gray-300 text-sm">Deploying Spotify Ad Studio geo-fenced campaigns. We don't ask promoters for a chance; we show them data proving a latent audience exists.</p>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="gradient-border p-6 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="bg-brand-dark/50 w-12 h-12 rounded-full flex items-center justify-center mb-4 text-brand-gold">
+                        <i class="fas fa-road text-xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Phase III: Expansion</h4>
+                    <p class="text-gray-400 text-sm mb-3">Southwest Corridor</p>
+                    <p class="text-gray-300 text-sm">Calculated routing connecting Texas to the Rockies via bridge markets in NM and AZ. Target demographic: Melodic/Chicano-influenced Hip-Hop.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Austin Hub -->
+    <section class="py-20 bg-gray-900/50 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row items-start justify-between mb-12">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                        <i class="fas fa-map-pin text-brand-pink mr-3"></i>The Austin Hub
+                    </h2>
+                    <p class="text-gray-400">Strategy: Activation over Performance. Become a curator, not just an opener.</p>
+                </div>
+                <div class="mt-4 md:mt-0 px-4 py-2 bg-brand-purple/20 border border-brand-purple rounded-lg text-brand-purple text-sm font-bold">
+                    Target: 200-500 Cap Rooms
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Venue Card 1 -->
+                <div class="bg-card-bg rounded-xl p-5 border-t-4 border-brand-purple shadow-lg">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="font-bold text-lg text-white">Empire Control Room</h3>
+                        <span class="text-xs bg-gray-700 px-2 py-1 rounded">350 Cap</span>
+                    </div>
+                    <p class="text-xs text-brand-purple mb-2 uppercase font-bold">Headline Target</p>
+                    <p class="text-sm text-gray-400 mb-4">Midas M32 console ideal for autotune/reverb fidelity. Projection mapping capable.</p>
+                    <div class="text-xs text-gray-500 border-t border-gray-700 pt-3">
+                        <i class="fas fa-user-tie mr-1"></i> Heard Ent / Resound
+                    </div>
+                </div>
+
+                <!-- Venue Card 2 -->
+                <div class="bg-card-bg rounded-xl p-5 border-t-4 border-brand-gold shadow-lg">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="font-bold text-lg text-white">Flamingo Cantina</h3>
+                        <span class="text-xs bg-gray-700 px-2 py-1 rounded">250 Cap</span>
+                    </div>
+                    <p class="text-xs text-brand-gold mb-2 uppercase font-bold">Community Hub</p>
+                    <p class="text-sm text-gray-400 mb-4">Home to "Butter & Jam". Essential for musician recruitment and CHHK networking.</p>
+                    <div class="text-xs text-gray-500 border-t border-gray-700 pt-3">
+                        <i class="fas fa-user-tie mr-1"></i> Angela
+                    </div>
+                </div>
+
+                <!-- Venue Card 3 -->
+                <div class="bg-card-bg rounded-xl p-5 border-t-4 border-brand-blue shadow-lg">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="font-bold text-lg text-white">Stubb's (Indoor)</h3>
+                        <span class="text-xs bg-gray-700 px-2 py-1 rounded">200 Cap</span>
+                    </div>
+                    <p class="text-xs text-brand-blue mb-2 uppercase font-bold">Resume Builder</p>
+                    <p class="text-sm text-gray-400 mb-4">Intimate room with C3 backing. Requires strong EPK and proven draw history.</p>
+                    <div class="text-xs text-gray-500 border-t border-gray-700 pt-3">
+                        <i class="fas fa-user-tie mr-1"></i> C3 Presents / Lizzie
+                    </div>
+                </div>
+
+                <!-- Venue Card 4 -->
+                <div class="bg-card-bg rounded-xl p-5 border-t-4 border-brand-pink shadow-lg">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="font-bold text-lg text-white">Sahara Lounge</h3>
+                        <span class="text-xs bg-gray-700 px-2 py-1 rounded">150+ Cap</span>
+                    </div>
+                    <p class="text-xs text-brand-pink mb-2 uppercase font-bold">Release Parties</p>
+                    <p class="text-sm text-gray-400 mb-4">Eclectic East Side hub. Relaxed atmosphere, free parking. Great for curated events.</p>
+                    <div class="text-xs text-gray-500 border-t border-gray-700 pt-3">
+                        <i class="fas fa-user-tie mr-1"></i> Independent
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activation Tactics -->
+            <div class="mt-8 bg-brand-dark border border-gray-800 rounded-xl p-6">
+                <h4 class="font-bold text-white mb-4">Ground Game Tactics</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="flex items-start">
+                        <div class="bg-brand-purple/20 p-2 rounded mr-3 text-brand-purple"><i class="fas fa-microphone"></i></div>
+                        <div>
+                            <h5 class="font-bold text-sm text-white">The "Open Mic" Content Loop</h5>
+                            <p class="text-xs text-gray-400">Hit "Vortex Voices" (Mondays) and Speakeasy. Goal is NOT just performance, but capturing content for ads.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-brand-purple/20 p-2 rounded mr-3 text-brand-purple"><i class="fas fa-users"></i></div>
+                        <div>
+                            <h5 class="font-bold text-sm text-white">Collective Alignment</h5>
+                            <p class="text-xs text-gray-400">Align with CHHK and Early Era Collective for cross-disciplinary performance opportunities.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Texas Triangle & Southwest Loop (Timeline) -->
+    <section class="py-20 px-4 relative">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-white mb-16">The Routing Strategy</h2>
+            
+            <div class="relative">
+                <!-- Vertical Line -->
+                <div class="timeline-line bg-gray-700 rounded-full"></div>
+
+                <!-- Houston -->
+                <div class="relative z-10 flex items-center justify-between mb-20 w-full group">
+                    <div class="w-5/12 text-right pr-8">
+                        <h3 class="text-2xl font-bold text-brand-blue">Houston, TX</h3>
+                        <p class="text-sm text-gray-400">The High Value Target</p>
+                        <p class="text-xs text-gray-500 mt-2">2.5 hrs from Austin</p>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-brand-blue border-4 border-gray-900 shadow-[0_0_15px_rgba(6,182,212,0.6)]"></div>
+                    <div class="w-5/12 pl-8">
+                        <div class="bg-gray-800 p-4 rounded-lg border-l-4 border-brand-blue">
+                            <h4 class="font-bold text-white text-sm">White Oak Music Hall</h4>
+                            <p class="text-xs text-gray-400 mb-2">Upstairs (300 Cap). Professional production.</p>
+                            <h4 class="font-bold text-white text-sm">The Secret Group</h4>
+                            <p class="text-xs text-gray-400">EaDo location. Gritty, high energy.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dallas -->
+                <div class="relative z-10 flex items-center justify-between mb-20 w-full flex-row-reverse group">
+                    <div class="w-5/12 text-left pl-8">
+                        <h3 class="text-2xl font-bold text-brand-blue">Dallas, TX</h3>
+                        <p class="text-sm text-gray-400">The Industry Hub</p>
+                        <p class="text-xs text-gray-500 mt-2">3 hrs from Austin</p>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-brand-blue border-4 border-gray-900 shadow-[0_0_15px_rgba(6,182,212,0.6)]"></div>
+                    <div class="w-5/12 text-right pr-8">
+                        <div class="bg-gray-800 p-4 rounded-lg border-r-4 border-brand-blue text-right">
+                            <h4 class="font-bold text-white text-sm">Deep Ellum Art Co.</h4>
+                            <p class="text-xs text-gray-400 mb-2">Art yard vibe. 500 Cap.</p>
+                            <h4 class="font-bold text-white text-sm">Ruins / Three Links</h4>
+                            <p class="text-xs text-gray-400">Deep Ellum staples. High foot traffic.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- San Antonio -->
+                <div class="relative z-10 flex items-center justify-between mb-32 w-full group">
+                    <div class="w-5/12 text-right pr-8">
+                        <h3 class="text-2xl font-bold text-brand-blue">San Antonio, TX</h3>
+                        <p class="text-sm text-gray-400">The Volume Market</p>
+                        <p class="text-xs text-gray-500 mt-2">1.5 hrs from Austin</p>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-brand-blue border-4 border-gray-900 shadow-[0_0_15px_rgba(6,182,212,0.6)]"></div>
+                    <div class="w-5/12 pl-8">
+                        <div class="bg-gray-800 p-4 rounded-lg border-l-4 border-brand-blue">
+                            <h4 class="font-bold text-white text-sm">Paper Tiger</h4>
+                            <p class="text-xs text-gray-400">Small Room (200 Cap). Legendary sweaty shows.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- THE EXPANSION DIVIDER -->
+                <div class="relative z-10 flex justify-center mb-32">
+                    <div class="bg-brand-purple text-white px-6 py-2 rounded-full font-bold shadow-lg shadow-brand-purple/40">
+                        Southwest Expansion (The I-10 Corridor)
+                    </div>
+                </div>
+
+                <!-- El Paso -->
+                <div class="relative z-10 flex items-center justify-between mb-20 w-full group">
+                    <div class="w-5/12 text-right pr-8">
+                        <h3 class="text-2xl font-bold text-brand-purple">El Paso, TX</h3>
+                        <p class="text-sm text-gray-400">The Bridge</p>
+                        <p class="text-xs text-gray-500 mt-2">Leg 1: 8-9 Hours</p>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-brand-purple border-4 border-gray-900 shadow-[0_0_15px_rgba(139,92,246,0.6)]"></div>
+                    <div class="w-5/12 pl-8">
+                        <p class="text-sm text-gray-300">Lowbrow Palace or The Ritz. Captive audience; high merch potential.</p>
+                    </div>
+                </div>
+
+                <!-- Phoenix -->
+                <div class="relative z-10 flex items-center justify-between mb-20 w-full flex-row-reverse group">
+                    <div class="w-5/12 text-left pl-8">
+                        <h3 class="text-2xl font-bold text-brand-gold">Phoenix, AZ</h3>
+                        <p class="text-sm text-gray-400">Desert Anchor (High Value)</p>
+                        <p class="text-xs text-gray-500 mt-2">Leg 2: 6 Hours</p>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-brand-gold border-4 border-gray-900 shadow-[0_0_15px_rgba(245,158,11,0.6)]"></div>
+                    <div class="w-5/12 text-right pr-8">
+                        <div class="bg-gray-800 p-4 rounded-lg border-r-4 border-brand-gold text-right">
+                            <h4 class="font-bold text-white text-sm">Valley Bar</h4>
+                            <p class="text-xs text-gray-400 mb-2">Basement speakeasy vibe. 250 Cap.</p>
+                            <h4 class="font-bold text-white text-sm">The Rebel Lounge</h4>
+                            <p class="text-xs text-gray-400">Artist friendly. 300 Cap.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flagstaff/ABQ -->
+                <div class="relative z-10 flex items-center justify-between mb-20 w-full group">
+                    <div class="w-5/12 text-right pr-8">
+                        <h3 class="text-xl font-bold text-gray-300">Flagstaff & ABQ</h3>
+                        <p class="text-sm text-gray-400">Mountain Bridge</p>
+                    </div>
+                    <div class="w-6 h-6 rounded-full bg-gray-600 border-4 border-gray-900"></div>
+                    <div class="w-5/12 pl-8">
+                        <p class="text-xs text-gray-400">Yucca North (Flagstaff) & Launchpad (ABQ) break up the drive to Denver.</p>
+                    </div>
+                </div>
+
+                <!-- Denver -->
+                <div class="relative z-10 flex items-center justify-between w-full flex-row-reverse group">
+                    <div class="w-5/12 text-left pl-8">
+                        <h3 class="text-2xl font-bold text-brand-gold">Denver, CO</h3>
+                        <p class="text-sm text-gray-400">Mile High Hub</p>
+                        <p class="text-xs text-gray-500 mt-2">Leg 4: 6 Hours</p>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-brand-gold border-4 border-gray-900 shadow-[0_0_15px_rgba(245,158,11,0.6)]"></div>
+                    <div class="w-5/12 text-right pr-8">
+                        <div class="bg-gray-800 p-4 rounded-lg border-r-4 border-brand-gold text-right">
+                            <h4 class="font-bold text-white text-sm">Cervantes' Other Side</h4>
+                            <p class="text-xs text-gray-400 mb-2">The "Holy Grail" for indie hip-hop. 500 Cap.</p>
+                            <h4 class="font-bold text-white text-sm">Lost Lake</h4>
+                            <p class="text-xs text-gray-400">Intimate cabin vibe. 200 Cap.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Digital Demand Sensing (Data Section) -->
+    <section id="digital" class="py-20 bg-brand-dark border-y border-gray-800">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+                <span class="text-brand-purple">Digital Demand Sensing</span> Protocol
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Left: The Logic -->
+                <div class="space-y-6">
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                        <h3 class="text-xl font-bold text-white mb-2"><i class="fab fa-spotify text-green-500 mr-2"></i>Spotify Ad Studio</h3>
+                        <p class="text-gray-400 text-sm mb-4">Goal: Trigger the "BaRT" Algorithm. Paid streams > 30 seconds signal relevance, unlocking organic playlists like Discover Weekly.</p>
+                        <ul class="space-y-2 text-sm text-gray-300">
+                            <li><i class="fas fa-bullseye text-brand-purple mr-2"></i> <strong>Targeting:</strong> Fans of J. Cole, 6LACK, Bryson Tiller.</li>
+                            <li><i class="fas fa-map-marked-alt text-brand-purple mr-2"></i> <strong>Geo-Fence:</strong> Separate ad sets for PHX & DEN to measure CPC per city.</li>
+                            <li><i class="fas fa-coins text-brand-purple mr-2"></i> <strong>Budget:</strong> Min $250 per campaign.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                        <h3 class="text-xl font-bold text-white mb-2"><i class="fab fa-meta text-blue-500 mr-2"></i>Meta Retargeting</h3>
+                        <p class="text-gray-400 text-sm">Spotify is for validation. Meta is for sales.</p>
+                        <div class="mt-3 flex items-center space-x-2 text-xs text-gray-500">
+                            <span class="bg-gray-700 px-2 py-1 rounded">Video Views</span>
+                            <i class="fas fa-arrow-right"></i>
+                            <span class="bg-gray-700 px-2 py-1 rounded">Retarget (50% View)</span>
+                            <i class="fas fa-arrow-right"></i>
+                            <span class="bg-brand-blue text-white px-2 py-1 rounded">"Buy Tickets" Ad</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: The Metrics -->
+                <div class="bg-gray-900 p-8 rounded-2xl border border-gray-800 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 text-9xl font-bold text-white">DATA</div>
+                    <h3 class="text-2xl font-bold text-white mb-8">Key Performance Indicators</h3>
+                    
+                    <div class="space-y-6">
+                        <!-- CTR -->
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-400">Click-Through Rate (CTR) Benchmark</span>
+                                <span class="text-green-400 font-bold">0.23% - 0.57%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2.5">
+                                <div class="bg-green-500 h-2.5 rounded-full" style="width: 50%"></div>
+                            </div>
+                        </div>
+
+                        <!-- CPC -->
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-400">Cost Per Conversion (Stream)</span>
+                                <span class="text-brand-purple font-bold">Target: &lt; $0.30</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2.5">
+                                <div class="bg-brand-purple h-2.5 rounded-full" style="width: 30%"></div>
+                            </div>
+                            <p class="text-xs text-red-400 mt-1">If CPC > $0.50, market is not ready.</p>
+                        </div>
+
+                        <!-- CPA -->
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-400">Cost Per Acquisition (Ticket)</span>
+                                <span class="text-brand-gold font-bold">$5.00 - $9.00</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2.5">
+                                <div class="bg-brand-gold h-2.5 rounded-full" style="width: 70%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-4 bg-brand-purple/10 border border-brand-purple/30 rounded-lg">
+                        <p class="text-sm text-gray-300">
+                            <strong>Financial Reality:</strong> Ticket profit margins are slim. The goal is <span class="text-white font-bold">Audience Acquisition</span> (LTV). Merch sales (T-shirts @ $30) provide the actual tour profit.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logistics & Booking (Actionable) -->
+    <section id="logistics" class="py-20 px-4">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold text-white mb-8 text-center">Logistics & Booking Protocol</h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <!-- The Soft Hold -->
+                <div class="bg-card-bg p-8 rounded-xl shadow-xl">
+                    <h3 class="text-xl font-bold text-brand-pink mb-4">The "Soft Hold" Technique</h3>
+                    <p class="text-sm text-gray-400 mb-4">Never ask to "Book" immediately. Ask for a "Hold".</p>
+                    
+                    <div class="bg-black/50 p-4 rounded-lg font-mono text-xs md:text-sm text-gray-300 border-l-2 border-brand-pink">
+                        <p class="text-gray-500 mb-2">Subject: Avails / Hold Request: JaZeR (Austin R&B/Rap) - Feb 2026</p>
+                        <p class="mb-2">Hi [Name],</p>
+                        <p class="mb-2">Booking for Austin-based artist JaZeR. We are routing a Southwest run and looking to stop in [City] on [Date].</p>
+                        <p class="mb-2 text-brand-pink"><strong>The Draw:</strong> We have [Number] monthly listeners in [City] via Spotify and are running a dedicated ad campaign.</p>
+                        <p>Do you have availability to place a Soft Hold?</p>
+                    </div>
+                </div>
+
+                <!-- Financial Breakdown -->
+                <div class="bg-card-bg p-8 rounded-xl shadow-xl">
+                    <h3 class="text-xl font-bold text-brand-blue mb-4">Break-Even Analysis (7 Days)</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
+                            <span class="text-gray-400"><i class="fas fa-gas-pump mr-2"></i>Gas (2,500 miles)</span>
+                            <span class="text-white font-mono">~$600</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
+                            <span class="text-gray-400"><i class="fas fa-bed mr-2"></i>Lodging (Budget)</span>
+                            <span class="text-white font-mono">~$600</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
+                            <span class="text-gray-400"><i class="fas fa-truck mr-2"></i>Van Rental</span>
+                            <span class="text-white font-mono">~$900</span>
+                        </div>
+                        <div class="mt-4 p-3 bg-green-900/20 border border-green-700 rounded text-center">
+                            <span class="text-green-400 font-bold text-sm">MAGIC NUMBER:</span>
+                            <p class="text-white text-xs mt-1">Selling 10 shirts/night @ $30 covers Gas & Food.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Directory Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="text-gray-500 text-sm border-b border-gray-700">
+                            <th class="p-4">City</th>
+                            <th class="p-4">Venue</th>
+                            <th class="p-4">Cap</th>
+                            <th class="p-4">Contact Strategy</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-300 text-sm">
+                        <tr class="bg-gray-800/30 border-b border-gray-800">
+                            <td class="p-4 font-bold text-brand-purple">Austin</td>
+                            <td class="p-4">Empire Control Room</td>
+                            <td class="p-4">350</td>
+                            <td class="p-4">Heard Ent. High Production.</td>
+                        </tr>
+                        <tr class="bg-gray-800/30 border-b border-gray-800">
+                            <td class="p-4 font-bold text-brand-blue">Houston</td>
+                            <td class="p-4">White Oak (Upstairs)</td>
+                            <td class="p-4">300</td>
+                            <td class="p-4">Pegstar. Competitive.</td>
+                        </tr>
+                        <tr class="bg-gray-800/30 border-b border-gray-800">
+                            <td class="p-4 font-bold text-brand-blue">Dallas</td>
+                            <td class="p-4">Deep Ellum Art Co</td>
+                            <td class="p-4">500</td>
+                            <td class="p-4">Artistic/Inclusive vibe.</td>
+                        </tr>
+                        <tr class="bg-gray-800/30 border-b border-gray-800">
+                            <td class="p-4 font-bold text-brand-gold">Phoenix</td>
+                            <td class="p-4">Valley Bar</td>
+                            <td class="p-4">250</td>
+                            <td class="p-4">Leverage data. Hard to get.</td>
+                        </tr>
+                         <tr class="bg-gray-800/30 border-b border-gray-800">
+                            <td class="p-4 font-bold text-brand-gold">Denver</td>
+                            <td class="p-4">Cervantes' Other Side</td>
+                            <td class="p-4">500</td>
+                            <td class="p-4">Adam Stroul (AEG). Goal venue.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 text-center">
+        <h2 class="text-2xl font-bold text-white mb-4">Action Plan</h2>
+        <div class="flex flex-col md:flex-row justify-center gap-4 text-sm mb-8">
+            <span class="bg-gray-800 px-4 py-2 rounded-full border border-gray-700">1. Launch $250 Spotify Ad Campaign</span>
+            <span class="bg-gray-800 px-4 py-2 rounded-full border border-gray-700">2. Secure Monthly Local Residency</span>
+            <span class="bg-gray-800 px-4 py-2 rounded-full border border-gray-700">3. Send "Soft Hold" Emails (5 Months Out)</span>
+        </div>
+        <p class="text-gray-600 text-xs">Generated for JaZeR • Strategic Touring Roadmap</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JaZeR: Monetization & Pricing Strategy</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- 
+        PALETTE SELECTION: "Neon Cyber"
+        Primary Background: #0f172a (Slate 900)
+        Card Background: #1e293b (Slate 800)
+        Text Primary: #f8fafc (Slate 50)
+        Text Secondary: #94a3b8 (Slate 400)
+        Accent 1 (Cyan): #22d3ee
+        Accent 2 (Pink): #f472b6
+        Accent 3 (Lime): #a3e635
+    -->
+
+    <!--
+        NARRATIVE PLAN:
+        1. Hero Section: Establish the "Streetwear/Hip-Hop" vibe and the core objective (Maximize Revenue per Listener).
+        2. The Value Ladder (Funnel): Visualize the customer journey from a $0.003 stream to a $60 hoodie using a Funnel Chart.
+           - Goal: Inform/Organize (Hierarchy of value).
+           - Visual: Plotly Funnel (Canvas).
+        3. Unit Economics (Margins): Compare the Price Point vs. Actual Profit for core items.
+           - Goal: Compare (Profitability).
+           - Visual: Chart.js Stacked Bar or Grouped Bar.
+        4. Market Benchmarks: Compare JaZeR's pricing against standard Indie vs. Premium Streetwear.
+           - Goal: Compare (Context).
+           - Visual: Chart.js Bar Chart.
+        5. The "Drop" Strategy: Visual flow of the "First 100" campaign.
+           - Goal: Process/Flow.
+           - Visual: HTML/CSS Grid & Cards (No Mermaid/SVG).
+        6. Spotify Integration Check: Actionable list for platform setup.
+           - Goal: Organize.
+           - Visual: Styled List.
+    -->
+
+    <!--
+        VISUALIZATION CHOICES & JUSTIFICATION (NO SVG CONFIRMATION):
+        1. Revenue Funnel -> Plotly Funnel Chart -> Best for showing stage reduction and value increase. Configured for WebGL/Canvas. NO SVG.
+        2. Margin Analysis -> Chart.js Bar -> Standard comparison, easy to read. Canvas rendering. NO SVG.
+        3. Pricing Benchmarks -> Chart.js Bar -> Clear side-by-side comparison. Canvas rendering. NO SVG.
+        4. Drop Strategy -> HTML/Tailwind -> Flexible layout for text/process steps. NO SVG/Mermaid.
+    -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+        
+        /* Chart Container Styles - Responsive Boundaries */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Max width to prevent stretching */
+            height: 350px;    /* Default Height */
+            max-height: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Taller container for Plotly if needed */
+        .plotly-container {
+            height: 400px;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 640px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+
+        /* Custom Scrollbar for a "Cyber" feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #22d3ee; 
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-cyan-400 selection:text-slate-900">
+
+    <!-- Header / Hero -->
+    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 bg-opacity-95 backdrop-blur">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl font-bold text-cyan-400">JaZeR</span>
+                <span class="text-slate-500">|</span>
+                <span class="text-sm tracking-widest text-slate-400">FINANCIAL BLUEPRINT</span>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-semibold text-slate-400">
+                <a href="#value-ladder" class="hover:text-cyan-400 transition">Value Ladder</a>
+                <a href="#economics" class="hover:text-pink-400 transition">Economics</a>
+                <a href="#strategy" class="hover:text-lime-400 transition">Strategy</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 space-y-16">
+
+        <!-- Introduction -->
+        <section class="text-center max-w-4xl mx-auto space-y-4">
+            <h1 class="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-500">
+                Monetizing the Vibe
+            </h1>
+            <p class="text-lg md:text-xl text-slate-400">
+                A strategic deep dive into maximizing revenue per listener for JaZeR. Moving beyond the fraction-of-a-cent stream to high-margin streetwear and VIP experiences.
+            </p>
+            <div class="flex justify-center gap-4 pt-4">
+                <div class="px-4 py-2 bg-slate-800 rounded border border-slate-700 text-xs font-bold text-cyan-400">MINIMALIST STREETWEAR</div>
+                <div class="px-4 py-2 bg-slate-800 rounded border border-slate-700 text-xs font-bold text-pink-400">HIGH TICKET MERCH</div>
+                <div class="px-4 py-2 bg-slate-800 rounded border border-slate-700 text-xs font-bold text-lime-400">DIRECT TO FAN</div>
+            </div>
+        </section>
+
+        <!-- Section 1: The Value Ladder (Funnel) -->
+        <section id="value-ladder" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-slate-800/50 p-8 rounded-2xl border border-slate-700 shadow-xl">
+            <div class="space-y-6">
+                <div class="border-l-4 border-cyan-400 pl-4">
+                    <h2 class="text-3xl font-bold text-white">The Value Ladder</h2>
+                    <p class="text-slate-400 mt-2">From casual listener to superfan investor.</p>
+                </div>
+                <p class="text-slate-300 leading-relaxed">
+                    Streaming is not the revenue driver; it is the marketing channel. The goal is to migrate users from the low-value "Entry" tier (Spotify streams) up to "Core" and "Premium" tiers where profit margins are sustainable. We prioritize <strong>Core</strong> items like T-shirts for volume and <strong>Premium</strong> items like Hoodies for margin.
+                </p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-slate-800 p-4 rounded border border-slate-700">
+                        <div class="text-xs text-slate-500 uppercase">Entry Point</div>
+                        <div class="text-xl font-bold text-white">$0.003</div>
+                        <div class="text-xs text-cyan-400">Per Stream</div>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded border border-slate-700">
+                        <div class="text-xs text-slate-500 uppercase">VIP Target</div>
+                        <div class="text-xl font-bold text-white">$60.00</div>
+                        <div class="text-xs text-pink-400">Per Hoodie</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Plotly Chart Container -->
+            <div class="w-full">
+                <div id="funnelChart" class="chart-container plotly-container"></div>
+                <p class="text-center text-xs text-slate-500 mt-2">Figure 1: Revenue tiers and target conversion flow.</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Unit Economics & Pricing Benchmarks -->
+        <section id="economics" class="space-y-8">
+            <div class="text-center max-w-3xl mx-auto mb-8">
+                <h2 class="text-3xl font-bold text-white mb-4">Unit Economics & Market Positioning</h2>
+                <p class="text-slate-400">
+                    Understanding where the profit actually lives. While streams provide volume, physical goods provide the capital required to scale. We benchmark JaZeR's pricing against industry standards to ensure competitive yet profitable positioning.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Chart 1: Margins -->
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-lg">
+                    <h3 class="text-xl font-bold text-lime-400 mb-2">Profit Margin Analysis</h3>
+                    <p class="text-sm text-slate-400 mb-6">Estimated profit per unit sold vs. cost of goods.</p>
+                    <div class="chart-container">
+                        <canvas id="marginChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-4 text-center">Hoodies offer similar % margin to tees but 2x the absolute dollar profit.</p>
+                </div>
+
+                <!-- Chart 2: Benchmarks -->
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-lg">
+                    <h3 class="text-xl font-bold text-pink-400 mb-2">Pricing Power Benchmarks</h3>
+                    <p class="text-sm text-slate-400 mb-6">Standard Indie pricing vs. Premium Streetwear positioning.</p>
+                    <div class="chart-container">
+                        <canvas id="benchmarkChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-4 text-center">Targeting "Premium" pricing requires "Heavyweight" garment blanks.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The "Drop" Strategy -->
+        <section id="strategy" class="bg-slate-900 p-1">
+            <div class="mb-10 border-l-4 border-lime-400 pl-4">
+                <h2 class="text-3xl font-bold text-white">The "First 100" Drop Strategy</h2>
+                <p class="text-slate-400 mt-2">A scarcity-driven launch model to build the "Founders Club."</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- Step 1 -->
+                <div class="bg-slate-800 p-6 rounded-lg border-t-4 border-cyan-400 relative overflow-hidden group hover:-translate-y-1 transition duration-300">
+                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-16 h-16 bg-cyan-400/10 rounded-full blur-xl group-hover:bg-cyan-400/20 transition"></div>
+                    <div class="text-4xl font-bold text-slate-700 mb-2">01</div>
+                    <h4 class="text-lg font-bold text-cyan-400 mb-2">Design & Source</h4>
+                    <p class="text-sm text-slate-300">Create "Minimalist Streetwear." Avoid giant logos. Source 25-50 units of high-quality blanks. Goal is <strong>Cool</strong>, not Billboard.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-slate-800 p-6 rounded-lg border-t-4 border-pink-400 relative overflow-hidden group hover:-translate-y-1 transition duration-300">
+                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-16 h-16 bg-pink-400/10 rounded-full blur-xl group-hover:bg-pink-400/20 transition"></div>
+                    <div class="text-4xl font-bold text-slate-700 mb-2">02</div>
+                    <h4 class="text-lg font-bold text-pink-400 mb-2">The "Founders" Hook</h4>
+                    <p class="text-sm text-slate-300">Market strictly to top listeners via DM or Email. "Founders Club" exclusive access. Creates 25 walking billboards.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-slate-800 p-6 rounded-lg border-t-4 border-lime-400 relative overflow-hidden group hover:-translate-y-1 transition duration-300">
+                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-16 h-16 bg-lime-400/10 rounded-full blur-xl group-hover:bg-lime-400/20 transition"></div>
+                    <div class="text-4xl font-bold text-slate-700 mb-2">03</div>
+                    <h4 class="text-lg font-bold text-lime-400 mb-2">Direct Sales</h4>
+                    <p class="text-sm text-slate-300">Use Shopify Starter or BigCartel. Keep it lean. Goal is breakeven + buzz. Do not overstock inventory.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="bg-slate-800 p-6 rounded-lg border-t-4 border-purple-400 relative overflow-hidden group hover:-translate-y-1 transition duration-300">
+                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-16 h-16 bg-purple-400/10 rounded-full blur-xl group-hover:bg-purple-400/20 transition"></div>
+                    <div class="text-4xl font-bold text-slate-700 mb-2">04</div>
+                    <h4 class="text-lg font-bold text-purple-400 mb-2">Scale & Integrate</h4>
+                    <p class="text-sm text-slate-300">Reinvest profits into "Always On" core collection. List on Merchbar to sync with Spotify profile.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Spotify Integration -->
+        <section class="bg-slate-800 rounded-xl p-8 border border-slate-700 shadow-xl">
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+                <span class="w-3 h-3 bg-green-500 rounded-full mr-3 animate-pulse"></span>
+                Spotify Integration Checklist
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full bg-slate-700 text-cyan-400 font-bold text-xs mt-0.5">✓</div>
+                        <div class="ml-4">
+                            <h5 class="text-white font-semibold">Connect Merchbar</h5>
+                            <p class="text-sm text-slate-400">Listing physical items here automatically pushes them to your "Merch" tab on the artist profile.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full bg-slate-700 text-cyan-400 font-bold text-xs mt-0.5">✓</div>
+                        <div class="ml-4">
+                            <h5 class="text-white font-semibold">Artist Pick Optimization</h5>
+                            <p class="text-sm text-slate-400">Don't just pin a song. Pin your upcoming Show or your Merch Store URL during launch weeks.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full bg-slate-700 text-cyan-400 font-bold text-xs mt-0.5">✓</div>
+                        <div class="ml-4">
+                            <h5 class="text-white font-semibold">Bio Link Strategy</h5>
+                            <p class="text-sm text-slate-400">Ensure your "About" section includes a direct call-to-action (CTA) to the shop.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full bg-slate-700 text-cyan-400 font-bold text-xs mt-0.5">✓</div>
+                        <div class="ml-4">
+                            <h5 class="text-white font-semibold">Canvas Visuals</h5>
+                            <p class="text-sm text-slate-400">Use the 8-second Spotify Canvas video loop to tease merch designs (people wearing the hoodie).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-slate-500 text-sm py-8 border-t border-slate-800">
+            <p>© 2025 JaZeR Financial Strategy Team. Data based on Q1 benchmarks.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // --- 1. Label Wrapping Utility (Mandatory) ---
+        function wrapLabel(label, maxLength = 16) {
+            if (label.length <= maxLength) return label;
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if ((currentLine + " " + words[i]).length <= maxLength) {
+                    currentLine += " " + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // --- 2. Chart.js Tooltip Configuration (Mandatory) ---
+        const commonChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#94a3b8', // Slate 400
+                        font: { family: 'Inter' }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: '#1e293b',
+                    titleColor: '#f8fafc',
+                    bodyColor: '#cbd5e1',
+                    borderColor: '#334155',
+                    borderWidth: 1,
+                    padding: 10,
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                                return label.join(' ');
+                            } else {
+                                return label;
+                            }
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { color: '#94a3b8', font: { family: 'Inter' } },
+                    grid: { color: '#334155' } // Slate 700
+                },
+                y: {
+                    ticks: { color: '#94a3b8', font: { family: 'Inter' } },
+                    grid: { color: '#334155' }
+                }
+            }
+        };
+
+        // --- 3. Plotly Funnel Chart (The Value Ladder) ---
+        const funnelData = [{
+            type: 'funnel',
+            y: ["Entry: Stream", "Core: T-Shirt", "Premium: Hoodie", "VIP: Vinyl"],
+            x: [10000, 500, 150, 25], // Hypothetical conversion volumes
+            textposition: "inside",
+            textinfo: "label+value",
+            hoverinfo: "x+y",
+            marker: {
+                color: ["#334155", "#22d3ee", "#f472b6", "#a3e635"],
+                line: { width: 0 }
+            },
+            connector: { line: { color: "#475569", width: 1 } }
+        }];
+
+        const funnelLayout = {
+            margin: { l: 150, r: 20, t: 20, b: 20 },
+            paper_bgcolor: "rgba(0,0,0,0)",
+            plot_bgcolor: "rgba(0,0,0,0)",
+            funnelmode: "stack",
+            showlegend: false,
+            font: { color: "#f8fafc", family: "Inter" }
+        };
+        
+        // Render Plotly
+        Plotly.newPlot('funnelChart', funnelData, funnelLayout, {displayModeBar: false, responsive: true});
+
+
+        // --- 4. Chart.js Margin Analysis (Grouped Bar) ---
+        const marginCtx = document.getElementById('marginChart').getContext('2d');
+        const rawMarginLabels = ['T-Shirt (Core)', 'Hoodie (Premium)', 'Vinyl (VIP)'];
+        const wrappedMarginLabels = rawMarginLabels.map(l => wrapLabel(l));
+
+        new Chart(marginCtx, {
+            type: 'bar',
+            data: {
+                labels: wrappedMarginLabels,
+                datasets: [
+                    {
+                        label: 'Sell Price ($)',
+                        data: [30, 60, 40],
+                        backgroundColor: '#22d3ee', // Cyan
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'Est. Profit ($)',
+                        data: [15, 24, 10], // Assuming ~50% tee, ~40% hoodie, lower on vinyl
+                        backgroundColor: '#a3e635', // Lime
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                ...commonChartOptions,
+                plugins: {
+                    ...commonChartOptions.plugins,
+                    title: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // --- 5. Chart.js Benchmark Analysis (Bar Comparison) ---
+        const benchmarkCtx = document.getElementById('benchmarkChart').getContext('2d');
+        const rawBenchLabels = ['Standard T-Shirt', 'Heavyweight Tee', 'Standard Hoodie', 'Premium Hoodie'];
+        const wrappedBenchLabels = rawBenchLabels.map(l => wrapLabel(l));
+
+        new Chart(benchmarkCtx, {
+            type: 'bar',
+            data: {
+                labels: wrappedBenchLabels,
+                datasets: [
+                    {
+                        label: 'Indie Standard ($)',
+                        data: [25, 30, 45, 55],
+                        backgroundColor: '#334155', // Slate 700 (Muted)
+                        borderRadius: 4,
+                        borderWidth: 1,
+                        borderColor: '#94a3b8'
+                    },
+                    {
+                        label: 'JaZeR Target ($)',
+                        data: [30, 35, 50, 60],
+                        backgroundColor: '#f472b6', // Pink
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                ...commonChartOptions,
+                scales: {
+                    ...commonChartOptions.scales,
+                    y: {
+                        ...commonChartOptions.scales.y,
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Price ($)',
+                            color: '#94a3b8'
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloads | JaZeR Strategic System</title>
+
+    <!-- SEO -->
+    <meta name="description" content="Download all research reports, PDFs, DOCX files, and markdown documents from the JaZeR Spotify Growth System.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #22d3ee 0%, #a3e635 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: #22d3ee;
+            box-shadow: 0 10px 40px rgba(34, 211, 238, 0.2);
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(34, 211, 238, 0.4);
+        }
+
+        .file-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 1px solid #334155;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-pdf {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            border: 1px solid #dc2626;
+        }
+
+        .badge-docx {
+            background: rgba(59, 130, 246, 0.2);
+            color: #93c5fd;
+            border: 1px solid #3b82f6;
+        }
+
+        .badge-md {
+            background: rgba(163, 230, 53, 0.2);
+            color: #d9f99d;
+            border: 1px solid #a3e635;
+        }
+
+        .badge-html {
+            background: rgba(249, 115, 22, 0.2);
+            color: #fdba74;
+            border: 1px solid #f97316;
+        }
+
+        .badge-json {
+            background: rgba(139, 92, 246, 0.2);
+            color: #c4b5fd;
+            border: 1px solid #8b5cf6;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <a href="index.html" class="text-2xl font-bold gradient-text">JaZeR</a>
+                    <span class="text-slate-400 text-sm hidden sm:inline">| Downloads</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="index.html" class="text-slate-300 hover:text-cyan-400 transition">Home</a>
+                    <a href="modules.html" class="text-slate-300 hover:text-cyan-400 transition">All Modules</a>
+                    <a href="dashboard.html" class="text-slate-300 hover:text-cyan-400 transition">Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="pt-32 pb-12 px-4">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                <span class="gradient-text">Downloads</span>
+            </h1>
+            <p class="text-xl text-slate-300 max-w-3xl mx-auto mb-8">
+                Access all research reports, strategic documents, and data exports. Download individual files or grab the complete package.
+            </p>
+        </div>
+    </section>
+
+    <!-- Master Downloads -->
+    <section class="py-12 px-4 bg-slate-800/50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-center">Master Package</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <!-- Complete Report DOCX -->
+                <div class="card p-6 rounded-xl">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="file-icon">📄</div>
+                        <div class="flex-1">
+                            <div class="badge badge-docx mb-2">DOCX</div>
+                            <h3 class="text-xl font-bold mb-1">Complete Research Sprint</h3>
+                            <p class="text-sm text-slate-400">All 10 modules compiled (6.0 MB)</p>
+                        </div>
+                    </div>
+                    <a href="../MASTER/Artist Spotify & Market Research Sprint.docx" download class="download-btn w-full px-4 py-3 rounded-lg text-white text-center font-semibold block">
+                        Download Complete DOCX
+                    </a>
+                </div>
+
+                <!-- Interactive Roadmap HTML -->
+                <div class="card p-6 rounded-xl">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="file-icon">🌐</div>
+                        <div class="flex-1">
+                            <div class="badge badge-html mb-2">HTML</div>
+                            <h3 class="text-xl font-bold mb-1">Interactive Dashboard</h3>
+                            <p class="text-sm text-slate-400">Chart.js visualizations (43 KB)</p>
+                        </div>
+                    </div>
+                    <a href="../MASTER/JaZeR-Project-Roadmap.html" download class="download-btn w-full px-4 py-3 rounded-lg text-white text-center font-semibold block">
+                        Download Dashboard HTML
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Module-by-Module Downloads -->
+    <section class="py-12 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-center">Module Research Files</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Module 01 -->
+                <div class="card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold mb-4">Module 01: Research Brief</h3>
+                    <div class="space-y-3">
+                        <a href="../01 - Research Brief and Scope/JaZeR-01-Project-Profile-&-Reality-Check.md" download class="flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition">
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-md">MD</span>
+                                <span class="text-sm">Research Output</span>
+                            </div>
+                            <span class="text-cyan-400">⬇</span>
+                        </a>
+                        <a href="../01 - Research Brief and Scope/JaZeR_Austin_2026_Launch_Strategy.pdf" download class="flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition">
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-pdf">PDF</span>
+                                <span class="text-sm">NotebookLM Briefing (24 MB)</span>
+                            </div>
+                            <span class="text-cyan-400">⬇</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Module 02 -->
+                <div class="card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold mb-4">Module 02: Market Landscape</h3>
+                    <div class="space-y-3">
+                        <a href="../02 - Spotify Market Landscape/JaZeR-02-Spotify-Market-Landscape.md" download class="flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition">
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-md">MD</span>
+                                <span class="text-sm">Research Output</span>
+                            </div>
+                            <span class="text-cyan-400">⬇</span>
+                        </a>
+                        <a href="../02 - Spotify Market Landscape/JaZeR_Austin_Electronic_Soul_Blueprint.pdf" download class="flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition">
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-pdf">PDF</span>
+                                <span class="text-sm">NotebookLM Briefing (15 MB)</span>
+                            </div>
+                            <span class="text-cyan-400">⬇</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Module 03 -->
+                <div class="card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold mb-4">Module 03: Audience Profile</h3>
+                    <div class="space-y-3">
+                        <a href="../03 - Audience and Listener Profile/JaZeR-03-Audience-and-Listener-Profile.md" download class="flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition">
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-md">MD</span>
+                                <span class="text-sm">Research Output</span>
+                            </div>
+                            <span class="text-cyan-400">⬇</span>
+                        </a>
+                        <a href="../03 - Audience and Listener Profile/Audience_Architecture_Blueprint_for_JaZeR.pdf" download class="flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition">
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-pdf">PDF</span>
+                                <span class="text-sm">NotebookLM Briefing</span>
+                            </div>
+                            <span class="text-cyan-400">⬇</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Module 04 -->
+                <div class="card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold mb-4">Module 04: Playlist Strategy</h3>
+                    <div class="space-y-3">
+                        <a href="../04 - Playlist Strategy Intelligence/JaZeR-04-Playlist-Strategy-Intelligence.md" download class="flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition">
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-md">MD</span>
+                                <span class="text-sm">Research Output</span>
+                            </div>
+                            <span class="text-cyan-400">⬇</span>
+                        </a>
+                        <a href="../04 - Playlist Strategy Intelligence/The_Conscious_Vibe_Curator_Blueprint.pdf" download class="flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition">
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-pdf">PDF</span>
+                                <span class="text-sm">NotebookLM Briefing</span>
+                            </div>
+                            <span class="text-cyan-400">⬇</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Module 05 -->
+                <div class="card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold mb-4">Module 05: Release Strategy</h3>
+                    <div class="space-y-3">
+                        <a href="../05 - Release Strategy Benchmarks/JaZeR-05-Release-Strategy-Benchmarks.md" download class="flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition">
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-md">MD</span>
+                                <span class="text-sm">Research Output</span>
+                            </div>
+                            <span class="text-cyan-400">⬇</span>
+                        </a>
+                        <a href="../05 - Release Strategy Benchmarks/JaZeR_Waterfall_System_Architecture.pdf" download class="flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition">
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-pdf">PDF</span>
+                                <span class="text-sm">NotebookLM Briefing</span>
+                            </div>
+                            <span class="text-cyan-400">⬇</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Module 06 -->
+                <div class="card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold mb-4">Module 06: Algorithmic Growth</h3>
+                    <div class="space-y-3">
+                        <a href="../06 - Algorithmic Growth Drivers/JaZeR-06-Algorithmic-Growth-Drivers.md" download class="flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition">
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-md">MD</span>
+                                <span class="text-sm">Research Output</span>
+                            </div>
+                            <span class="text-cyan-400">⬇</span>
+                        </a>
+                        <a href="../06 - Algorithmic Growth Drivers/Algorithmic_Retention_Architecture.pdf" download class="flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition">
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-pdf">PDF</span>
+                                <span class="text-sm">NotebookLM Briefing</span>
+                            </div>
+                            <span class="text-cyan-400">⬇</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Module 07 -->
+                <div class="card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold mb-4">Module 07: Marketing Channels</h3>
+                    <div class="space-y-3">
+                        <a href="../07 - Marketing Channel Effectiveness/JaZeR-07-Marketing-Channel-Effectiveness.md" download class="flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition">
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-md">MD</span>
+                                <span class="text-sm">Research Output</span>
+                            </div>
+                            <span class="text-cyan-400">⬇</span>
+                        </a>
+                        <a href="../07 - Marketing Channel Effectiveness/Hip_Hop_Marketing_Ecosystem_2025.pdf" download class="flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition">
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-pdf">PDF</span>
+                                <span class="text-sm">NotebookLM Briefing</span>
+                            </div>
+                            <span class="text-cyan-400">⬇</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Module 08 -->
+                <div class="card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold mb-4">Module 08: Touring Strategy</h3>
+                    <div class="space-y-3">
+                        <a href="../08 - Touring and Spotify Demand Signals/JaZeR-08-Touring-and-Spotify-Demand-Signals.md" download class="flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition">
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-md">MD</span>
+                                <span class="text-sm">Research Output</span>
+                            </div>
+                            <span class="text-cyan-400">⬇</span>
+                        </a>
+                        <a href="../08 - Touring and Spotify Demand Signals/Precision_Touring_Blueprint.pdf" download class="flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition">
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-pdf">PDF</span>
+                                <span class="text-sm">NotebookLM Briefing</span>
+                            </div>
+                            <span class="text-cyan-400">⬇</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Module 09 -->
+                <div class="card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold mb-4">Module 09: Monetization</h3>
+                    <div class="space-y-3">
+                        <a href="../09 - Monetization and Pricing Benchmarks/JaZeR-09-Monetization-and-Pricing-Benchmarks.md" download class="flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition">
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-md">MD</span>
+                                <span class="text-sm">Research Output</span>
+                            </div>
+                            <span class="text-cyan-400">⬇</span>
+                        </a>
+                        <a href="../09 - Monetization and Pricing Benchmarks/JaZeR_Brand_Sovereignty_Strategy.pdf" download class="flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition">
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-pdf">PDF</span>
+                                <span class="text-sm">NotebookLM Briefing</span>
+                            </div>
+                            <span class="text-cyan-400">⬇</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Module 10 -->
+                <div class="card p-6 rounded-xl border-2 border-cyan-400">
+                    <h3 class="text-lg font-bold mb-4">Module 10: Executive Summary</h3>
+                    <div class="space-y-3">
+                        <a href="../10 - Executive Summary and 90-Day Plan/JaZeR-10-Executive-Summary-and-90-Day-Plan.md" download class="flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition">
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-md">MD</span>
+                                <span class="text-sm">Research Output</span>
+                            </div>
+                            <span class="text-cyan-400">⬇</span>
+                        </a>
+                        <a href="../10 - Executive Summary and 90-Day Plan/JaZeR_Austin_Market_Strategy.pdf" download class="flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition">
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-pdf">PDF</span>
+                                <span class="text-sm">NotebookLM Briefing</span>
+                            </div>
+                            <span class="text-cyan-400">⬇</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- JSON Data Exports -->
+    <section class="py-12 px-4 bg-slate-800/50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-center">Structured Data Exports</h2>
+            <p class="text-center text-slate-400 mb-8">JSON files for developers and data analysis</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <div class="card p-6 rounded-xl">
+                    <div class="file-icon mb-4 mx-auto">{ }</div>
+                    <h3 class="text-center font-bold mb-2">Competitors</h3>
+                    <p class="text-sm text-slate-400 text-center mb-4">Market landscape data</p>
+                    <a href="data/competitors.json" download class="download-btn w-full px-4 py-2 rounded-lg text-white text-center font-semibold block text-sm">
+                        Download JSON
+                    </a>
+                </div>
+
+                <div class="card p-6 rounded-xl">
+                    <div class="file-icon mb-4 mx-auto">{ }</div>
+                    <h3 class="text-center font-bold mb-2">Playlists</h3>
+                    <p class="text-sm text-slate-400 text-center mb-4">Targeting strategy</p>
+                    <a href="data/playlists.json" download class="download-btn w-full px-4 py-2 rounded-lg text-white text-center font-semibold block text-sm">
+                        Download JSON
+                    </a>
+                </div>
+
+                <div class="card p-6 rounded-xl">
+                    <div class="file-icon mb-4 mx-auto">{ }</div>
+                    <h3 class="text-center font-bold mb-2">Venues</h3>
+                    <p class="text-sm text-slate-400 text-center mb-4">Touring intel</p>
+                    <a href="data/venues.json" download class="download-btn w-full px-4 py-2 rounded-lg text-white text-center font-semibold block text-sm">
+                        Download JSON
+                    </a>
+                </div>
+
+                <div class="card p-6 rounded-xl">
+                    <div class="file-icon mb-4 mx-auto">{ }</div>
+                    <h3 class="text-center font-bold mb-2">Timeline</h3>
+                    <p class="text-sm text-slate-400 text-center mb-4">90-day plan</p>
+                    <a href="data/timeline.json" download class="download-btn w-full px-4 py-2 rounded-lg text-white text-center font-semibold block text-sm">
+                        Download JSON
+                    </a>
+                </div>
+
+                <div class="card p-6 rounded-xl">
+                    <div class="file-icon mb-4 mx-auto">{ }</div>
+                    <h3 class="text-center font-bold mb-2">Audience</h3>
+                    <p class="text-sm text-slate-400 text-center mb-4">Persona & demographics</p>
+                    <a href="data/audience.json" download class="download-btn w-full px-4 py-2 rounded-lg text-white text-center font-semibold block text-sm">
+                        Download JSON
+                    </a>
+                </div>
+
+                <div class="card p-6 rounded-xl">
+                    <div class="file-icon mb-4 mx-auto">{ }</div>
+                    <h3 class="text-center font-bold mb-2">Algorithm</h3>
+                    <p class="text-sm text-slate-400 text-center mb-4">Optimization signals</p>
+                    <a href="data/algorithm.json" download class="download-btn w-full px-4 py-2 rounded-lg text-white text-center font-semibold block text-sm">
+                        Download JSON
+                    </a>
+                </div>
+
+                <div class="card p-6 rounded-xl">
+                    <div class="file-icon mb-4 mx-auto">{ }</div>
+                    <h3 class="text-center font-bold mb-2">Marketing</h3>
+                    <p class="text-sm text-slate-400 text-center mb-4">Channel effectiveness</p>
+                    <a href="data/marketing.json" download class="download-btn w-full px-4 py-2 rounded-lg text-white text-center font-semibold block text-sm">
+                        Download JSON
+                    </a>
+                </div>
+
+                <div class="card p-6 rounded-xl">
+                    <div class="file-icon mb-4 mx-auto">{ }</div>
+                    <h3 class="text-center font-bold mb-2">Monetization</h3>
+                    <p class="text-sm text-slate-400 text-center mb-4">Pricing & revenue</p>
+                    <a href="data/monetization.json" download class="download-btn w-full px-4 py-2 rounded-lg text-white text-center font-semibold block text-sm">
+                        Download JSON
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Need Help?</h2>
+            <p class="text-xl text-slate-300 mb-8">Explore the interactive dashboard for visualizations, or view all modules for detailed analysis.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="dashboard.html" class="download-btn px-8 py-4 rounded-lg text-white font-semibold text-lg">
+                    Open Dashboard
+                </a>
+                <a href="modules.html" class="border border-slate-600 hover:border-cyan-400 px-8 py-4 rounded-lg text-slate-300 hover:text-cyan-400 font-semibold text-lg transition">
+                    View All Modules
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 bg-slate-900 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold gradient-text mb-4">JaZeR Research</h3>
+                    <p class="text-slate-400">Strategic Spotify growth intelligence system for Austin melodic hip-hop.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-slate-300">Quick Links</h4>
+                    <ul class="space-y-2 text-slate-400">
+                        <li><a href="index.html" class="hover:text-cyan-400 transition">Home</a></li>
+                        <li><a href="modules.html" class="hover:text-cyan-400 transition">All Modules</a></li>
+                        <li><a href="dashboard.html" class="hover:text-cyan-400 transition">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-slate-300">System Info</h4>
+                    <ul class="space-y-2 text-slate-400">
+                        <li>10 Research Modules</li>
+                        <li>90-Day Execution Plan</li>
+                        <li>100% Data-Driven</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center text-slate-500 text-sm pt-8 border-t border-slate-800">
+                <p>&copy; 2026 JaZeR Strategic Research System. Built for artist development.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,225 @@
+{
+  "title": "90-Day Sprint Calendar",
+  "source": "Module 10 - Executive Summary and 90-Day Plan",
+  "lastUpdated": "2026-01-09",
+  "overview": {
+    "duration": "90 days (12 weeks)",
+    "phases": 3,
+    "goal": "Launch to proof - establish foundation and hit 1,000 monthly listeners"
+  },
+  "phases": [
+    {
+      "phase": 1,
+      "name": "Foundation",
+      "alias": "The 'Stealth' Phase",
+      "duration": "Month 1 (Weeks 1-4)",
+      "color": "#22d3ee",
+      "objective": "Build all assets and infrastructure before launch",
+      "weeks": [
+        {
+          "weekRange": "Week 1-2",
+          "name": "Asset Creation",
+          "tasks": [
+            {
+              "id": "m1-w1-1",
+              "task": "Finalize Single 1 master",
+              "category": "Music Production",
+              "priority": "Critical"
+            },
+            {
+              "id": "m1-w1-2",
+              "task": "Shoot cover art & Canvas (high aesthetic value)",
+              "category": "Visual Assets",
+              "priority": "Critical"
+            },
+            {
+              "id": "m1-w1-3",
+              "task": "Set up Spotify for Artists & social profiles",
+              "category": "Infrastructure",
+              "priority": "Critical"
+            }
+          ]
+        },
+        {
+          "weekRange": "Week 3-4",
+          "name": "The Setup",
+          "tasks": [
+            {
+              "id": "m1-w3-1",
+              "task": "Upload Single 1 to DistroKid (4 weeks out)",
+              "category": "Distribution",
+              "priority": "Critical"
+            },
+            {
+              "id": "m1-w3-2",
+              "task": "Pitch to Spotify Editorial (S4A)",
+              "category": "Playlisting",
+              "priority": "High"
+            },
+            {
+              "id": "m1-w3-3",
+              "task": "Start teasing content on TikTok/Reels ('Building something new in Austin...')",
+              "category": "Marketing",
+              "priority": "High"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": 2,
+      "name": "Launch",
+      "alias": "The 'Hello' Phase",
+      "duration": "Month 2 (Weeks 5-8)",
+      "color": "#a3e635",
+      "objective": "Release Single 1 and build initial momentum",
+      "weeks": [
+        {
+          "weekRange": "Week 5-6",
+          "name": "Single 1 Release",
+          "tasks": [
+            {
+              "id": "m2-w5-1",
+              "task": "RELEASE DAY: Push all socials to Spotify",
+              "category": "Launch",
+              "priority": "Critical",
+              "highlight": true
+            },
+            {
+              "id": "m2-w5-2",
+              "task": "Submit to indie curators (Sphere of Hip Hop, Impulse)",
+              "category": "Playlisting",
+              "priority": "Critical"
+            },
+            {
+              "id": "m2-w5-3",
+              "task": "Check 'Release Radar' pickup",
+              "category": "Analytics",
+              "priority": "High"
+            }
+          ]
+        },
+        {
+          "weekRange": "Week 7-8",
+          "name": "Momentum",
+          "tasks": [
+            {
+              "id": "m2-w7-1",
+              "task": "Continue content for Single 1",
+              "category": "Marketing",
+              "priority": "High"
+            },
+            {
+              "id": "m2-w7-2",
+              "task": "Upload Single 2 (Waterfall setup)",
+              "category": "Distribution",
+              "priority": "High"
+            },
+            {
+              "id": "m2-w7-3",
+              "task": "Attend local shows (Empire/Mohawk) to network with other artists",
+              "category": "Networking",
+              "priority": "Medium"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": 3,
+      "name": "Sustain & Expand",
+      "alias": "The 'Proof' Phase",
+      "duration": "Month 3 (Weeks 9-12)",
+      "color": "#8b5cf6",
+      "objective": "Prove traction with Single 2 and first live show",
+      "weeks": [
+        {
+          "weekRange": "Week 9-10",
+          "name": "Single 2 Release",
+          "tasks": [
+            {
+              "id": "m3-w9-1",
+              "task": "Single 1 streams should boost Single 2 (waterfall effect)",
+              "category": "Release",
+              "priority": "Critical"
+            },
+            {
+              "id": "m3-w9-2",
+              "task": "Analyze data: Who is listening? (Cities, Age)",
+              "category": "Analytics",
+              "priority": "High"
+            }
+          ]
+        },
+        {
+          "weekRange": "Week 11-12",
+          "name": "The First Show",
+          "tasks": [
+            {
+              "id": "m3-w11-1",
+              "task": "Secure slot on local showcase or open mic (Reason and Rhyme)",
+              "category": "Live Performance",
+              "priority": "Critical",
+              "highlight": true
+            },
+            {
+              "id": "m3-w11-2",
+              "task": "First Merch Drop (Stickers/Tees) for early supporters",
+              "category": "Monetization",
+              "priority": "Medium"
+            },
+            {
+              "id": "m3-w11-3",
+              "task": "Review metrics: Are we at >30% Save Rate?",
+              "category": "Analytics",
+              "priority": "High"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "kpis": [
+    {
+      "metric": "Save Rate",
+      "target": ">30%",
+      "importance": "Critical",
+      "rationale": "Indicates high listener quality. Tells Spotify 'This song is good.'"
+    },
+    {
+      "metric": "Follower Growth",
+      "target": "+50 per month",
+      "importance": "High",
+      "rationale": "Organic follower growth. Building true fans, not passive listeners."
+    },
+    {
+      "metric": "Monthly Listeners",
+      "target": "1,000 within 90 days",
+      "importance": "Critical",
+      "rationale": "Foundation for algorithmic growth and Marquee eligibility."
+    },
+    {
+      "metric": "Local Connection",
+      "target": "1 booker + 3 local artists",
+      "importance": "High",
+      "rationale": "Build real physical fanbase. Austin roots strategy."
+    }
+  ],
+  "strategicPillars": [
+    {
+      "pillar": "Brand",
+      "positioning": "The Vibe Curator",
+      "focus": "High-art visuals, introspection, creative lifestyle"
+    },
+    {
+      "pillar": "Music",
+      "positioning": "Waterfall Singles",
+      "focus": "Consistent, high-quality, melodic rap suitable for 'Chill' playlists"
+    },
+    {
+      "pillar": "Local",
+      "positioning": "Austin Roots",
+      "focus": "Network with the live scene (Empire, KUTX) to build real physical fanbase"
+    }
+  ]
+}

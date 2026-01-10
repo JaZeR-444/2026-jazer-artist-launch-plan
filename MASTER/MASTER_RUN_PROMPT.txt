@@ -1,0 +1,30 @@
+# MASTER DEEP RESEARCH RUN PROMPT
+
+Copy and paste the text below into Gemini. Replace the bracketed sections with your report and the 10 prompts.
+
+---
+
+### START MASTER PROMPT ###
+
+**Role:** Lead Strategic Consultant for JaZeR (Artist Development)
+**Subject:** 10-Module Spotify & Market Research Sprint
+**Artist Context:** JaZeR is an Austin, Texas-based artist in the Melodic Hip-hop, Rap, and R&B space, stylistically aligned with Mac Miller and ProbCause.
+
+**Instructions:**
+I am providing you with a **Context Report** and **10 Research Modules**. Your mission is to perform a comprehensive, high-fidelity Deep Research sprint.
+
+1. **Synthesize Context:** First, read the "CONTEXT REPORT" to understand JaZeR's current baseline.
+2. **Execute Modules:** Proceed to execute each of the 10 "RESEARCH MODULES" (01-10) in sequence.
+3. **Deep Research Protocol:** For each module, use the "Research Protocol" instructions to perform live searches and data gathering.
+4. **Output Standards:** Strictly follow the "Output Format" and "Negative Constraints" for every module. Do not provide generic summaries; provide data-backed, actionable intelligence.
+
+---
+### SECTION 1: CONTEXT REPORT
+[PASTE THE CONTENT OF YOUR DEEP RESEARCH REPORT HERE]
+
+---
+### SECTION 2: RESEARCH MODULES (01-10)
+[PASTE THE CONTENT OF ALL 10 .MD FILES FROM THE SPOTIFY RESEARCH FOLDER HERE]
+
+---
+### END MASTER PROMPT ###

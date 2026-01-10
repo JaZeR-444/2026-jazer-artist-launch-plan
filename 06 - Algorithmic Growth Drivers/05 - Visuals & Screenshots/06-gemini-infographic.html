@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithmic Growth Drivers: JaZeR</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <!-- Custom Palette & Styles -->
+    <!-- 
+        Palette Name: Cyber Beat
+        Background: #0F172A (Slate 900)
+        Card BG: #1E293B (Slate 800)
+        Text Main: #F8FAFC (Slate 50)
+        Text Muted: #94A3B8 (Slate 400)
+        Accent Green: #10B981 (Emerald 500)
+        Accent Purple: #8B5CF6 (Violet 500)
+        Accent Pink: #F43F5E (Rose 500)
+        Accent Blue: #3B82F6 (Blue 500)
+    -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cyber-bg': '#0F172A',
+                        'cyber-card': '#1E293B',
+                        'cyber-green': '#10B981',
+                        'cyber-purple': '#8B5CF6',
+                        'cyber-pink': '#F43F5E',
+                        'cyber-blue': '#3B82F6',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #0F172A;
+            color: #F8FAFC;
+        }
+        
+        /* Chart Container Strict Styling */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%; /* Layout handled by grid, this ensures fill */
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; /* Base height */
+            max-height: 400px;
+        }
+        
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #10B981, #3B82F6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-2px);
+            transition: transform 0.2s ease-in-out;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Custom Flowchart Nodes */
+        .flow-node {
+            border: 2px solid #3B82F6;
+            background-color: rgba(59, 130, 246, 0.1);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: #94A3B8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+    </style>
+    <!-- 
+        PLAN NARRATIVE:
+        1. Intro: Contextualize "The Black Box" and the goal (JaZeR -> Hip Hop Algo).
+        2. Signal Scorecard: Bar Chart showing weights of Save vs Skip vs Repeat.
+        3. Benchmarks: Donut charts for 30% Save Rate and 35% Skip Rate.
+        4. Radio Logic: HTML Diagram showing the "Association" path.
+        5. Tactics: Cards for 0:00 rule, Structure, Canvas.
+        6. Milestones: Thresholds for Marquee/Discovery Mode.
+        
+        NO SVG USED. NO MERMAID USED.
+    -->
+</head>
+<body class="p-4 md:p-8 font-sans antialiased">
+
+    <!-- Main Grid Container -->
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
+
+        <!-- Header Section -->
+        <div class="col-span-1 md:col-span-12 mb-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight uppercase">
+                <span class="gradient-text">Decoding the Algorithm</span>
+            </h1>
+            <h2 class="text-xl md:text-2xl text-slate-300 font-light">
+                Growth Drivers for <span class="text-cyber-purple font-bold">JaZeR</span> (Hip-hop, Rap, R&B)
+            </h2>
+            <p class="mt-4 text-slate-400 max-w-2xl mx-auto">
+                Unlocking the "Black Box" of Spotify's recommendation engine. This dashboard isolates the specific technical signals, user behaviors, and metric benchmarks required to trigger algorithmic promotion (Discover Weekly, Radio, Autoplay) in 2025.
+            </p>
+        </div>
+
+        <!-- Section 1: The Scorecard (Impact) -->
+        <div class="col-span-1 md:col-span-8 bg-cyber-card rounded-xl shadow-lg p-6 card-hover border-t-4 border-cyber-green">
+            <div class="mb-4">
+                <h3 class="text-2xl font-bold text-white mb-2">The Algorithm Scorecard</h3>
+                <p class="text-sm text-slate-400">
+                    Not all streams are created equal. Spotify weights specific user actions to determine if a track is "engaging" (promote it) or "boring" (bury it).
+                    <span class="text-cyber-green font-bold">Save Ratio</span> is the dominant positive signal.
+                </p>
+            </div>
+            <div class="chart-container">
+                <canvas id="scorecardChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Section 1b: Key Takeaway Card -->
+        <div class="col-span-1 md:col-span-4 flex flex-col gap-6">
+            <div class="bg-cyber-card rounded-xl shadow-lg p-6 border-l-4 border-cyber-purple h-full flex flex-col justify-center">
+                <h4 class="text-xl font-bold text-cyber-purple mb-2">Priority Action</h4>
+                <p class="text-3xl font-bold text-white mb-2">"Heart" It.</p>
+                <p class="text-slate-300">
+                    The single most effective optimization is driving the <strong>Save Ratio</strong>. Every Call-To-Action (CTA) must ask fans to "Heart" the track. This signals retention to the algorithm.
+                </p>
+            </div>
+            <div class="bg-cyber-card rounded-xl shadow-lg p-6 border-l-4 border-cyber-pink h-full flex flex-col justify-center">
+                <h4 class="text-xl font-bold text-cyber-pink mb-2">The Killer</h4>
+                <p class="text-3xl font-bold text-white mb-2">&lt;30s Skips</p>
+                <p class="text-slate-300">
+                    A skip before the 30-second mark is a negative vote. It tells the engine the song is irrelevant to the listener, actively hurting reach.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 2: Metric Benchmarks -->
+        <div class="col-span-1 md:col-span-12 mt-4">
+            <h3 class="text-2xl font-bold text-white mb-4 pl-2 border-l-4 border-cyber-blue">Metric Benchmarks (Targets)</h3>
+            <p class="text-slate-400 mb-6 pl-2">
+                To move from "passive listening" to "algorithmic explosion," JaZeR's tracks must hit these specific efficiency targets.
+            </p>
+        </div>
+
+        <!-- Benchmark 1: Save Rate -->
+        <div class="col-span-1 md:col-span-4 bg-cyber-card rounded-xl shadow-lg p-6">
+            <h4 class="text-center text-lg font-semibold text-slate-200 mb-2">Target Save Rate</h4>
+            <div class="chart-container" style="height: 250px;">
+                <canvas id="saveRateChart"></canvas>
+            </div>
+            <p class="text-center text-sm text-cyber-green mt-2 font-bold">>30% is Excellent</p>
+            <p class="text-center text-xs text-slate-500">Less than 10% indicates poor retention.</p>
+        </div>
+
+        <!-- Benchmark 2: Skip Rate -->
+        <div class="col-span-1 md:col-span-4 bg-cyber-card rounded-xl shadow-lg p-6">
+            <h4 class="text-center text-lg font-semibold text-slate-200 mb-2">Max Skip Rate Tolerance</h4>
+            <div class="chart-container" style="height: 250px;">
+                <canvas id="skipRateChart"></canvas>
+            </div>
+            <p class="text-center text-sm text-cyber-pink mt-2 font-bold">Keep below 35%</p>
+            <p class="text-center text-xs text-slate-500">Above 50% implies intro is too long.</p>
+        </div>
+
+        <!-- Benchmark 3: Marquee Eligibility (Visualized as Text/Bar) -->
+        <div class="col-span-1 md:col-span-4 bg-cyber-card rounded-xl shadow-lg p-6 flex flex-col justify-between">
+            <div>
+                <h4 class="text-center text-lg font-semibold text-slate-200 mb-4">Ad Eligibility Unlock</h4>
+                
+                <div class="mb-6">
+                    <div class="flex justify-between text-sm mb-1">
+                        <span class="text-slate-400">Marquee (Streams/28d)</span>
+                        <span class="text-cyber-blue font-bold">1,000</span>
+                    </div>
+                    <div class="w-full bg-slate-700 rounded-full h-2.5">
+                        <div class="bg-cyber-blue h-2.5 rounded-full" style="width: 100%"></div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <div class="flex justify-between text-sm mb-1">
+                        <span class="text-slate-400">Discovery Mode (Listeners)</span>
+                        <span class="text-cyber-purple font-bold">25,000</span>
+                    </div>
+                    <div class="w-full bg-slate-700 rounded-full h-2.5">
+                        <div class="bg-cyber-purple h-2.5 rounded-full" style="width: 45%"></div>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-1 text-right">Long-term Goal</p>
+                </div>
+            </div>
+            <div class="bg-slate-900/50 p-3 rounded border border-slate-700">
+                <p class="text-xs text-slate-300">
+                    <strong>Why it matters:</strong> Unlocking Marquee allows precise targeting of listeners who have already shown interest, compounding the "Repeat Listen" signal.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 3: Radio & Autoplay Logic (Diagram) -->
+        <div class="col-span-1 md:col-span-12 mt-8">
+            <div class="bg-cyber-card rounded-xl shadow-lg p-8 border border-slate-700">
+                <h3 class="text-2xl font-bold text-white mb-6">"Radio" & "Autoplay" Mechanics</h3>
+                <p class="text-slate-400 mb-8 max-w-3xl">
+                    To appear on "Mac Miller Radio," you must create <strong>Data Associations</strong>. The goal is to teach the algorithm that Fans of Artist A are also Fans of JaZeR.
+                </p>
+
+                <!-- HTML/Tailwind Flowchart (No Mermaid/SVG) -->
+                <div class="flex flex-col md:flex-row justify-center items-stretch gap-4 md:gap-2">
+                    
+                    <!-- Step 1 -->
+                    <div class="flex-1 flow-node">
+                        <div class="text-3xl mb-2">🎧</div>
+                        <h4 class="font-bold text-white">Target Audience</h4>
+                        <p class="text-xs text-slate-400 mt-1">Mac Miller / ProbCause Fans</p>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="flow-arrow hidden md:flex">&rarr;</div>
+                    <div class="flow-arrow md:hidden">&darr;</div>
+
+                    <!-- Step 2 -->
+                    <div class="flex-1 flow-node border-cyber-pink bg-pink-900/10">
+                        <div class="text-3xl mb-2">🎯</div>
+                        <h4 class="font-bold text-white">External Trigger</h4>
+                        <p class="text-xs text-slate-400 mt-1">Ads/Socials targeting specific fandoms</p>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="flow-arrow hidden md:flex">&rarr;</div>
+                    <div class="flow-arrow md:hidden">&darr;</div>
+
+                    <!-- Step 3 -->
+                    <div class="flex-1 flow-node border-cyber-purple bg-purple-900/10">
+                        <div class="text-3xl mb-2">▶️</div>
+                        <h4 class="font-bold text-white">Sequential Play</h4>
+                        <p class="text-xs text-slate-400 mt-1">User plays "Mac Miller" then "JaZeR"</p>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="flow-arrow hidden md:flex">&rarr;</div>
+                    <div class="flow-arrow md:hidden">&darr;</div>
+
+                    <!-- Step 4 -->
+                    <div class="flex-1 flow-node border-cyber-green bg-green-900/10">
+                        <div class="text-3xl mb-2">🔗</div>
+                        <h4 class="font-bold text-white">Association Created</h4>
+                        <p class="text-xs text-slate-400 mt-1">Algorithm links JaZeR to the Genre Cluster</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Tactical Recommendations -->
+        <div class="col-span-1 md:col-span-12 mt-8 mb-12">
+            <h3 class="text-2xl font-bold text-white mb-6 pl-2 border-l-4 border-cyber-green">Tactical Production Tweaks</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Tactic 1 -->
+                <div class="bg-cyber-card rounded-xl p-6 shadow-md border-t-2 border-slate-600">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="font-bold text-xl text-white">The "0:00" Rule</h4>
+                        <span class="bg-cyber-pink text-white text-xs font-bold px-2 py-1 rounded">Critical</span>
+                    </div>
+                    <p class="text-slate-300 text-sm mb-4">
+                        Vocals or melody must start within <strong>0-3 seconds</strong>. Modern listeners skip 20-second intro skits or slow fade-ins instantly.
+                    </p>
+                    <div class="bg-slate-900 p-3 rounded text-center">
+                        <span class="text-cyber-green font-mono text-sm">Start Immediately</span>
+                    </div>
+                </div>
+
+                <!-- Tactic 2 -->
+                <div class="bg-cyber-card rounded-xl p-6 shadow-md border-t-2 border-slate-600">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="font-bold text-xl text-white">Structure Speed</h4>
+                        <span class="bg-cyber-blue text-white text-xs font-bold px-2 py-1 rounded">Retention</span>
+                    </div>
+                    <p class="text-slate-300 text-sm mb-4">
+                        Get to the Verse-Chorus within the first <strong>45 seconds</strong>. Don't make the listener wait for the hook, or they will bounce before the payoff.
+                    </p>
+                    <div class="bg-slate-900 p-3 rounded text-center">
+                        <span class="text-cyber-blue font-mono text-sm">Hook Early</span>
+                    </div>
+                </div>
+
+                <!-- Tactic 3 -->
+                <div class="bg-cyber-card rounded-xl p-6 shadow-md border-t-2 border-slate-600">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="font-bold text-xl text-white">Canvas Visuals</h4>
+                        <span class="bg-cyber-purple text-white text-xs font-bold px-2 py-1 rounded">Shares</span>
+                    </div>
+                    <p class="text-slate-300 text-sm mb-4">
+                        A high-quality looping Canvas video can increase share rate by <strong>145%</strong>. This is a low-effort, high-reward asset for Hip-hop/R&B vibes.
+                    </p>
+                    <div class="bg-slate-900 p-3 rounded text-center">
+                        <span class="text-cyber-purple font-mono text-sm">+145% Share Lift</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript for Charts -->
+    <script>
+        // --- UTILITIES ---
+        // Label wrapping logic for Chart.js
+        function formatLabel(str, maxwidth) {
+            if (typeof str !== 'string') return str;
+            if (str.length <= maxwidth) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let line = '';
+            words.forEach(word => {
+                if ((line + word).length > maxwidth) {
+                    lines.push(line.trim());
+                    line = '';
+                }
+                line += word + ' ';
+            });
+            lines.push(line.trim());
+            return lines;
+        }
+
+        // Common Chart Options
+        const commonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: { color: '#94A3B8' }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                    titleColor: '#F8FAFC',
+                    bodyColor: '#CBD5E1',
+                    borderColor: '#3B82F6',
+                    borderWidth: 1,
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                                return label.join(' ');
+                            } else {
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        // --- CHART 1: ALGORITHM SCORECARD (Horizontal Bar) ---
+        const ctxScorecard = document.getElementById('scorecardChart').getContext('2d');
+        const labelsScorecard = ['Save Ratio', 'Repeat Listens', 'Playlist Adds', 'Skip Rate (<30s)'];
+        const formattedLabelsScorecard = labelsScorecard.map(l => formatLabel(l, 16));
+
+        new Chart(ctxScorecard, {
+            type: 'bar',
+            data: {
+                labels: formattedLabelsScorecard,
+                datasets: [{
+                    label: 'Algorithmic Weight',
+                    data: [100, 80, 70, -90], // Normalized weights based on "High/Negative"
+                    backgroundColor: [
+                        '#10B981', // Save - Green
+                        '#3B82F6', // Repeat - Blue
+                        '#8B5CF6', // Playlist - Purple
+                        '#F43F5E'  // Skip - Pink (Negative)
+                    ],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                indexAxis: 'y', // Horizontal bar
+                ...commonOptions,
+                scales: {
+                    x: {
+                        grid: { color: '#334155' },
+                        ticks: { color: '#94A3B8', display: false }, // Hide numbers, just show relative size
+                        min: -100,
+                        max: 100
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: { color: '#F8FAFC', font: { size: 14, weight: 'bold' } }
+                    }
+                },
+                plugins: {
+                    ...commonOptions.plugins,
+                    legend: { display: false } // Hide legend as colors are self-explanatory
+                }
+            }
+        });
+
+        // --- CHART 2: SAVE RATE TARGET (Donut) ---
+        const ctxSave = document.getElementById('saveRateChart').getContext('2d');
+        new Chart(ctxSave, {
+            type: 'doughnut',
+            data: {
+                labels: ['Target Save Rate', 'Gap'],
+                datasets: [{
+                    data: [30, 70],
+                    backgroundColor: ['#10B981', '#1E293B'],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                ...commonOptions,
+                cutout: '70%',
+                plugins: {
+                    ...commonOptions.plugins,
+                    legend: { display: false },
+                    tooltip: { enabled: false } // Custom text in center conceptually
+                }
+            },
+            plugins: [{
+                id: 'textCenter',
+                beforeDraw: function(chart) {
+                    var width = chart.width, height = chart.height, ctx = chart.ctx;
+                    ctx.restore();
+                    var fontSize = (height / 114).toFixed(2);
+                    ctx.font = "bold " + fontSize + "em sans-serif";
+                    ctx.textBaseline = "middle";
+                    ctx.fillStyle = "#10B981";
+                    var text = ">30%",
+                        textX = Math.round((width - ctx.measureText(text).width) / 2),
+                        textY = height / 2;
+                    ctx.fillText(text, textX, textY);
+                    ctx.save();
+                }
+            }]
+        });
+
+        // --- CHART 3: SKIP RATE TOLERANCE (Donut) ---
+        const ctxSkip = document.getElementById('skipRateChart').getContext('2d');
+        new Chart(ctxSkip, {
+            type: 'doughnut',
+            data: {
+                labels: ['Max Tolerance', 'Safe Zone'],
+                datasets: [{
+                    data: [35, 65],
+                    backgroundColor: ['#F43F5E', '#1E293B'],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                ...commonOptions,
+                cutout: '70%',
+                plugins: {
+                    ...commonOptions.plugins,
+                    legend: { display: false },
+                    tooltip: { enabled: false }
+                }
+            },
+            plugins: [{
+                id: 'textCenterSkip',
+                beforeDraw: function(chart) {
+                    var width = chart.width, height = chart.height, ctx = chart.ctx;
+                    ctx.restore();
+                    var fontSize = (height / 114).toFixed(2);
+                    ctx.font = "bold " + fontSize + "em sans-serif";
+                    ctx.textBaseline = "middle";
+                    ctx.fillStyle = "#F43F5E";
+                    var text = "<35%",
+                        textX = Math.round((width - ctx.measureText(text).width) / 2),
+                        textY = height / 2;
+                    ctx.fillText(text, textX, textY);
+                    ctx.save();
+                }
+            }]
+        });
+
+    </script>
+</body>
+</html>

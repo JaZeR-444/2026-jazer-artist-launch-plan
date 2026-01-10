@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JaZeR: Spotify Market Landscape</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- 
+    Palette Selection: "Neon Cyber-Soul"
+    Background: Slate-900 (#0f172a)
+    Card Bg: Slate-800 (#1e293b)
+    Text Main: Slate-50 (#f8fafc)
+    Text Muted: Slate-400 (#94a3b8)
+    Accent 1 (Blue): #38bdf8
+    Accent 2 (Purple): #c084fc
+    Accent 3 (Teal): #2dd4bf
+    Accent 4 (Pink): #f472b6
+    -->
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#0f172a',
+                            card: '#1e293b',
+                            text: '#f8fafc',
+                            muted: '#94a3b8',
+                            blue: '#38bdf8',
+                            purple: '#c084fc',
+                            teal: '#2dd4bf',
+                            pink: '#f472b6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Chart Container Logic */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%; /* Adapts to grid column */
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px; /* Base height */
+            max-height: 450px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        
+        /* Custom Scrollbar for a "Cyber" feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #38bdf8; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c084fc; 
+        }
+
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-cyber-purple selection:text-white">
+
+    <!-- 
+    PLAN SUMMARY:
+    1. Header: Title and strategic intent.
+    2. Section 1: Market Dynamics (The Austin Factor) - Context & Saturation Gauge.
+    3. Section 2: Competitive Matrix - Bar Chart (Log Scale) & Growth Cards.
+    4. Section 3: The Blue Ocean - Scatter Plot (Style Mapping).
+    5. Section 4: Strategy - Timeline/Process Flow (HTML).
+    6. Footer.
+    -->
+
+    <!-- HEADER -->
+    <header class="w-full bg-cyber-card border-b border-cyber-blue/20 sticky top-0 z-50 shadow-lg shadow-cyber-blue/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyber-blue to-cyber-purple">
+                    MARKET LANDSCAPE: JaZeR
+                </h1>
+                <p class="text-xs text-cyber-muted tracking-widest uppercase">Austin, TX // Hip-Hop & R&B Analysis</p>
+            </div>
+            <div class="hidden md:block">
+                <span class="px-3 py-1 rounded-full bg-cyber-blue/10 text-cyber-blue text-xs font-semibold border border-cyber-blue/20">Live Data Analysis</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- INTRO & KEY METRICS -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="md:col-span-2 space-y-4">
+                <h2 class="text-3xl font-bold text-white">The "Austin Factor"</h2>
+                <p class="text-cyber-muted text-lg leading-relaxed">
+                    The Austin Hip-Hop scene is described as a <span class="text-cyber-blue font-semibold">"sleeping giant."</span> Unlike the volume-heavy markets of Atlanta or Houston, Austin prioritizes <em>quality</em> and <em>live performance capability</em>. Success here demands musicianship.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                    <div class="bg-cyber-card p-4 rounded-xl border border-cyber-purple/20 shadow-md">
+                        <h3 class="text-cyber-purple font-bold text-sm uppercase mb-2">Gatekeepers</h3>
+                        <p class="text-white text-sm">KUTX 98.9 ("The Breaks"), KOOP 91.7, Empire Control Room.</p>
+                    </div>
+                    <div class="bg-cyber-card p-4 rounded-xl border border-cyber-teal/20 shadow-md">
+                        <h3 class="text-cyber-teal font-bold text-sm uppercase mb-2">Winning Meta</h3>
+                        <p class="text-white text-sm">"Neo-Soul Rap" & "Jazz Rap" (Live Instrumentation).</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CHART: Saturation Index (Gauge) -->
+            <div class="bg-cyber-card rounded-xl p-6 border border-gray-700 shadow-xl flex flex-col items-center justify-center">
+                <h3 class="text-lg font-semibold text-white mb-2 text-center">Market Saturation Index</h3>
+                <p class="text-xs text-cyber-muted text-center mb-4">Melodic/Introspective Niche</p>
+                <div class="chart-container" style="height: 200px; max-height: 200px;">
+                    <canvas id="saturationChart"></canvas>
+                </div>
+                <p class="text-center text-sm text-cyber-muted mt-2">
+                    <span class="text-cyber-teal font-bold">LOW SATURATION.</span> Most artists are "Boom Bap" or "Trap." High demand for melodic styles.
+                </p>
+            </div>
+        </section>
+
+        <!-- COMPETITIVE LANDSCAPE -->
+        <section>
+            <div class="mb-6 border-l-4 border-cyber-blue pl-4">
+                <h2 class="text-2xl font-bold text-white">Competitive Matrix</h2>
+                <p class="text-cyber-muted">Comparing established local tiers against breakout peers.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- CHART: Monthly Listeners Bar Chart -->
+                <div class="lg:col-span-2 bg-cyber-card rounded-xl p-6 border border-gray-700 shadow-xl">
+                    <div class="flex justify-between items-end mb-4">
+                        <div>
+                            <h3 class="text-lg font-bold text-white">Monthly Listeners (Logarithmic Scale)</h3>
+                            <p class="text-xs text-cyber-muted">Spotify Data Comparison</p>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="competitorChart"></canvas>
+                    </div>
+                    <p class="mt-4 text-sm text-cyber-muted italic bg-cyber-bg/50 p-3 rounded">
+                        <span class="text-cyber-blue font-bold">Note:</span> JaRon Marshall is the outlier (400k+), proving the massive crossover appeal of the Jazz/Soul-Rap sound compared to strictly local established acts (~2k-15k).
+                    </p>
+                </div>
+
+                <!-- QUALITATIVE CARDS -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-white mb-4">Growth Drivers</h3>
+                    
+                    <!-- Card 1 -->
+                    <div class="bg-gradient-to-r from-cyber-card to-gray-800 p-4 rounded-lg border-l-4 border-cyber-purple hover:translate-x-1 transition-transform">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-cyber-purple">Magna Carda</h4>
+                            <span class="text-xs bg-gray-700 px-2 py-1 rounded text-gray-300">Standard Bearer</span>
+                        </div>
+                        <p class="text-xs text-cyber-muted mt-1">~15,000 Listeners</p>
+                        <p class="text-sm text-white mt-2">"Austin's Roots" positioning with steady touring and live instrumentation.</p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-gradient-to-r from-cyber-card to-gray-800 p-4 rounded-lg border-l-4 border-cyber-teal hover:translate-x-1 transition-transform">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-cyber-teal">JaRon Marshall</h4>
+                            <span class="text-xs bg-gray-700 px-2 py-1 rounded text-gray-300">Peer/Collab</span>
+                        </div>
+                        <p class="text-xs text-cyber-muted mt-1">~400,000 Listeners</p>
+                        <p class="text-sm text-white mt-2">Black Pumas connection. Massive "Jazz Rap" global crossover appeal.</p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-gradient-to-r from-cyber-card to-gray-800 p-4 rounded-lg border-l-4 border-cyber-pink hover:translate-x-1 transition-transform">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-cyber-pink">Blakchyl</h4>
+                            <span class="text-xs bg-gray-700 px-2 py-1 rounded text-gray-300">Riser</span>
+                        </div>
+                        <p class="text-xs text-cyber-muted mt-1">~1,000 Listeners</p>
+                        <p class="text-sm text-white mt-2">International reach (Chile/Mexico) indicating strong algorithmic pickup.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- THE BLUE OCEAN OPPORTUNITY -->
+        <section class="bg-cyber-card rounded-2xl p-6 md:p-10 border border-cyber-blue/30 shadow-[0_0_15px_rgba(56,189,248,0.1)]">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Text Content -->
+                <div class="order-2 lg:order-1 space-y-6">
+                    <div>
+                        <h2 class="text-3xl font-bold text-white mb-2">The "Blue Ocean" Opportunity</h2>
+                        <h3 class="text-xl text-cyber-blue">The Electronic-Soul Niche</h3>
+                    </div>
+                    
+                    <p class="text-gray-300 leading-relaxed">
+                        Most of the Austin market is bifurcated: it is either <strong>"Live Band Organic"</strong> (like Magna Carda) or <strong>"Street Trap."</strong> 
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        There is a massive void for the <strong>ProbCause / Mac Miller</strong> lane: Electronic-infused, melodic, introspective Hip-Hop.
+                    </p>
+
+                    <div class="bg-cyber-bg p-5 rounded-lg border border-gray-700">
+                        <h4 class="text-cyber-purple font-bold uppercase text-xs tracking-wider mb-3">Strategic Positioning</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <span class="text-cyber-teal mr-2">▶</span>
+                                <span class="text-sm text-gray-300">Move from "Rapper" to <strong>"Vibe Curator."</strong></span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-cyber-teal mr-2">▶</span>
+                                <span class="text-sm text-gray-300">Utilize synths and vocal chops to bridge the <strong>Austin Live Scene</strong> with the global <strong>"Lofi/Chill"</strong> digital market.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- CHART: Market Positioning Scatter Plot -->
+                <div class="order-1 lg:order-2 w-full">
+                    <h3 class="text-center text-white font-bold mb-4">Market Positioning Map</h3>
+                    <div class="chart-container bg-cyber-bg rounded-xl border border-gray-700 p-2">
+                        <canvas id="positionMap"></canvas>
+                    </div>
+                    <div class="flex justify-between text-xs text-cyber-muted px-4 mt-2 font-mono">
+                        <span>◀ Organic / Live</span>
+                        <span>Electronic / Digital ▶</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STRATEGY DIAGRAM (HTML/CSS) -->
+        <section>
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-white">Execution Strategy</h2>
+                <p class="text-cyber-muted">Bridging the gap to global streaming numbers.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                <!-- Step 1 -->
+                <div class="bg-cyber-card p-6 rounded-xl border-t-4 border-cyber-pink shadow-lg relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <span class="text-6xl font-black text-cyber-pink">01</span>
+                    </div>
+                    <div class="w-12 h-12 bg-cyber-pink/20 rounded-full flex items-center justify-center mx-auto mb-4 text-cyber-pink font-bold text-xl">1</div>
+                    <h3 class="text-white font-bold mb-2">Identify the Sound</h3>
+                    <p class="text-sm text-cyber-muted">Pivot production towards "Chill Electronic" & "Lofi Study" aesthetics while maintaining lyrical depth.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-cyber-card p-6 rounded-xl border-t-4 border-cyber-purple shadow-lg relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <span class="text-6xl font-black text-cyber-purple">02</span>
+                    </div>
+                    <div class="w-12 h-12 bg-cyber-purple/20 rounded-full flex items-center justify-center mx-auto mb-4 text-cyber-purple font-bold text-xl">2</div>
+                    <h3 class="text-white font-bold mb-2">Target the Gap</h3>
+                    <p class="text-sm text-cyber-muted">Occupy the "Electronic-Soul" void in Austin. Be the alternative to Trap and Traditional Roots.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-cyber-card p-6 rounded-xl border-t-4 border-cyber-blue shadow-lg relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <span class="text-6xl font-black text-cyber-blue">03</span>
+                    </div>
+                    <div class="w-12 h-12 bg-cyber-blue/20 rounded-full flex items-center justify-center mx-auto mb-4 text-cyber-blue font-bold text-xl">3</div>
+                    <h3 class="text-white font-bold mb-2">Scale Globally</h3>
+                    <p class="text-sm text-cyber-muted">Leverage the "Vibe Curator" brand to enter high-traffic digital playlists beyond the local geo-fence.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-cyber-card border-t border-gray-800 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-cyber-muted text-sm">Generated Analysis for JaZeR Market Strategy</p>
+            <p class="text-xs text-gray-600 mt-2">Data Source: Spotify Market Landscape Report 02</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPT SECTION -->
+    <script>
+        // --- UTILITY: Label Wrapping Logic (Mandatory) ---
+        function wrapLabel(str, maxChars) {
+            if (str.length <= maxChars) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + 1 + words[i].length <= maxChars) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // --- GLOBAL CHART DEFAULTS ---
+        Chart.defaults.color = '#94a3b8'; // text-cyber-muted
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        
+        // --- CHART 1: Saturation Index (Gauge/Doughnut) ---
+        const ctxSaturation = document.getElementById('saturationChart').getContext('2d');
+        new Chart(ctxSaturation, {
+            type: 'doughnut',
+            data: {
+                labels: ['Saturation', 'Opportunity Gap'],
+                datasets: [{
+                    data: [25, 75], // Low saturation means mostly empty space
+                    backgroundColor: [
+                        '#f472b6', // Pink (Existing Saturation)
+                        '#1e293b'  // Dark Card BG (Empty/Opportunity)
+                    ],
+                    borderWidth: 0,
+                    circumference: 180,
+                    rotation: 270,
+                    cutout: '75%'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        enabled: false // Custom text used instead
+                    }
+                }
+            }
+        });
+
+        // --- CHART 2: Competitive Matrix (Bar Chart - Logarithmic) ---
+        const competitors = [
+            { name: 'JaRon Marshall', listeners: 400000, color: '#38bdf8' }, // Blue
+            { name: 'Magna Carda', listeners: 15000, color: '#c084fc' },    // Purple
+            { name: 'Deezie Brown', listeners: 2000, color: '#2dd4bf' },     // Teal
+            { name: 'Blakchyl', listeners: 1000, color: '#f472b6' }          // Pink
+        ];
+
+        const ctxCompetitor = document.getElementById('competitorChart').getContext('2d');
+        new Chart(ctxCompetitor, {
+            type: 'bar',
+            data: {
+                labels: competitors.map(c => wrapLabel(c.name, 16)),
+                datasets: [{
+                    label: 'Monthly Listeners',
+                    data: competitors.map(c => c.listeners),
+                    backgroundColor: competitors.map(c => c.color),
+                    borderRadius: 6,
+                    barPercentage: 0.6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y', // Horizontal Bar
+                scales: {
+                    x: {
+                        type: 'logarithmic', // CRITICAL for visualizing 1k vs 400k
+                        grid: { color: '#334155' },
+                        ticks: { color: '#94a3b8' }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: { color: '#f8fafc', font: { weight: 'bold' } }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                return Array.isArray(label) ? label.join(' ') : label;
+                            },
+                            label: function(context) {
+                                let value = context.raw;
+                                return 'Listeners: ' + value.toLocaleString();
+                            }
+                        },
+                        backgroundColor: '#1e293b',
+                        titleColor: '#f8fafc',
+                        bodyColor: '#94a3b8',
+                        borderColor: '#38bdf8',
+                        borderWidth: 1
+                    }
+                }
+            }
+        });
+
+        // --- CHART 3: Market Positioning (Scatter Plot) ---
+        // X-Axis: Organic/Live (-10) to Electronic/Digital (+10)
+        // Y-Axis: Street/Hard (-10) to Melodic/Conscious (+10)
+        const ctxPosition = document.getElementById('positionMap').getContext('2d');
+        new Chart(ctxPosition, {
+            type: 'bubble',
+            data: {
+                datasets: [
+                    {
+                        label: 'Existing Market',
+                        data: [
+                            { x: -8, y: 5, r: 12, artist: 'Magna Carda' }, // High Organic, Melodic
+                            { x: -5, y: -2, r: 8, artist: 'Deezie Brown' }, // Organic/Southern
+                            { x: -2, y: -6, r: 10, artist: 'Blackillac' },  // Energy/Live
+                            { x: 2, y: -8, r: 6, artist: 'Avg Trap Artist' }, // Digital, Street
+                            { x: -9, y: 9, r: 20, artist: 'JaRon Marshall' } // High Organic, High Melodic (Jazz)
+                        ],
+                        backgroundColor: '#64748b' // Muted Slate for competitors
+                    },
+                    {
+                        label: 'Blue Ocean Opportunity',
+                        data: [
+                            { x: 7, y: 7, r: 25, artist: 'JaZeR (Target Niche)' } // High Electronic, High Melodic
+                        ],
+                        backgroundColor: '#38bdf8', // Bright Blue for Target
+                        borderColor: '#c084fc',
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        min: -10, max: 10,
+                        grid: { color: '#334155', tickLength: 0 },
+                        ticks: { display: false },
+                        title: { display: true, text: 'Sound: Organic ⟵ ⟶ Electronic', color: '#94a3b8' }
+                    },
+                    y: {
+                        min: -10, max: 10,
+                        grid: { color: '#334155', tickLength: 0 },
+                        ticks: { display: false },
+                        title: { display: true, text: 'Vibe: Street ⟵ ⟶ Melodic', color: '#94a3b8' }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: { color: '#f8fafc' }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                return tooltipItems[0].raw.artist;
+                            },
+                            label: function(context) {
+                                const raw = context.raw;
+                                let vibe = raw.y > 0 ? "Melodic" : "Street";
+                                let sound = raw.x > 0 ? "Electronic" : "Organic";
+                                return `${sound} / ${vibe}`;
+                            }
+                        },
+                        backgroundColor: '#1e293b',
+                        borderColor: '#c084fc',
+                        borderWidth: 1
+                    }
+                }
+            }
+        });
+    </script>
+    
+    <!-- 
+    NO MERMAID JS USED.
+    NO SVG GRAPHICS USED.
+    ALL CHARTS RENDERED VIA CANVAS (CHART.JS).
+    -->
+</body>
+</html>

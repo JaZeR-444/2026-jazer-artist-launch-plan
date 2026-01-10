@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JaZeR Audience & Listener Profile Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- 
+        Palette: Vibrant Creative (Deep Violet, Electric Cyan, Warm Amber)
+        Primary: #7C3AED (Violet)
+        Secondary: #06B6D4 (Cyan)
+        Accent: #F59E0B (Amber)
+        Background: #F3F4F6
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F3F4F6;
+            color: #1F2937;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Max width constraint */
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px; /* Base height */
+            max-height: 400px;
+        }
+        @media (max-width: 640px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+    </style>
+    <!-- 
+        Summary of Plan:
+        1. Intro Section: High-level overview of "Creative Casey".
+        2. Persona Section: Radar chart for attributes, Bar chart for influences.
+        3. Geography Section: Bubble chart mapping key cities by 'Vibe Match' and 'Market Size'.
+        4. Lifestyle Section: Doughnut chart for digital habits, CSS-based cards for brands.
+        5. Strategy Section: HTML-based flow diagram for content strategy.
+        
+        Chart Choices:
+        - Radar: Best for multi-variable personality traits.
+        - Bar: Best for comparing artist popularity/influence.
+        - Bubble: Best for showing 3 dimensions (City, Market Size, Strategic Fit) without a map.
+        - Doughnut: Best for part-to-whole composition of digital time.
+        
+        NO SVG USED. NO MERMAID JS USED.
+    -->
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Header / Hook -->
+    <header class="bg-gradient-to-r from-violet-700 to-cyan-600 text-white p-8 shadow-lg mb-8">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-2">THE JAZER LISTENER</h1>
+            <p class="text-xl md:text-2xl font-light opacity-90">Deep Research Profile: "Creative Casey"</p>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8 pb-12">
+
+        <!-- SECTION 1: THE PERSONA -->
+        <div class="col-span-1 md:col-span-2 bg-white rounded-xl shadow-md p-6 border-l-8 border-violet-600">
+            <h2 class="text-3xl font-bold text-violet-700 mb-4">1. The "Superfan" Persona</h2>
+            <p class="text-lg leading-relaxed text-gray-600 mb-6">
+                Meet <strong>"Creative Casey"</strong>, a 24-year-old graphic designer and barista living in Austin. Casey values authenticity over hype and views music as a functional utility for creativity. They aren't looking for club bangers; they are searching for a soundtrack to their life. Their mantra defines their listening habit: <em>"I just need something to vibe to while I create."</em>
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Chart: Vibe Profile (Radar) -->
+                <div class="flex flex-col">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Psychographic Vibe Profile</h3>
+                    <p class="text-sm text-gray-500 mb-4">A breakdown of the core values driving Casey's taste. Note the high emphasis on "Artistic Depth" and "Chill" factors.</p>
+                    <div class="chart-container">
+                        <canvas id="personaRadarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart: Influences (Bar) -->
+                <div class="flex flex-col">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Sonic Influences & Rotation</h3>
+                    <p class="text-sm text-gray-500 mb-4">The top 5 artists currently dominating Casey's Spotify Wrapped. JaZeR fits into this ecosystem.</p>
+                    <div class="chart-container">
+                        <canvas id="influencesBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: GEOGRAPHIC HEATMAP -->
+        <div class="col-span-1 md:col-span-2 bg-white rounded-xl shadow-md p-6 border-l-8 border-cyan-500">
+            <h2 class="text-3xl font-bold text-cyan-600 mb-4">2. Geographic Ecosystem</h2>
+            <p class="text-lg leading-relaxed text-gray-600 mb-6">
+                While digital borders are porous, the "JaZeR Sound" resonates most in specific physical hubs. We've identified Tier 1 "Vibe Hubs" where the intersection of creative culture and music consumption is highest. Austin serves as the home base, but the data points to massive potential in the "Chill Rap" markets of Latin America and the "Indie/Electronic" scenes of the Pacific Northwest.
+            </p>
+
+            <!-- Chart: Geo Bubble (Bubble) -->
+            <div class="flex flex-col items-center">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Priority Market Matrix</h3>
+                <p class="text-sm text-gray-500 mb-4 text-center max-w-2xl">
+                    Mapping cities by <strong>Vibe Match</strong> (X-axis) and <strong>Market Volume</strong> (Y-axis). <br>Size of the bubble represents <strong>Strategic Priority</strong>.
+                </p>
+                <div class="chart-container w-full">
+                    <canvas id="geoBubbleChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: DIGITAL & LIFESTYLE -->
+        <div class="col-span-1 md:col-span-1 bg-white rounded-xl shadow-md p-6 border-t-8 border-amber-500 card-hover">
+            <h2 class="text-2xl font-bold text-amber-600 mb-4">3. Digital Habitat</h2>
+            <p class="text-md text-gray-600 mb-4">
+                Casey doesn't just scroll TikTok; they inhabit specific corners of the internet that foster community and discovery.
+            </p>
+            
+            <!-- Chart: Digital Split (Doughnut) -->
+            <div class="chart-container" style="height: 300px;">
+                <canvas id="digitalDoughnutChart"></canvas>
+            </div>
+            
+            <div class="mt-6 space-y-3">
+                <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                    <span class="text-2xl mr-3">🎧</span>
+                    <div>
+                        <strong class="block text-gray-800">Discord</strong>
+                        <span class="text-sm text-gray-500">Local creative servers & Lofi Girl</span>
+                    </div>
+                </div>
+                <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                    <span class="text-2xl mr-3">🧵</span>
+                    <div>
+                        <strong class="block text-gray-800">Reddit</strong>
+                        <span class="text-sm text-gray-500">r/MacMiller, r/hiphopheads</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 4: BRAND AFFINITY -->
+        <div class="col-span-1 md:col-span-1 bg-white rounded-xl shadow-md p-6 border-t-8 border-indigo-500 card-hover">
+            <h2 class="text-2xl font-bold text-indigo-600 mb-4">4. Brand Affinity</h2>
+            <p class="text-md text-gray-600 mb-4">
+                To connect with Casey, JaZeR's aesthetic must align with the brands Casey already trusts. Authenticity and "cool factor" are key.
+            </p>
+
+            <div class="grid grid-cols-1 gap-4">
+                <!-- Brand Card 1 -->
+                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-bold text-gray-800">Fashion</h4>
+                        <span class="text-2xl">🧢</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Thrifted Vintage, Carhartt WIP, Online Ceramics.</p>
+                </div>
+                
+                <!-- Brand Card 2 -->
+                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-bold text-gray-800">Tech</h4>
+                        <span class="text-2xl">💻</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Apple (MacBook Pro), Teenage Engineering (Synths).</p>
+                </div>
+
+                <!-- Brand Card 3 -->
+                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-bold text-gray-800">Lifestyle</h4>
+                        <span class="text-2xl">☕</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Specialty Coffee, Craft Breweries, Austin Greenbelt.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5: STRATEGIC IMPLICATION (Flow) -->
+        <div class="col-span-1 md:col-span-2 bg-gradient-to-br from-violet-50 to-cyan-50 rounded-xl shadow-md p-6 border border-violet-100">
+            <h2 class="text-3xl font-bold text-violet-700 mb-4">5. Strategic Execution</h2>
+            <p class="text-lg leading-relaxed text-gray-700 mb-8">
+                How do we convert this data into action? The strategy shifts from "Selling Music" to "Sharing a Lifestyle." The content funnel must prioritize the <em>process</em> over the final product.
+            </p>
+
+            <!-- Custom HTML Flow Diagram (No Mermaid) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                
+                <!-- Step 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-cyan-400 relative">
+                    <div class="text-4xl mb-4">🎨</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Visual Aesthetic</h3>
+                    <p class="text-sm text-gray-600">Cover art must look like high-art. Abstract, painted, or styled photography (ref: <em>Faces</em>).</p>
+                    <!-- Arrow for desktop -->
+                    <div class="hidden md:block absolute top-1/2 -right-3 transform -translate-y-1/2 text-cyan-300 text-2xl font-bold">&rarr;</div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-violet-400 relative">
+                    <div class="text-4xl mb-4">📹</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Content Angle</h3>
+                    <p class="text-sm text-gray-600">Show the "Late Night Studio Vibes." Focus on the <em>process</em> of creation, not just the release.</p>
+                    <!-- Arrow for desktop -->
+                    <div class="hidden md:block absolute top-1/2 -right-3 transform -translate-y-1/2 text-violet-300 text-2xl font-bold">&rarr;</div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-amber-400">
+                    <div class="text-4xl mb-4">👕</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Merch & Community</h3>
+                    <p class="text-sm text-gray-600">Avoid "Merch." Create a clothing brand. High quality, limited drops that fit the streetwear aesthetic.</p>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white text-center p-6">
+        <p class="opacity-70 text-sm">Generated for JaZeR | Audience Intelligence Report | 2024</p>
+    </footer>
+
+    <!-- Chart Configuration Script -->
+    <script>
+        // Label Wrapping Helper
+        function splitLabel(label) {
+            if (typeof label === 'string' && label.length > 16) {
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = words[0];
+
+                for (let i = 1; i < words.length; i++) {
+                    if (currentLine.length + 1 + words[i].length <= 16) {
+                        currentLine += ' ' + words[i];
+                    } else {
+                        lines.push(currentLine);
+                        currentLine = words[i];
+                    }
+                }
+                lines.push(currentLine);
+                return lines;
+            }
+            return label;
+        }
+
+        // Shared Tooltip Config
+        const tooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    // For bubble charts, labels might be stored differently or in raw data
+                    if(!label && item.chart.config.type === 'bubble') {
+                         label = item.raw.location; 
+                    }
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // 1. Radar Chart: Psychographics
+        const radarCtx = document.getElementById('personaRadarChart').getContext('2d');
+        new Chart(radarCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Artistic Depth', 'Chill Vibes', 'Melodic Flow', 'Lyricism', 'Electronic Elements', 'Nostalgia'],
+                datasets: [{
+                    label: 'Creative Casey Preference',
+                    data: [95, 90, 85, 80, 75, 85],
+                    backgroundColor: 'rgba(124, 58, 237, 0.2)', // Violet
+                    borderColor: 'rgba(124, 58, 237, 1)',
+                    pointBackgroundColor: 'rgba(6, 182, 212, 1)', // Cyan
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(124, 58, 237, 1)'
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: tooltipConfig
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(0,0,0,0.1)' },
+                        grid: { color: 'rgba(0,0,0,0.05)' },
+                        pointLabels: {
+                            font: { size: 12, family: 'Inter' },
+                            color: '#4B5563'
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                }
+            }
+        });
+
+        // 2. Bar Chart: Top Artists
+        const barCtx = document.getElementById('influencesBarChart').getContext('2d');
+        const artistLabels = ['Mac Miller', 'Anderson .Paak', 'ProbCause', 'Smino', 'Still Woozy'];
+        new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: artistLabels.map(splitLabel),
+                datasets: [{
+                    label: 'Affinity Score',
+                    data: [100, 85, 75, 80, 70],
+                    backgroundColor: [
+                        'rgba(124, 58, 237, 0.8)', // Violet
+                        'rgba(6, 182, 212, 0.8)',  // Cyan
+                        'rgba(245, 158, 11, 0.8)', // Amber
+                        'rgba(16, 185, 129, 0.8)', // Emerald (variation)
+                        'rgba(236, 72, 153, 0.8)'  // Pink (variation)
+                    ],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: tooltipConfig
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { display: false }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: { font: { family: 'Inter', weight: '600' } }
+                    }
+                }
+            }
+        });
+
+        // 3. Bubble Chart: Geography
+        const bubbleCtx = document.getElementById('geoBubbleChart').getContext('2d');
+        new Chart(bubbleCtx, {
+            type: 'bubble',
+            data: {
+                datasets: [{
+                    label: 'Strategic Markets',
+                    data: [
+                        { x: 9.5, y: 8, r: 25, location: 'Austin, TX' },    // High Vibe, Good Vol
+                        { x: 8, y: 10, r: 20, location: 'Los Angeles' },    // Good Vibe, Max Vol
+                        { x: 9, y: 6, r: 15, location: 'Denver, CO' },      // High Vibe, Med Vol
+                        { x: 7, y: 7, r: 12, location: 'Portland' },        // Med Vibe, Med Vol
+                        { x: 6, y: 9, r: 18, location: 'Santiago, CL' }     // Ok Vibe, High Vol
+                    ],
+                    backgroundColor: [
+                        'rgba(245, 158, 11, 0.7)', // Austin (Amber/Home)
+                        'rgba(124, 58, 237, 0.7)',
+                        'rgba(6, 182, 212, 0.7)',
+                        'rgba(16, 185, 129, 0.7)',
+                        'rgba(236, 72, 153, 0.7)'
+                    ],
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.raw.location + ': Priority Level ' + context.raw.r;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Vibe Match (Culture Fit)', font: { weight: 'bold' } },
+                        min: 4, max: 11,
+                        grid: { color: 'rgba(0,0,0,0.05)' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Market Volume Size', font: { weight: 'bold' } },
+                        min: 4, max: 12,
+                        grid: { color: 'rgba(0,0,0,0.05)' }
+                    }
+                }
+            }
+        });
+
+        // 4. Doughnut Chart: Digital Habitat
+        const doughnutCtx = document.getElementById('digitalDoughnutChart').getContext('2d');
+        new Chart(doughnutCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['YouTube (Study/Vibe)', 'Reddit (Communities)', 'Discord (Chat)', 'Spotify (Discovery)', 'TikTok (Clips)'],
+                datasets: [{
+                    data: [40, 25, 15, 10, 10],
+                    backgroundColor: [
+                        '#7C3AED', // YouTube - Violet
+                        '#F59E0B', // Reddit - Amber
+                        '#06B6D4', // Discord - Cyan
+                        '#10B981', // Spotify - Emerald
+                        '#EC4899'  // TikTok - Pink
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { 
+                        position: 'right',
+                        labels: {
+                            boxWidth: 12,
+                            font: { size: 11 }
+                        }
+                    },
+                    tooltip: tooltipConfig
+                }
+            }
+        });
+    </script>
+</body>
+</html>

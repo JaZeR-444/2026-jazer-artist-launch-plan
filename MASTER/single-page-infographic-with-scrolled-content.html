@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JaZeR: Strategic Research & 90-Day Roadmap</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Color Palette Comment: Vibrant "Electric Future" - Cyan, Lime, Deep Purple/Navy -->
+    <!-- 
+        Palette Used:
+        Background: #0f172a (Slate 900)
+        Card BG: #1e293b (Slate 800)
+        Primary Accent: #06b6d4 (Cyan 500)
+        Secondary Accent: #84cc16 (Lime 500)
+        Text Light: #f8fafc (Slate 50)
+        Text Dim: #94a3b8 (Slate 400)
+    -->
+
+    <!-- NO SVG / NO MERMAID CONFIRMATION -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Slate 900 */
+            color: #f8fafc;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* Chart Container Styling - MANDATORY */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Constraint to prevent wide charts */
+            height: 350px;    /* Base height */
+            max-height: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .chart-container-lg {
+            position: relative;
+            width: 100%;
+            max-width: 100%; /* Larger container for wide plots */
+            height: 400px;
+            max-height: 500px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #06b6d4;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #22d3ee;
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(to right, #06b6d4, #84cc16);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Timeline Grid styling */
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 1rem;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-cyan-500 selection:text-white">
+
+    <!-- HERO SECTION -->
+    <header class="relative w-full py-20 px-6 bg-slate-900 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-wider text-lime-400 uppercase bg-lime-900/30 rounded-full border border-lime-500/30">
+                Artist Development Sprint
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
+                JaZeR <span class="text-gradient">Project Roadmap</span>
+            </h1>
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto">
+                10-Module Deep Research Synthesis: From Local Austin Buzz to Global Streaming Velocity.
+            </p>
+            
+            <!-- Key Stats Row -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 max-w-4xl mx-auto">
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-lg">
+                    <p class="text-slate-400 text-sm font-semibold">Current Monthly Listeners</p>
+                    <p class="text-3xl font-bold text-white mt-1">12.5K</p>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-lg">
+                    <p class="text-slate-400 text-sm font-semibold">Target (90 Days)</p>
+                    <p class="text-3xl font-bold text-cyan-400 mt-1">100K</p>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-lg">
+                    <p class="text-slate-400 text-sm font-semibold">Primary Genre</p>
+                    <p class="text-2xl font-bold text-lime-400 mt-1">Melodic Hip-Hop</p>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-lg">
+                    <p class="text-slate-400 text-sm font-semibold">Key Market</p>
+                    <p class="text-2xl font-bold text-white mt-1">Austin, TX</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-12 space-y-24">
+
+        <!-- PLAN SUMMARY -->
+        <section>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold mb-6 text-white border-l-4 border-cyan-500 pl-4">The Strategic Gap</h2>
+                    <p class="text-slate-300 mb-6 leading-relaxed">
+                        JaZeR currently sits in the "Local Hero" phase. The production quality matches national acts like <strong>Smino</strong> or <strong>Kota the Friend</strong>, but the digital footprint is lagging. The primary goal is to bridge the gap between high-quality output and algorithmic recognition.
+                    </p>
+                    <p class="text-slate-300 leading-relaxed">
+                        This 90-day sprint focuses on three pillars: <strong>Aggressive Waterfall Releases</strong>, <strong>Algorithmic Triggering</strong> via "Gateway" playlists, and <strong>Regional Touring</strong> to capitalize on the Texas Triangle.
+                    </p>
+                </div>
+                <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700">
+                    <h3 class="text-xl font-bold text-cyan-400 mb-4">North Star Objectives</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">🚀</span>
+                            <div>
+                                <strong class="text-white block">Algorithmic Velocity</strong>
+                                <span class="text-slate-400 text-sm">Trigger "Discover Weekly" by maintaining a 45%+ Save Rate.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">💎</span>
+                            <div>
+                                <strong class="text-white block">Brand Crystallization</strong>
+                                <span class="text-slate-400 text-sm">Define the "Conscious Hypebeast" aesthetic to convert casual listeners to fans.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">🎟️</span>
+                            <div>
+                                <strong class="text-white block">Touring Validation</strong>
+                                <span class="text-slate-400 text-sm">Sell out 3 key venues in Austin, Houston, and Dallas (200 cap).</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 02: MARKET LANDSCAPE -->
+        <section>
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-white mb-2">01. Market Landscape</h2>
+                <p class="text-slate-400">Benchmarking JaZeR against "Standard Bearers" and "High-Velocity Risers" in the Melodic Rap space.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- CHART: Radar Comparison -->
+                <div class="bg-slate-800 rounded-xl p-6 shadow-lg border border-slate-700">
+                    <h3 class="text-lg font-bold text-white mb-4">Sonic & Brand Attribute Map</h3>
+                    <div class="chart-container">
+                        <canvas id="marketRadarChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-4 text-center">Comparing JaZeR's current profile against Market Leaders (e.g., Kota) and Risers.</p>
+                </div>
+
+                <!-- CONTENT: Competitive Matrix -->
+                <div class="space-y-6">
+                    <div class="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
+                        <h4 class="text-cyan-400 font-bold mb-2 text-sm uppercase">The "Blue Ocean" Opportunity</h4>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            The market is saturated with "Sad Trap" and "Aggressive Drill". There is a significant void for <strong>"Optimistic Lyricism"</strong>—music that has the bounce of Trap but the soul of Gospel/R&B. JaZeR's "Mac Miller meets Anderson .Paak" vibe fits perfectly here.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="text-white font-bold mb-3 text-sm uppercase">Market Competitor Tiering</h4>
+                        <div class="overflow-hidden rounded-lg border border-slate-700">
+                            <table class="w-full text-sm text-left text-slate-400">
+                                <thead class="text-xs text-slate-200 uppercase bg-slate-700">
+                                    <tr>
+                                        <th class="px-4 py-3">Artist Tier</th>
+                                        <th class="px-4 py-3">Monthly Listeners</th>
+                                        <th class="px-4 py-3">Growth Driver</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-slate-800 border-b border-slate-700">
+                                        <td class="px-4 py-3 font-medium text-white">Standard Bearer</td>
+                                        <td class="px-4 py-3">2M - 5M</td>
+                                        <td class="px-4 py-3">Touring, Catalog Depth</td>
+                                    </tr>
+                                    <tr class="bg-slate-800 border-b border-slate-700">
+                                        <td class="px-4 py-3 font-medium text-cyan-400">High-Velocity Riser</td>
+                                        <td class="px-4 py-3">500k - 1M</td>
+                                        <td class="px-4 py-3">TikTok Viral Moment</td>
+                                    </tr>
+                                    <tr class="bg-slate-900/50">
+                                        <td class="px-4 py-3 font-medium text-lime-400">JaZeR (Current)</td>
+                                        <td class="px-4 py-3">12.5k</td>
+                                        <td class="px-4 py-3">Local Word of Mouth</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 03: AUDIENCE PROFILE -->
+        <section>
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-white mb-2">02. The "Superfan" Profile</h2>
+                <p class="text-slate-400">Defining the "Conscious Hypebeast" — the core demographic for JaZeR's sound.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- CHART: Demographics Donut -->
+                <div class="bg-slate-800 rounded-xl p-6 shadow-lg border border-slate-700 col-span-1">
+                    <h3 class="text-lg font-bold text-white mb-4">Core Demographics</h3>
+                    <div class="chart-container" style="height: 250px;">
+                        <canvas id="audiencePieChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <span class="inline-block px-2 py-1 bg-cyan-900 text-cyan-300 text-xs rounded mr-2">Male 65%</span>
+                        <span class="inline-block px-2 py-1 bg-lime-900 text-lime-300 text-xs rounded">Age 18-24</span>
+                    </div>
+                </div>
+
+                <!-- CARD: Psychographics -->
+                <div class="bg-slate-800 rounded-xl p-6 shadow-lg border border-slate-700 col-span-1 md:col-span-2">
+                    <h3 class="text-lg font-bold text-white mb-4">Persona: "The Conscious Hypebeast"</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <p class="text-sm text-slate-400 uppercase tracking-wide mb-1">Values</p>
+                            <p class="text-white mb-4">Authenticity, Mental Health Awareness, Entrepreneurship, curated aesthetics over logos.</p>
+                            
+                            <p class="text-sm text-slate-400 uppercase tracking-wide mb-1">Digital Habitats</p>
+                            <p class="text-white mb-4">Discord (Streetwear communities), Twitter/X (Music Twitter), TikTok (Fit checks).</p>
+                        </div>
+                        <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                            <p class="text-sm text-slate-400 uppercase tracking-wide mb-2">Cross-Interests</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-slate-700 text-xs rounded-full text-slate-200">Vintage Fashion</span>
+                                <span class="px-3 py-1 bg-slate-700 text-xs rounded-full text-slate-200">Sneaker Culture</span>
+                                <span class="px-3 py-1 bg-slate-700 text-xs rounded-full text-slate-200">Indie Gaming</span>
+                                <span class="px-3 py-1 bg-slate-700 text-xs rounded-full text-slate-200">Vinyl Collecting</span>
+                                <span class="px-3 py-1 bg-slate-700 text-xs rounded-full text-slate-200">Craft Coffee</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Plotly Map Placeholder (Using simple Bar for top cities to avoid huge map lib overhead if not needed, but prompt asked for Plotly) -->
+            <div class="mt-8 bg-slate-800 rounded-xl p-6 shadow-lg border border-slate-700">
+                <h3 class="text-lg font-bold text-white mb-4">Top Markets (Super-Markets)</h3>
+                <div class="chart-container-lg">
+                    <div id="cityBarChart" style="width:100%; height:100%;"></div>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">Data based on streaming density for comparable Melodic Hip-hop artists.</p>
+            </div>
+        </section>
+
+        <!-- MODULE 04 & 06: ALGORITHM & PLAYLISTS -->
+        <section>
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-white mb-2">03. The Algorithm Engine</h2>
+                <p class="text-slate-400">Moving from "Push" marketing to "Pull" algorithmic growth.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- CHART: Algo Signals -->
+                <div class="bg-slate-800 rounded-xl p-6 shadow-lg border border-slate-700">
+                    <h3 class="text-lg font-bold text-white mb-4">Algorithm Signal Weighting</h3>
+                    <div class="chart-container">
+                        <canvas id="algoSignalChart"></canvas>
+                    </div>
+                    <p class="text-sm text-slate-400 mt-4">
+                        <span class="text-lime-400 font-bold">Insight:</span> A high "Save Rate" is 3x more valuable than a passive stream. Optimization must focus on "Pre-Saves" and "Library Adds".
+                    </p>
+                </div>
+
+                <!-- DIAGRAM: Playlist Funnel -->
+                <div class="bg-slate-800 rounded-xl p-6 shadow-lg border border-slate-700 flex flex-col justify-center">
+                    <h3 class="text-lg font-bold text-white mb-6">The Playlist Pyramid Strategy</h3>
+                    
+                    <div class="space-y-4 w-full max-w-md mx-auto">
+                        <!-- Top Tier -->
+                        <div class="bg-cyan-600 p-4 rounded text-center relative mx-12 shadow-lg hover:scale-105 transition-transform">
+                            <h4 class="font-bold text-white">Editorial (Goal)</h4>
+                            <p class="text-xs text-cyan-100">RapCaviar, Most Necessary, Pollen</p>
+                        </div>
+                        
+                        <!-- Arrow -->
+                        <div class="flex justify-center -my-2"><span class="text-slate-500">▼</span></div>
+
+                        <!-- Mid Tier -->
+                        <div class="bg-indigo-600 p-4 rounded text-center relative mx-6 shadow-lg hover:scale-105 transition-transform">
+                            <h4 class="font-bold text-white">Algorithmic (Scale)</h4>
+                            <p class="text-xs text-indigo-100">Discover Weekly, Release Radar, Radio</p>
+                        </div>
+
+                        <!-- Arrow -->
+                        <div class="flex justify-center -my-2"><span class="text-slate-500">▼</span></div>
+
+                        <!-- Base Tier -->
+                        <div class="bg-slate-600 p-4 rounded text-center relative shadow-lg border-2 border-lime-500 hover:scale-105 transition-transform">
+                            <h4 class="font-bold text-white text-lime-400">The "Gateway" (Start Here)</h4>
+                            <p class="text-xs text-slate-200">Niche User Playlists, Independent Curators, Blogs</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-3 bg-lime-900/20 border border-lime-500/30 rounded text-center">
+                        <p class="text-sm text-lime-400 font-bold">Action: Target 20 "Gateway" curators in Week 1.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 07: MARKETING ROI -->
+        <section>
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-white mb-2">04. Marketing Channel ROI</h2>
+                <p class="text-slate-400">Where to spend the budget for maximum conversion.</p>
+            </div>
+
+            <div class="bg-slate-800 rounded-xl p-6 shadow-lg border border-slate-700">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="md:col-span-2">
+                        <h3 class="text-lg font-bold text-white mb-4">Channel Efficiency Matrix (Cost vs. Quality)</h3>
+                        <div class="chart-container-lg">
+                             <canvas id="marketingScatterChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-center space-y-4">
+                        <div class="p-4 bg-slate-700/50 rounded-lg border-l-4 border-lime-500">
+                            <h4 class="font-bold text-white">TikTok Organic</h4>
+                            <p class="text-sm text-slate-400">Highest ROI. Focus on "Behind the beats" and "Studio session" content. Cost: Time.</p>
+                        </div>
+                        <div class="p-4 bg-slate-700/50 rounded-lg border-l-4 border-cyan-500">
+                            <h4 class="font-bold text-white">IG Reels Ads</h4>
+                            <p class="text-sm text-slate-400">Best for retargeting engaged fans. Use snippets of visualizers. Cost: Moderate.</p>
+                        </div>
+                        <div class="p-4 bg-slate-700/50 rounded-lg border-l-4 border-red-500">
+                            <h4 class="font-bold text-white">Playlist Pitching Services</h4>
+                            <p class="text-sm text-slate-400">High risk of bot traffic. Avoid unless verified (SubmitHub/Groover only).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 10: 90-DAY EXECUTION -->
+        <section>
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-white mb-2">05. The 90-Day Execution Sprint</h2>
+                <p class="text-slate-400">The Go-to-Market timeline for the next quarter.</p>
+            </div>
+
+            <div class="bg-slate-800 rounded-xl p-6 shadow-lg border border-slate-700 overflow-hidden">
+                <!-- Month 1 -->
+                <div class="mb-8">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-cyan-500 text-white font-bold px-3 py-1 rounded text-sm mr-4">Month 1</div>
+                        <h3 class="text-xl font-bold text-white">Foundation & Content Bank</h3>
+                    </div>
+                    <div class="timeline-grid">
+                        <div class="text-right text-slate-400 text-sm py-2">Week 1-2</div>
+                        <div class="bg-slate-700/50 p-3 rounded border-l-2 border-cyan-500">
+                            <strong class="text-white block text-sm">Asset Creation</strong>
+                            <p class="text-slate-400 text-xs">Shoot 3x Visualizers, 10x TikTok snippets. Finalize Mix/Master.</p>
+                        </div>
+                        
+                        <div class="text-right text-slate-400 text-sm py-2">Week 3-4</div>
+                        <div class="bg-slate-700/50 p-3 rounded border-l-2 border-cyan-500">
+                            <strong class="text-white block text-sm">"Gateway" Pitching</strong>
+                            <p class="text-slate-400 text-xs">Submit to 50 Indie Curators via SubmitHub. Pitch to Spotify Editorial (S4A) 4 weeks out.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Month 2 -->
+                <div class="mb-8">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-lime-500 text-slate-900 font-bold px-3 py-1 rounded text-sm mr-4">Month 2</div>
+                        <h3 class="text-xl font-bold text-white">Release & Acceleration</h3>
+                    </div>
+                    <div class="timeline-grid">
+                        <div class="text-right text-slate-400 text-sm py-2">Week 5</div>
+                        <div class="bg-lime-900/30 p-3 rounded border-l-2 border-lime-500">
+                            <strong class="text-lime-300 block text-sm">🚀 RELEASE DAY (Single 1)</strong>
+                            <p class="text-slate-400 text-xs">Update all bios. Post "Out Now" everywhere. Run IG Stories Ad ($100 budget).</p>
+                        </div>
+                        
+                        <div class="text-right text-slate-400 text-sm py-2">Week 6-8</div>
+                        <div class="bg-slate-700/50 p-3 rounded border-l-2 border-lime-500">
+                            <strong class="text-white block text-sm">The "Waterfall" Sustain</strong>
+                            <p class="text-slate-400 text-xs">Release Acoustic/Slowed version. Announce Texas Tour Dates.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Month 3 -->
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="bg-purple-500 text-white font-bold px-3 py-1 rounded text-sm mr-4">Month 3</div>
+                        <h3 class="text-xl font-bold text-white">Touring & Monetization</h3>
+                    </div>
+                    <div class="timeline-grid">
+                        <div class="text-right text-slate-400 text-sm py-2">Week 9-10</div>
+                        <div class="bg-slate-700/50 p-3 rounded border-l-2 border-purple-500">
+                            <strong class="text-white block text-sm">Merch Drop</strong>
+                            <p class="text-slate-400 text-xs">Launch "Limited Edition" Hoodie (High Margin). Direct-to-Fan email campaign.</p>
+                        </div>
+                        
+                        <div class="text-right text-slate-400 text-sm py-2">Week 11-12</div>
+                        <div class="bg-slate-700/50 p-3 rounded border-l-2 border-purple-500">
+                            <strong class="text-white block text-sm">Texas Run</strong>
+                            <p class="text-slate-400 text-xs">Execute 3-city tour (Austin, Dallas, Houston). Capture content for next cycle.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="mt-20 border-t border-slate-800 py-8 text-center text-slate-500 text-sm">
+            <p>Generated for JaZeR Artist Development • Confidential Strategy Document</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // --- 1. MARKET RADAR CHART (Chart.js) ---
+        const ctxRadar = document.getElementById('marketRadarChart').getContext('2d');
+        const radarChart = new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: ['Lyricism', 'Melody/Hooks', 'Visual Aesthetic', 'Social Velocity', 'Playlist Reach', 'Live Draw'],
+                datasets: [{
+                    label: 'JaZeR (Current)',
+                    data: [8, 7, 4, 3, 2, 5], // Strong product, weak reach
+                    fill: true,
+                    backgroundColor: 'rgba(132, 204, 22, 0.2)', // Lime
+                    borderColor: '#84cc16',
+                    pointBackgroundColor: '#84cc16',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#84cc16'
+                }, {
+                    label: 'Target Competitor (Kota)',
+                    data: [8, 8, 8, 7, 9, 8],
+                    fill: true,
+                    backgroundColor: 'rgba(6, 182, 212, 0.2)', // Cyan
+                    borderColor: '#06b6d4',
+                    pointBackgroundColor: '#06b6d4',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#06b6d4'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: '#334155' },
+                        grid: { color: '#334155' },
+                        pointLabels: {
+                            color: '#94a3b8',
+                            font: { size: 12 }
+                        },
+                        ticks: { display: false, backdropColor: 'transparent' }
+                    }
+                },
+                plugins: {
+                    legend: { labels: { color: '#f8fafc' } },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                // MANDATORY TOOLTIP CONFIG
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                  return label.join(' ');
+                                } else {
+                                  return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // --- 2. AUDIENCE DEMOGRAPHICS (Chart.js Pie) ---
+        const ctxPie = document.getElementById('audiencePieChart').getContext('2d');
+        new Chart(ctxPie, {
+            type: 'doughnut',
+            data: {
+                labels: ['Male 18-24', 'Male 25-30', 'Female 18-24', 'Others'],
+                datasets: [{
+                    data: [45, 20, 25, 10],
+                    backgroundColor: ['#06b6d4', '#0891b2', '#84cc16', '#475569'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'right', labels: { color: '#f8fafc' } },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                return Array.isArray(label) ? label.join(' ') : label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // --- 3. ALGO SIGNAL WEIGHTING (Chart.js Horizontal Bar) ---
+        const ctxAlgo = document.getElementById('algoSignalChart').getContext('2d');
+        new Chart(ctxAlgo, {
+            type: 'bar',
+            data: {
+                labels: [['Save', 'Rate'], ['User', 'Share'], ['Repeat', 'Listen'], ['Skip', 'Rate']],
+                datasets: [{
+                    label: 'Algorithmic Impact Score',
+                    data: [95, 85, 75, -60], // Skip rate is negative
+                    backgroundColor: [
+                        '#84cc16', // Lime (Positive)
+                        '#06b6d4', // Cyan
+                        '#6366f1', // Indigo
+                        '#ef4444'  // Red (Negative)
+                    ],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        grid: { color: '#334155' },
+                        ticks: { color: '#94a3b8' }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: { color: '#f8fafc' }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                return Array.isArray(label) ? label.join(' ') : label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // --- 4. TOP CITIES (Plotly.js Bar) ---
+        // Using Plotly for the Cities chart as requested to mix libraries
+        const cityData = [{
+            x: ['Austin', 'Denver', 'Chicago', 'Atlanta', 'London'],
+            y: [4500, 3200, 2800, 2100, 1500],
+            type: 'bar',
+            marker: {
+                color: ['#84cc16', '#06b6d4', '#3b82f6', '#6366f1', '#8b5cf6']
+            }
+        }];
+        
+        const cityLayout = {
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            font: { color: '#f8fafc', family: 'Inter' },
+            margin: { t: 20, b: 40, l: 40, r: 20 },
+            xaxis: { title: 'City', gridcolor: '#334155' },
+            yaxis: { title: 'Est. Listeners', gridcolor: '#334155' },
+            autosize: true
+        };
+        
+        Plotly.newPlot('cityBarChart', cityData, cityLayout, {displayModeBar: false, responsive: true});
+
+
+        // --- 5. MARKETING SCATTER PLOT (Chart.js) ---
+        const ctxScatter = document.getElementById('marketingScatterChart').getContext('2d');
+        new Chart(ctxScatter, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'Channels',
+                    data: [
+                        { x: 1, y: 9, label: ['TikTok', 'Organic'] },    // Low Cost, High Quality
+                        { x: 8, y: 8, label: ['IG', 'Ads'] },            // High Cost, High Quality
+                        { x: 5, y: 4, label: ['Influencer', 'Seeding'] },// Mid Cost, Mid Quality
+                        { x: 3, y: 2, label: ['Playlist', 'Services'] }  // Low Cost, Low Quality (Risky)
+                    ],
+                    backgroundColor: function(context) {
+                        const val = context.raw?.y;
+                        return val > 7 ? '#84cc16' : (val < 4 ? '#ef4444' : '#06b6d4');
+                    },
+                    pointRadius: 8,
+                    pointHoverRadius: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        title: { display: true, text: 'Cost / Effort (Low to High)', color: '#94a3b8' },
+                        grid: { color: '#334155' },
+                        ticks: { color: '#94a3b8', stepSize: 1 }
+                    },
+                    y: {
+                        title: { display: true, text: 'Conversion Quality (Fan vs Bot)', color: '#94a3b8' },
+                        grid: { color: '#334155' },
+                        ticks: { color: '#94a3b8', stepSize: 1 }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                // Custom tooltip to show label
+                                const raw = context[0].raw;
+                                return Array.isArray(raw.label) ? raw.label.join(' ') : raw.label;
+                            },
+                            label: function(context) {
+                                return ''; // Hide coord details to keep it clean
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>

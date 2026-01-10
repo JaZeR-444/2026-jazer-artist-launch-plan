@@ -1,0 +1,64 @@
+{
+  "title": "Austin Hip-Hop Competitive Landscape",
+  "source": "Module 02 - Spotify Market Landscape",
+  "lastUpdated": "2026-01-09",
+  "competitors": [
+    {
+      "name": "Deezie Brown",
+      "tier": "Established (Local)",
+      "monthlyListeners": 2000,
+      "monthlyListenersRange": "~2,000",
+      "growthDriver": "Consistent high-quality releases; 'Southern soundscapes' branding",
+      "positioning": "Local staple with strong branding",
+      "keyStrengths": ["Consistent releases", "Strong local branding", "Southern aesthetic"],
+      "relevance": "Direct competitor in Austin melodic rap space"
+    },
+    {
+      "name": "Blackillac",
+      "tier": "Established (Local)",
+      "monthlyListeners": null,
+      "monthlyListenersRange": "Active",
+      "growthDriver": "High-energy live shows; SXSW staples; 'Soul-influenced' duo",
+      "positioning": "Live performance powerhouse",
+      "keyStrengths": ["Live performance", "SXSW presence", "Soul-influenced sound"],
+      "relevance": "Shows importance of live scene in Austin"
+    },
+    {
+      "name": "Blakchyl",
+      "tier": "Riser",
+      "monthlyListeners": 1000,
+      "monthlyListenersRange": "~1,000+",
+      "growthDriver": "International reach (Chile/Mexico) indicating strong playlist/algo pickup",
+      "positioning": "Rising international artist",
+      "keyStrengths": ["International reach", "Algorithm success", "Playlist traction"],
+      "relevance": "Proof that Austin artists can go global via playlists"
+    },
+    {
+      "name": "Magna Carda",
+      "tier": "Standard Bearer",
+      "monthlyListeners": 15000,
+      "monthlyListenersRange": "~15,000+",
+      "growthDriver": "Live instrumentation; 'Austin's Roots' positioning; steady touring",
+      "positioning": "Top-tier Austin hip-hop benchmark",
+      "keyStrengths": ["Live instrumentation", "Strong local branding", "Touring infrastructure"],
+      "relevance": "Primary benchmark for 'Austin Roots' positioning"
+    },
+    {
+      "name": "JaRon Marshall",
+      "tier": "Peer/Collab",
+      "monthlyListeners": 400000,
+      "monthlyListenersRange": "~400,000+",
+      "growthDriver": "Black Pumas keyboardist; massive 'Jazz Rap' crossover appeal",
+      "positioning": "Crossover success story",
+      "keyStrengths": ["Jazz-rap fusion", "Black Pumas association", "Global reach"],
+      "relevance": "Proves viability of jazz/soul + hip-hop in Austin → global success"
+    }
+  ],
+  "marketDynamics": {
+    "austinFactor": "Smaller than Houston/Atlanta but concentrated on quality and live performance",
+    "gatekeepers": ["KUTX 98.9 (The Breaks)", "KOOP 91.7", "Empire Control Room"],
+    "winningSound": "Neo-Soul Rap and Jazz Rap",
+    "saturationIndex": "Low - very few executing Mac Miller/ProbCause melodic style at high level",
+    "blueOcean": "Electronic-infused, melodic, introspective hip-hop (ProbCause/Mac Miller lane)"
+  }
+}

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 08: Touring & Spotify Demand Signals | JaZeR Research</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <style>
+        :root { --bg: #050816; --surface: #1a1f3a; --cyan: #06d6a0; --lime: #a3ff12; --violet: #c77dff; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: #f8fafc; margin: 0; overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+        
+        .cursor { width: 20px; height: 20px; background: linear-gradient(135deg, var(--violet), var(--lime)); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99999; mix-blend-mode: difference; transform: translate(-50%, -50%); }
+        @media (max-width: 768px) { .cursor { display: none; } }
+        
+        .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--violet), var(--lime)); z-index: 9999; width: 0%; }
+        
+        .gradient-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .gradient-orb { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.4; }
+        .orb-1 { width: 400px; height: 400px; background: var(--violet); top: -100px; right: -100px; }
+        .orb-2 { width: 300px; height: 300px; background: var(--cyan); bottom: 20%; left: -50px; }
+        
+        .glass { background: rgba(26, 31, 58, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .glass-strong { background: rgba(26, 31, 58, 0.8); backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.15); }
+        
+        .gradient-text { background: linear-gradient(135deg, var(--cyan), var(--lime), var(--violet)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .neon-violet { text-shadow: 0 0 10px rgba(199, 125, 255, 0.8); }
+        
+        .badge-violet { background: rgba(199, 125, 255, 0.2); color: var(--violet); border: 1px solid rgba(199, 125, 255, 0.4); padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .badge-progress { background: rgba(199, 125, 255, 0.2); color: var(--violet); border: 1px solid rgba(199, 125, 255, 0.4); padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 600; }
+        
+        .content-card { background: rgba(26, 31, 58, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.4s; }
+        .content-card:hover { border-color: var(--violet); box-shadow: 0 20px 60px rgba(199, 125, 255, 0.15); transform: translateY(-4px); }
+        
+        .btn-primary { background: linear-gradient(135deg, var(--cyan), var(--lime)); color: var(--bg); font-weight: 700; transition: all 0.3s; }
+        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 40px rgba(6, 214, 160, 0.4); }
+        .btn-secondary { background: transparent; border: 2px solid rgba(255, 255, 255, 0.2); color: #f8fafc; font-weight: 600; }
+        
+        .tldr-box { background: linear-gradient(135deg, rgba(199, 125, 255, 0.1), rgba(199, 125, 255, 0.03)); border-left: 4px solid var(--violet); }
+        
+        /* Venue Cards */
+        .venue-card { cursor: pointer; transition: all 0.4s; position: relative; overflow: hidden; }
+        .venue-card:hover { transform: scale(1.02); }
+        .venue-card.primary { border: 2px solid var(--violet); }
+        .venue-card .venue-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .venue-capacity { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; padding: 0.25rem 0.75rem; background: rgba(255, 255, 255, 0.1); border-radius: 9999px; }
+        
+        /* Texas Map Visual */
+        .texas-map { position: relative; min-height: 300px; }
+        .city-marker { position: absolute; width: 20px; height: 20px; border-radius: 50%; transform: translate(-50%, -50%); cursor: pointer; transition: all 0.3s; z-index: 10; }
+        .city-marker::before { content: ''; position: absolute; inset: -6px; border-radius: 50%; background: inherit; opacity: 0.3; animation: ping 2s ease-out infinite; }
+        .city-marker:hover { transform: translate(-50%, -50%) scale(1.5); }
+        .city-marker .tooltip { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(26, 31, 58, 0.95); padding: 8px 12px; border-radius: 8px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.3s; font-size: 12px; border: 1px solid var(--violet); z-index: 100; }
+        .city-marker:hover .tooltip { opacity: 1; }
+        .connecting-line { position: absolute; height: 2px; background: linear-gradient(90deg, var(--violet), var(--cyan)); transform-origin: left center; opacity: 0; }
+        @keyframes ping { 0% { transform: scale(1); opacity: 0.4; } 100% { transform: scale(2.5); opacity: 0; } }
+        
+        /* Weekend Warrior Route */
+        .route-card { transition: all 0.4s; opacity: 0.6; }
+        .route-card.active { opacity: 1; transform: scale(1.1); }
+        .route-card:hover { opacity: 1; }
+        .route-arrow { font-size: 2rem; transition: all 0.5s; }
+        .route-arrow.animated { animation: arrowPulse 1s ease-in-out infinite; }
+        @keyframes arrowPulse { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(10px); } }
+        
+        .sticky-nav { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 100; }
+        footer { background: rgba(5, 8, 22, 0.9); border-top: 1px solid rgba(255, 255, 255, 0.05); }
+        .back-to-top { position: fixed; bottom: 6rem; right: 2rem; width: 48px; height: 48px; border-radius: 50%; background: rgba(26, 31, 58, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s; z-index: 50; }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: var(--violet); color: var(--bg); }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="progress-bar" id="progress-bar"></div>
+    <div class="gradient-bg"><div class="gradient-orb orb-1"></div><div class="gradient-orb orb-2"></div></div>
+    
+    <nav class="glass-strong sticky top-0 z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index-premium.html" class="text-2xl font-bold neon-violet">JaZeR</a>
+            <div class="flex items-center gap-6">
+                <span class="badge-progress hidden md:inline">Module 8 of 10</span>
+                <div class="hidden md:flex space-x-6">
+                    <a href="modules.html" class="text-slate-300 hover:text-violet-400 transition">All Modules</a>
+                    <a href="dashboard.html" class="text-slate-300 hover:text-violet-400 transition">Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero with Animation -->
+    <section class="py-20 px-6">
+        <div class="max-w-5xl mx-auto text-center">
+            <span class="badge-violet mb-6 inline-block hero-badge opacity-0">MODULE 08 · EXECUTION</span>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                <span class="hero-title opacity-0">Touring & Spotify</span><br/>
+                <span class="gradient-text hero-title opacity-0">Demand Signals</span>
+            </h1>
+            <p class="text-xl text-slate-400 hero-subtitle opacity-0">Geographic and live show strategy</p>
+            <a href="../08 - Touring and Spotify Demand Signals/02 - Markdown Notes/JaZeR-08-Touring-and-Spotify-Demand-Signals.md" download class="btn-primary px-8 py-4 rounded-full mt-8 inline-flex items-center gap-2 hero-cta opacity-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                Download Markdown
+            </a>
+        </div>
+    </section>
+
+    <!-- TL;DR -->
+    <section class="py-8 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="tldr-box p-8 rounded-2xl content-card">
+                <h2 class="text-2xl font-bold mb-4 neon-violet flex items-center gap-3"><span class="text-3xl">📌</span> TL;DR</h2>
+                <p class="text-lg text-slate-300 mb-4"><strong class="text-violet-400">Conquer Austin first.</strong> Don't book a tour with 0 listeners. Submit to local showcases like "Reason and Rhyme." Do "Weekend Warrior" runs.</p>
+                <ul class="space-y-2 text-slate-300 mt-4">
+                    <li class="flex items-start gap-3"><span class="text-violet-400 text-xl">→</span> Target Empire Control Room as primary venue</li>
+                    <li class="flex items-start gap-3"><span class="text-cyan-400 text-xl">→</span> Email bookers when similar artists are announced</li>
+                    <li class="flex items-start gap-3"><span class="text-lime-400 text-xl">→</span> "Ticket for a Follow" tactic at door deals</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 px-6">
+        <div class="max-w-5xl mx-auto space-y-12">
+            <!-- Austin Venue Targets -->
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-4 flex items-center gap-3"><span class="text-3xl">📍</span> Austin Venue Targets</h2>
+                <p class="text-slate-400 mb-6 text-sm">Hover to see booking details</p>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="venue-card glass p-6 rounded-xl primary">
+                        <div class="venue-icon">🎛️</div>
+                        <h3 class="text-xl font-bold neon-violet">Empire Control Room</h3>
+                        <p class="text-slate-400 text-sm mb-3">THE spot for Hip-Hop/Electronic</p>
+                        <div class="venue-capacity mb-3"><span>👥</span> 400 capacity</div>
+                        <div class="p-3 bg-slate-900/50 rounded-lg text-sm">
+                            <p class="text-slate-400 mb-1">Contact:</p>
+                            <code class="text-violet-400 text-xs">BookingAssistant@heardent.com</code>
+                        </div>
+                        <div class="mt-3 text-lime-400 font-bold text-sm">⭐ PRIMARY TARGET</div>
+                    </div>
+                    <div class="venue-card glass p-6 rounded-xl">
+                        <div class="venue-icon">🦩</div>
+                        <h3 class="text-xl font-bold text-cyan-400">Flamingo Cantina</h3>
+                        <p class="text-slate-400 text-sm mb-3">Smaller, energetic shows</p>
+                        <div class="venue-capacity mb-3"><span>👥</span> 200 capacity</div>
+                        <p class="text-slate-300 text-sm">Great for early career shows, reggae/hip-hop vibe</p>
+                    </div>
+                    <div class="venue-card glass p-6 rounded-xl">
+                        <div class="venue-icon">🌴</div>
+                        <h3 class="text-xl font-bold text-lime-400">Far Out Lounge</h3>
+                        <p class="text-slate-400 text-sm mb-3">Perfect for "Chill/Vibe" outdoor shows</p>
+                        <div class="venue-capacity mb-3"><span>👥</span> 500 capacity</div>
+                        <p class="text-slate-300 text-sm">Outdoor venue, festival atmosphere</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Texas Triangle Map -->
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-4 flex items-center gap-3"><span class="text-3xl">🗺️</span> Texas Triangle</h2>
+                <p class="text-slate-400 mb-6 text-sm">Click cities to see target venues</p>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="texas-map glass rounded-2xl p-8 relative">
+                        <!-- Simplified Texas outline -->
+                        <svg viewBox="0 0 100 80" class="w-full h-48 opacity-20">
+                            <path d="M10,10 L40,5 L60,8 L90,15 L85,30 L90,45 L80,55 L70,70 L50,75 L30,70 L20,55 L25,40 L15,30 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+                        </svg>
+                        <!-- City Markers -->
+                        <div class="city-marker" style="background: var(--violet); top: 55%; left: 50%;">
+                            <div class="tooltip"><strong>Austin (HOME)</strong><br/>Empire Control Room</div>
+                        </div>
+                        <div class="city-marker" style="background: var(--cyan); top: 65%; left: 70%;">
+                            <div class="tooltip"><strong>Houston</strong><br/>White Oak Music Hall</div>
+                        </div>
+                        <div class="city-marker" style="background: var(--lime); top: 60%; left: 35%;">
+                            <div class="tooltip"><strong>San Antonio</strong><br/>Paper Tiger</div>
+                        </div>
+                        <div class="city-marker" style="background: var(--violet); top: 25%; left: 55%;">
+                            <div class="tooltip"><strong>Dallas</strong><br/>Deep Ellum Art Co</div>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="glass p-4 rounded-xl" style="border-left: 4px solid var(--violet)">
+                            <h3 class="font-bold text-violet-400">Austin (HOME)</h3>
+                            <p class="text-slate-300 text-sm">Empire Control Room · Mohawk</p>
+                        </div>
+                        <div class="glass p-4 rounded-xl" style="border-left: 4px solid var(--cyan)">
+                            <h3 class="font-bold text-cyan-400">Houston</h3>
+                            <p class="text-slate-300 text-sm">White Oak Music Hall · Warehouse Live</p>
+                        </div>
+                        <div class="glass p-4 rounded-xl" style="border-left: 4px solid var(--lime)">
+                            <h3 class="font-bold text-lime-400">San Antonio</h3>
+                            <p class="text-slate-300 text-sm">Paper Tiger · Vibes Event Center</p>
+                        </div>
+                        <div class="glass p-4 rounded-xl" style="border-left: 4px solid var(--violet)">
+                            <h3 class="font-bold text-violet-400">Dallas</h3>
+                            <p class="text-slate-300 text-sm">Deep Ellum Art Co · Trees</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weekend Warrior Route -->
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-3"><span class="text-3xl">📅</span> Weekend Warrior Route</h2>
+                <p class="text-slate-400 mb-6 text-center">3-show weekend run · Minimal travel · Maximum impact</p>
+                <div class="flex flex-col md:flex-row gap-4 items-center justify-center" id="weekendRoute">
+                    <div class="route-card glass p-6 rounded-xl text-center" data-day="friday">
+                        <div class="text-4xl mb-2">🌙</div>
+                        <p class="font-bold text-lg text-lime-400">Friday</p>
+                        <p class="text-slate-400 text-sm">San Antonio</p>
+                        <p class="text-slate-500 text-xs mt-2">Paper Tiger</p>
+                    </div>
+                    <span class="route-arrow text-violet-400">→</span>
+                    <div class="route-card glass p-6 rounded-xl text-center active" style="border: 2px solid var(--violet)" data-day="saturday">
+                        <div class="text-4xl mb-2">🏠</div>
+                        <p class="font-bold text-lg neon-violet">Saturday</p>
+                        <p class="text-slate-400 text-sm">Austin (HOME)</p>
+                        <p class="text-slate-500 text-xs mt-2">Empire Control Room</p>
+                    </div>
+                    <span class="route-arrow text-violet-400">→</span>
+                    <div class="route-card glass p-6 rounded-xl text-center" data-day="sunday">
+                        <div class="text-4xl mb-2">☀️</div>
+                        <p class="font-bold text-lg text-cyan-400">Sunday</p>
+                        <p class="text-slate-400 text-sm">Houston</p>
+                        <p class="text-slate-500 text-xs mt-2">White Oak Music Hall</p>
+                    </div>
+                </div>
+                <div class="mt-8 glass p-4 rounded-xl text-center max-w-xl mx-auto">
+                    <p class="text-slate-300"><strong class="text-violet-400">Pro Tip:</strong> Book shows 2-3 months out. Email bookers when similar artists (Magna Carda, Deezie Brown) are announced.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="sticky-nav">
+        <div class="glass-strong px-6 py-3 rounded-full flex items-center gap-4">
+            <a href="module-07.html" class="btn-secondary px-4 py-2 rounded-full text-sm">← Prev</a>
+            <span class="text-slate-400 text-sm hidden md:inline">Module 8 of 10</span>
+            <a href="module-09.html" class="btn-primary px-4 py-2 rounded-full text-sm">Next →</a>
+        </div>
+    </div>
+
+    <button class="back-to-top" id="back-to-top"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
+
+    <footer class="py-12 px-6 mt-20">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-4"><span class="text-2xl font-bold neon-violet">JaZeR</span><span class="text-slate-500">// Research System</span></div>
+                <div class="flex gap-6 text-slate-400">
+                    <a href="modules.html" class="hover:text-violet-400 transition">All Modules</a>
+                    <a href="dashboard.html" class="hover:text-violet-400 transition">Dashboard</a>
+                    <a href="index-premium.html" class="hover:text-violet-400 transition">Home</a>
+                </div>
+            </div>
+            <div class="text-center mt-8 text-slate-600 text-sm">© 2026 JaZeR Strategic Research System · Module 08</div>
+        </div>
+    </footer>
+
+    <script src="assets/js/premium-ui.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            document.getElementById('progress-bar').style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100) + '%';
+        });
+        
+        // Back to Top
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => backToTop.classList.toggle('visible', window.scrollY > 500));
+        backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        
+        // Hero Animation
+        gsap.set('.hero-badge, .hero-title, .hero-subtitle, .hero-cta', { y: 30 });
+        const heroTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        heroTL
+            .to('.hero-badge', { opacity: 1, y: 0, duration: 0.6, delay: 0.2 })
+            .to('.hero-title', { opacity: 1, y: 0, duration: 0.8, stagger: 0.2 }, '-=0.3')
+            .to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
+            .to('.hero-cta', { opacity: 1, y: 0, duration: 0.5 }, '-=0.2');
+        
+        // Content Card Animations
+        gsap.from('.content-card', { y: 60, opacity: 0, stagger: 0.15, duration: 0.8, ease: 'power2.out', scrollTrigger: { trigger: '.content-card', start: 'top 85%' } });
+        
+        // Venue Cards Animation
+        gsap.from('.venue-card', { scale: 0.9, opacity: 0, stagger: 0.15, duration: 0.6, ease: 'back.out(1.5)', scrollTrigger: { trigger: '.venue-card', start: 'top 85%' } });
+        
+        // City Markers Animation
+        gsap.from('.city-marker', { scale: 0, stagger: 0.2, duration: 0.5, ease: 'back.out(2)', scrollTrigger: { trigger: '.texas-map', start: 'top 80%' } });
+        
+        // Weekend Route Animation
+        ScrollTrigger.create({
+            trigger: '#weekendRoute',
+            start: 'top 80%',
+            onEnter: () => {
+                document.querySelectorAll('.route-arrow').forEach(arrow => arrow.classList.add('animated'));
+                
+                // Cycle through days
+                const cards = document.querySelectorAll('.route-card');
+                let currentIndex = 1;
+                setInterval(() => {
+                    cards.forEach(c => c.classList.remove('active'));
+                    cards[currentIndex].classList.add('active');
+                    currentIndex = (currentIndex + 1) % 3;
+                }, 2000);
+            }
+        });
+        
+        // Floating Orbs
+        gsap.to('.orb-1', { x: 50, y: 30, duration: 15, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+        gsap.to('.orb-2', { x: -30, y: -50, duration: 20, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+    </script>
+</body>
+</html>

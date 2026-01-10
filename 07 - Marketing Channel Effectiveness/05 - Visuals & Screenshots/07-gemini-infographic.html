@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Channel Effectiveness: JaZeR</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Palette: Neon Night (Energetic & Playful) -->
+    <!-- Background: #0f172a (Slate 900 - Deep Dark) -->
+    <!-- Surface: #1e293b (Slate 800) -->
+    <!-- Primary Text: #f8fafc (Slate 50) -->
+    <!-- Accents: #D900FF (Electric Purple), #00FFFF (Cyan), #FFD700 (Gold), #FF0055 (Hot Pink) -->
+    
+    <!-- Narrative Plan:
+         1. Hero Section: Introduction to JaZeR's growth strategy.
+         2. Channel ROI Matrix: Bubble chart comparing Cost, Quality, and Scalability.
+         3. Conversion Funnel: Visual flow from Discovery to Action using HTML/CSS.
+         4. Creative Strategy: Cards detailing the "Hook", "Process", and "Vibe".
+         5. Budget Allocation: Doughnut charts for Low vs. Seed budget tiers.
+    -->
+    
+    <!-- Visual Choices:
+         - ROI Matrix -> Bubble Chart (Chart.js): Best for multivariate comparison (Cost vs Quality vs Scale).
+         - Funnel -> HTML/CSS Flow: Best for organizing process steps (No SVG/Mermaid allowed).
+         - Creative -> Styled Cards: Best for informational content.
+         - Budget -> Doughnut Charts (Chart.js): Best for showing part-to-whole comparison.
+         
+         NO SVG. NO MERMAID JS.
+    -->
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Slate 900 */
+            color: #f8fafc;
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 350px;
+            max-height: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+
+        /* Funnel Styling */
+        .funnel-step {
+            position: relative;
+            z-index: 10;
+        }
+        .funnel-connector {
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(to bottom, #D900FF, #00FFFF);
+            margin: 0 auto;
+        }
+        
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-cyan-500 selection:text-white">
+
+    <!-- Header / Hook -->
+    <header class="w-full py-12 px-6 bg-gradient-to-r from-slate-900 via-[#1a0b2e] to-slate-900 border-b border-slate-700">
+        <div class="max-w-6xl mx-auto text-center">
+            <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-4">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#D900FF] to-[#00FFFF]">JaZeR</span> 
+                Growth Blueprint
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto font-light">
+                Deep research analysis on marketing channel effectiveness, optimizing for <span class="text-[#FFD700] font-semibold">Cost-Per-Stream</span> and <span class="text-[#FFD700] font-semibold">High-Value Retention</span>.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-12 space-y-24">
+
+        <!-- SECTION 1: Channel ROI Matrix -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-4 space-y-6">
+                <h2 class="text-3xl font-bold border-l-4 border-[#D900FF] pl-4">Channel ROI Matrix</h2>
+                <p class="text-slate-300 leading-relaxed">
+                    We evaluated channels based on three critical factors: <strong>Financial Cost</strong>, <strong>Conversion Quality</strong> (listener retention), and <strong>Scalability</strong>.
+                </p>
+                <div class="glass-card p-6 rounded-xl shadow-lg">
+                    <h3 class="text-[#00FFFF] font-bold mb-2 uppercase tracking-wider text-sm">Key Insight</h3>
+                    <p class="text-sm text-slate-300">
+                        <strong>TikTok & Reels</strong> are the "Essential" engines. They require high effort but offer massive organic reach and high visual connection without direct ad spend. Paid channels should be layered in later.
+                    </p>
+                </div>
+            </div>
+            <div class="lg:col-span-8 bg-slate-800/50 p-6 rounded-2xl shadow-2xl border border-slate-700">
+                <!-- Chart.js Container -->
+                <div class="chart-container">
+                    <canvas id="roiBubbleChart"></canvas>
+                </div>
+                <div class="text-center mt-4 text-xs text-slate-500">
+                    X: Financial Cost | Y: Conversion Quality | Size: Scalability
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: The Conversion Funnel -->
+        <section class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">The Conversion Funnel</h2>
+                <p class="text-slate-400">The strategic path from a stranger scrolling content to a loyal Spotify follower.</p>
+            </div>
+
+            <div class="relative flex flex-col items-center">
+                <!-- Step 1: Discovery -->
+                <div class="funnel-step w-full md:w-3/4 p-1">
+                    <div class="bg-gradient-to-r from-[#D900FF] to-[#FF0055] p-[1px] rounded-2xl">
+                        <div class="bg-slate-900 rounded-2xl p-6 md:p-8 text-center relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl font-black text-white">01</div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Discovery (Top of Funnel)</h3>
+                            <p class="text-[#FFD700] font-mono text-sm mb-4">Channel: TikTok / Reels</p>
+                            <p class="text-slate-300">
+                                <strong>Content:</strong> "If you like Mac Miller, you need to hear this..."<br>
+                                <strong>Goal:</strong> Stop the scroll & get Profile Views.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connector -->
+                <div class="funnel-connector"></div>
+
+                <!-- Step 2: Consideration -->
+                <div class="funnel-step w-full md:w-2/3 p-1">
+                     <div class="bg-gradient-to-r from-[#7c3aed] to-[#D900FF] p-[1px] rounded-2xl">
+                        <div class="bg-slate-900 rounded-2xl p-6 md:p-8 text-center relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl font-black text-white">02</div>
+                            <h3 class="text-xl font-bold text-white mb-2">Consideration (Middle)</h3>
+                            <p class="text-[#00FFFF] font-mono text-sm mb-4">Channel: Bio Link / Pinned Posts</p>
+                            <p class="text-slate-300">
+                                <strong>Content:</strong> High-vibe snippet + "The Artist" persona.<br>
+                                <strong>Goal:</strong> Click "Link in Bio" (Smart Link).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connector -->
+                <div class="funnel-connector"></div>
+
+                <!-- Step 3: Action -->
+                <div class="funnel-step w-full md:w-1/2 p-1">
+                     <div class="bg-gradient-to-r from-[#00FFFF] to-[#00CED1] p-[1px] rounded-2xl">
+                        <div class="bg-slate-900 rounded-2xl p-6 md:p-8 text-center relative overflow-hidden shadow-[0_0_30px_rgba(0,255,255,0.2)]">
+                            <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl font-black text-white">03</div>
+                            <h3 class="text-xl font-bold text-white mb-2">Action (Bottom)</h3>
+                            <p class="text-white font-mono text-sm mb-4">Destination: Spotify</p>
+                            <p class="text-slate-300">
+                                <strong>Metric:</strong> Stream + <span class="text-[#FF0055] font-bold">FOLLOW</span> + SAVE.<br>
+                                <strong>Goal:</strong> Trigger Algorithm.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Creative Best Practices -->
+        <section>
+            <h2 class="text-3xl font-bold mb-8 border-l-4 border-[#FFD700] pl-4">Creative Strategy 2025</h2>
+            <p class="mb-8 text-slate-300">To convert traffic to streams, the creative must be authentic to the Genre (Hip-hop/R&B). Here are the three winning formats.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="glass-card rounded-xl p-6 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="text-4xl mb-4">🪝</div>
+                    <h3 class="text-xl font-bold text-[#FFD700] mb-3">The Hook</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        Visually and audibly hook them in <strong class="text-white">1.5 seconds</strong>.
+                    </p>
+                    <div class="bg-slate-800 p-3 rounded text-xs font-mono text-cyan-300">
+                        "POV: You found your new favorite late-night drive song."
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card rounded-xl p-6 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="text-4xl mb-4">🎹</div>
+                    <h3 class="text-xl font-bold text-[#FF0055] mb-3">The Process</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        Show the DAW (Logic/Ableton). Musicians and fans love seeing how the sample was flipped.
+                    </p>
+                    <div class="bg-slate-800 p-3 rounded text-xs font-mono text-cyan-300">
+                        Show the raw session. "How I made this beat."
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card rounded-xl p-6 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="text-4xl mb-4">🌃</div>
+                    <h3 class="text-xl font-bold text-[#00FFFF] mb-3">The Vibe</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        Aesthetic shots of the studio or city night life. No talking. Just the track and the mood.
+                    </p>
+                    <div class="bg-slate-800 p-3 rounded text-xs font-mono text-cyan-300">
+                        High contrast visuals. Cinematic lighting.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Budget Allocation -->
+        <section class="bg-slate-800/30 p-8 rounded-3xl border border-slate-700">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold mb-4">Resource Allocation</h2>
+                <p class="text-slate-400">Where to spend time vs. money based on your current growth stage.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Low Budget Chart -->
+                <div class="flex flex-col items-center">
+                    <h3 class="text-xl font-bold mb-2 text-[#FFD700]">Low / Bootstrap ($0 - $500)</h3>
+                    <p class="text-sm text-slate-400 mb-6 h-10 text-center">Focus purely on organic content quantity. Save cash for mixing/art.</p>
+                    <div class="chart-container" style="height: 300px; max-width: 300px;">
+                        <canvas id="budgetLowChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Seed Budget Chart -->
+                <div class="flex flex-col items-center">
+                    <h3 class="text-xl font-bold mb-2 text-[#00FFFF]">Seed Stage ($500 - $2,000)</h3>
+                    <p class="text-sm text-slate-400 mb-6 h-10 text-center">Invest in higher quality visuals and test small ad spends.</p>
+                    <div class="chart-container" style="height: 300px; max-width: 300px;">
+                        <canvas id="budgetSeedChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center border-t border-slate-800 pt-12 pb-6">
+            <p class="text-slate-500 text-sm">JaZeR Marketing Strategy &copy; 2025. Generated for Strategic Planning.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // --- 1. Label Wrapping Helper (Mandatory) ---
+        function splitLabel(label, maxChars = 16) {
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if ((currentLine + " " + words[i]).length < maxChars) {
+                    currentLine += " " + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines.length > 1 ? lines : lines[0]; // Return array if multiple lines, string if single
+        }
+
+        // --- 2. Tooltip Config Helper (Mandatory) ---
+        const commonTooltipOptions = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            },
+            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+            titleColor: '#00FFFF',
+            bodyColor: '#fff',
+            borderColor: '#334155',
+            borderWidth: 1,
+            padding: 12
+        };
+
+        // --- 3. Chart Initialization ---
+
+        // Chart 1: ROI Bubble Chart
+        const ctxROI = document.getElementById('roiBubbleChart').getContext('2d');
+        new Chart(ctxROI, {
+            type: 'bubble',
+            data: {
+                datasets: [
+                    {
+                        label: 'Instagram Reels',
+                        data: [{x: 0.5, y: 9, r: 25}], // Low Cost, High Qual, High Scale
+                        backgroundColor: 'rgba(217, 0, 255, 0.7)', // Electric Purple
+                        borderColor: '#D900FF',
+                    },
+                    {
+                        label: 'TikTok',
+                        data: [{x: 0.5, y: 6, r: 35}], // Low Cost, Med Qual, Massive Scale
+                        backgroundColor: 'rgba(0, 255, 255, 0.7)', // Cyan
+                        borderColor: '#00FFFF',
+                    },
+                    {
+                        label: 'Meta Ads (IG)',
+                        data: [{x: 5, y: 8, r: 15}], // Mid Cost, High Qual, Linear Scale
+                        backgroundColor: 'rgba(255, 0, 85, 0.7)', // Hot Pink
+                        borderColor: '#FF0055',
+                    },
+                    {
+                        label: 'Playlisting',
+                        data: [{x: 4, y: 3, r: 10}], // Mid Cost, Low Qual, Low Scale
+                        backgroundColor: 'rgba(255, 215, 0, 0.7)', // Gold
+                        borderColor: '#FFD700',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        min: 0,
+                        max: 10,
+                        title: {
+                            display: true,
+                            text: 'Financial Cost (Low to High)',
+                            color: '#94a3b8'
+                        },
+                        grid: { color: '#334155' },
+                        ticks: { color: '#cbd5e1' }
+                    },
+                    y: {
+                        min: 0,
+                        max: 10,
+                        title: {
+                            display: true,
+                            text: 'Conversion Quality',
+                            color: '#94a3b8'
+                        },
+                        grid: { color: '#334155' },
+                        ticks: { color: '#cbd5e1' }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                return context[0].dataset.label;
+                            },
+                            label: function(context) {
+                                return `Cost: ${context.raw.x} | Quality: ${context.raw.y}`;
+                            }
+                        },
+                        backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                        titleColor: '#fff',
+                        bodyColor: '#ccc'
+                    },
+                    legend: {
+                        labels: { color: '#f8fafc' }
+                    }
+                }
+            }
+        });
+
+        // Chart 2: Low Budget Allocation
+        const ctxLow = document.getElementById('budgetLowChart').getContext('2d');
+        new Chart(ctxLow, {
+            type: 'doughnut',
+            data: {
+                labels: [splitLabel('Organic Content Creation'), splitLabel('Paid Advertising')],
+                datasets: [{
+                    data: [100, 0],
+                    backgroundColor: ['#00FFFF', '#334155'],
+                    borderColor: '#0f172a',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: commonTooltipOptions,
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#cbd5e1' }
+                    }
+                }
+            }
+        });
+
+        // Chart 3: Seed Budget Allocation
+        const ctxSeed = document.getElementById('budgetSeedChart').getContext('2d');
+        new Chart(ctxSeed, {
+            type: 'doughnut',
+            data: {
+                labels: [splitLabel('Content Production'), splitLabel('Meta Ads Testing')],
+                datasets: [{
+                    data: [70, 30],
+                    backgroundColor: ['#D900FF', '#FF0055'],
+                    borderColor: '#0f172a',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: commonTooltipOptions,
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#cbd5e1' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

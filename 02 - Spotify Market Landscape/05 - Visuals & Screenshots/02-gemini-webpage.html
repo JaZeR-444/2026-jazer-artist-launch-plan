@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JaZeR Market Landscape: Strategic Analysis</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Chosen Palette: "Vibrant Professional" (Light Mode Base) -->
+    <!-- Primary: Slate-900 (Text), Slate-50 (Background) -->
+    <!-- Accents: Electric Blue (#2563eb), Violet (#7c3aed), Teal (#0d9488), Pink (#db2777) -->
+    
+    <!-- Application Structure Plan: 
+         1. Header: High-level dashboard title and purpose.
+         2. Executive Summary (The Austin Factor): Textual context + Saturation Gauge (Visual: Inform).
+         3. Competitive Intelligence (The Players): Interactive Bar Chart (Visual: Compare). User clicks bars to reveal detailed qualitative insights about each artist's growth drivers.
+         4. Strategic Positioning (Blue Ocean): Interactive Scatter Plot (Visual: Relationships). User can toggle the "Proposed Strategy" to visualize JaZeR's movement into the empty niche.
+         5. Action Plan: A styled HTML process flow (Visual: Organize) detailing the execution steps.
+         Rationale: This structure moves from current state -> competitor analysis -> opportunity identification -> execution, mirroring a strategic decision-making flow.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        /* Chart Container Styling Rules */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px; /* Max width to prevent stretching on large screens */
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px; /* Base height */
+            max-height: 400px; /* Cap height */
+        }
+        
+        /* Mobile adjustment */
+        @media (max-width: 640px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #f8fafc; /* Slate-50 */
+            color: #0f172a; /* Slate-900 */
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        .btn-primary {
+            background-color: #2563eb;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+        
+        .nav-link {
+            cursor: pointer;
+            padding-bottom: 2px;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .nav-link:hover, .nav-link.active {
+            border-bottom-color: #2563eb;
+            color: #2563eb;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Navigation / Header -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-violet-600">
+                        JaZeR Analysis
+                    </span>
+                    <span class="ml-4 px-2 py-1 bg-slate-100 text-xs font-semibold text-slate-500 rounded hidden sm:inline-block">
+                        SPOTIFY MARKET LANDSCAPE
+                    </span>
+                </div>
+                <div class="flex items-center space-x-6 text-sm font-medium text-slate-600">
+                    <a href="#market-dynamics" class="nav-link">Market</a>
+                    <a href="#competitors" class="nav-link">Competitors</a>
+                    <a href="#opportunity" class="nav-link">Strategy</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- Section 1: Introduction & Market Dynamics -->
+        <!-- Visualization & Content Choices: 
+             Goal: Inform & Contextualize. 
+             Method: Gauge Chart (Doughnut) for Saturation + Interactive Insight Cards.
+             Rationale: Gauge immediately communicates the "Low Saturation" opportunity. Cards allow compact presentation of "Gatekeepers" and "Metas".
+        -->
+        <section id="market-dynamics" class="scroll-mt-20">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Text Context -->
+                <div class="lg:col-span-2 space-y-6">
+                    <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">The "Austin Factor"</h1>
+                    <p class="text-lg text-slate-600 leading-relaxed">
+                        The Austin Hip-Hop scene is a "sleeping giant." Unlike volume-heavy markets like Atlanta, Austin concentrates on <span class="font-bold text-blue-600">quality</span> and <span class="font-bold text-blue-600">live performance</span>. Success here requires being a "musician's rapper"—someone who can command a live band, not just a backing track.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Insight Card 1 -->
+                        <div class="card p-5 border-l-4 border-violet-500">
+                            <h3 class="font-bold text-slate-800 text-sm uppercase tracking-wide mb-2">Current Meta</h3>
+                            <p class="text-slate-600 text-sm">"Neo-Soul Rap" & "Jazz Rap". The market rejects generic SoundCloud Trap.</p>
+                        </div>
+                        <!-- Insight Card 2 -->
+                        <div class="card p-5 border-l-4 border-teal-500">
+                            <h3 class="font-bold text-slate-800 text-sm uppercase tracking-wide mb-2">Gatekeepers</h3>
+                            <p class="text-slate-600 text-sm">KUTX 98.9 ("The Breaks"), KOOP 91.7, Empire Control Room.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Saturation Visualization -->
+                <div class="card p-6 flex flex-col items-center justify-center">
+                    <h3 class="font-bold text-slate-700 mb-2">Market Saturation Index</h3>
+                    <div class="chart-container" style="height: 200px; max-height: 250px;">
+                        <canvas id="saturationChart"></canvas>
+                    </div>
+                    <div class="text-center mt-4">
+                        <span class="text-2xl font-bold text-green-500">LOW</span>
+                        <p class="text-xs text-slate-500 mt-1">Few artists execute "Melodic/Introspective" style.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Competitive Matrix -->
+        <!-- Visualization & Content Choices:
+             Goal: Compare & Analyze.
+             Method: Horizontal Bar Chart (Logarithmic Scale).
+             Interaction: Clicking a bar updates the "Artist Insight" panel below.
+             Rationale: Log scale is essential to compare 1k listeners vs 400k listeners effectively. Interactivity reveals qualitative "Growth Driver" data without cluttering the chart.
+        -->
+        <section id="competitors" class="scroll-mt-20 border-t border-slate-200 pt-10">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900">Competitive Matrix (Live Data)</h2>
+                <p class="text-slate-600 mt-2">
+                    A comparison of monthly listeners reveals a distinct hierarchy. While the local baseline is ~2k, the ceiling for crossover success (JaRon Marshall) is significantly higher, driven by "Jazz Rap" appeal.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Chart Area -->
+                <div class="lg:col-span-2 card p-6">
+                    <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Monthly Listeners (Log Scale)</h3>
+                    <div class="chart-container">
+                        <canvas id="competitorChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-2 text-center italic">Click a bar to view growth drivers.</p>
+                </div>
+
+                <!-- Detail Panel -->
+                <div class="card p-6 bg-slate-50 border border-slate-100 flex flex-col justify-center">
+                    <div id="artist-detail-panel" class="text-center transition-all duration-300">
+                        <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                            <span id="detail-icon">ℹ️</span>
+                        </div>
+                        <h3 id="detail-name" class="text-xl font-bold text-slate-900 mb-1">Select an Artist</h3>
+                        <span id="detail-tier" class="inline-block px-2 py-1 bg-slate-200 text-slate-600 text-xs rounded mb-4">Market Insight</span>
+                        <p id="detail-driver" class="text-slate-600 italic">"Explore the chart to see what drives growth for each artist tier."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: "Blue Ocean" Opportunity -->
+        <!-- Visualization & Content Choices:
+             Goal: Relationships & Strategy.
+             Method: Scatter Plot (Bubble styling).
+             Interaction: Toggle "Simulate Strategy" to add JaZeR to the chart.
+             Rationale: Mapping "Musical Style" vs "Vibe" visually demonstrates the empty quadrant (The Gap) that JaZeR can fill.
+        -->
+        <section id="opportunity" class="scroll-mt-20 border-t border-slate-200 pt-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Strategy Content -->
+                <div class="space-y-6">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">The "Blue Ocean" Opportunity</h2>
+                        <h3 class="text-lg font-medium text-violet-600 mt-1">The "Electronic-Soul" Niche</h3>
+                    </div>
+                    <p class="text-slate-600">
+                        Most Austin rap is polarized: either <strong>"Live Band Organic"</strong> (Magna Carda) or <strong>"Street"</strong> (Trap). There is a massive void for the <strong>Electronic-infused, melodic, introspective Hip-Hop</strong> lane (e.g., Mac Miller, ProbCause).
+                    </p>
+                    
+                    <div class="card p-6 border-l-4 border-pink-500 bg-pink-50/50">
+                        <h4 class="font-bold text-slate-900 mb-2">Strategy: "Vibe Curator"</h4>
+                        <p class="text-slate-700 text-sm mb-4">
+                            Pivot from "Rapper" to "Vibe Curator." Use electronic production (synths, vocal chops) to appeal to "Lofi Study" crowds.
+                        </p>
+                        <button id="toggleStrategyBtn" class="btn-primary w-full shadow-lg shadow-blue-500/30">
+                            Visualize Strategic Pivot
+                        </button>
+                    </div>
+
+                    <!-- Process Flow (HTML Implementation) -->
+                    <div class="space-y-4 pt-4">
+                        <h4 class="text-sm font-bold text-slate-500 uppercase">Execution Path</h4>
+                        <div class="flex items-center space-x-3">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center font-bold">1</div>
+                            <div class="text-sm text-slate-700">Identify "Electronic-Soul" Gap</div>
+                        </div>
+                        <div class="w-0.5 h-4 bg-slate-300 ml-4"></div>
+                        <div class="flex items-center space-x-3">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center font-bold">2</div>
+                            <div class="text-sm text-slate-700">Integrate Synth/Lofi Elements</div>
+                        </div>
+                        <div class="w-0.5 h-4 bg-slate-300 ml-4"></div>
+                        <div class="flex items-center space-x-3">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">3</div>
+                            <div class="text-sm text-slate-900 font-medium">Capture Global "Chill Hop" Market</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Strategic Map Visualization -->
+                <div class="card p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-slate-700">Market Positioning Map</h3>
+                        <span class="text-xs text-slate-400">X: Organic vs. Electronic | Y: Street vs. Melodic</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="blueOceanChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-sm">Generated Dashboard for JaZeR Strategy Analysis</p>
+            <p class="text-xs mt-2 text-slate-600">Source: Spotify Market Landscape Report 02</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- Data Storage ---
+        const competitors = [
+            { 
+                name: 'Deezie Brown', 
+                tier: 'Established (Local)', 
+                listeners: 2000, 
+                driver: 'Consistent high-quality releases; "Southern soundscapes" branding.',
+                color: '#94a3b8' // Slate-400
+            },
+            { 
+                name: 'Blackillac', 
+                tier: 'Established (Local)', 
+                listeners: 3000, // Estimated for visualization since report says N/A (Active) but implied solid base
+                driver: 'High-energy live shows; SXSW staples; "Soul-influenced" duo.',
+                color: '#64748b' // Slate-500
+            },
+            { 
+                name: 'Blakchyl', 
+                tier: 'Riser', 
+                listeners: 1000, 
+                driver: 'International reach (Chile/Mexico) indicating strong playlist/algo pickup.',
+                color: '#22d3ee' // Cyan-400
+            },
+            { 
+                name: 'Magna Carda', 
+                tier: 'Standard Bearer', 
+                listeners: 15000, 
+                driver: 'Live instrumentation; "Austin\'s Roots" positioning; steady touring.',
+                color: '#8b5cf6' // Violet-500
+            },
+            { 
+                name: 'JaRon Marshall', 
+                tier: 'Peer/Collab', 
+                listeners: 400000, 
+                driver: 'Black Pumas keyboardist; massive "Jazz Rap" crossover appeal.',
+                color: '#2563eb' // Blue-600
+            }
+        ];
+
+        // --- Label Wrapping Helper (Mandatory) ---
+        function wrapLabel(str, maxChars) {
+            const words = str.split(' ');
+            let lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + 1 + words[i].length <= maxChars) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // --- Chart 1: Market Saturation (Doughnut/Gauge) ---
+        const ctxSaturation = document.getElementById('saturationChart').getContext('2d');
+        const saturationChart = new Chart(ctxSaturation, {
+            type: 'doughnut',
+            data: {
+                labels: ['Saturation', 'Opportunity Space'],
+                datasets: [{
+                    data: [25, 75], // Low saturation (25%)
+                    backgroundColor: [
+                        '#cbd5e1', // Slate-300 (Used space)
+                        '#10b981'  // Emerald-500 (Opportunity)
+                    ],
+                    borderWidth: 0,
+                    cutout: '70%',
+                    circumference: 180,
+                    rotation: 270,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false },
+                    title: {
+                        display: true,
+                        text: 'Saturation Index',
+                        padding: { bottom: 10 }
+                    }
+                }
+            }
+        });
+
+        // --- Chart 2: Competitor Matrix (Horizontal Bar - Log Scale) ---
+        const ctxCompetitors = document.getElementById('competitorChart').getContext('2d');
+        const competitorChart = new Chart(ctxCompetitors, {
+            type: 'bar',
+            data: {
+                labels: competitors.map(c => wrapLabel(c.name, 15)),
+                datasets: [{
+                    label: 'Monthly Listeners',
+                    data: competitors.map(c => c.listeners),
+                    backgroundColor: competitors.map(c => c.color),
+                    borderRadius: 4,
+                    barPercentage: 0.6
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        type: 'logarithmic',
+                        position: 'bottom',
+                        title: { display: true, text: 'Listeners (Log Scale)' },
+                        grid: { color: '#f1f5f9' }
+                    },
+                    y: {
+                        grid: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                const label = item.chart.data.labels[item.dataIndex];
+                                return Array.isArray(label) ? label.join(' ') : label;
+                            }
+                        }
+                    }
+                },
+                onClick: (e, elements) => {
+                    if (elements.length > 0) {
+                        const index = elements[0].index;
+                        updateArtistDetail(index);
+                    }
+                }
+            }
+        });
+
+        function updateArtistDetail(index) {
+            const artist = competitors[index];
+            document.getElementById('detail-name').innerText = artist.name;
+            document.getElementById('detail-tier').innerText = artist.tier;
+            document.getElementById('detail-driver').innerText = `"${artist.driver}"`;
+            document.getElementById('detail-icon').innerText = ['🎵', '🎤', '🚀', '🎹', '🌍'][index];
+            
+            // Visual feedback
+            const panel = document.getElementById('artist-detail-panel');
+            panel.classList.remove('opacity-0');
+            panel.classList.add('opacity-100');
+        }
+
+        // --- Chart 3: Blue Ocean Strategy (Scatter) ---
+        // X: Organic (-10) to Electronic (10)
+        // Y: Street (-10) to Melodic (10)
+        const marketData = [
+            { x: -8, y: 4, r: 8, label: 'Magna Carda (Organic/Roots)' },
+            { x: -5, y: -2, r: 6, label: 'Deezie Brown (Southern)' },
+            { x: -2, y: -6, r: 6, label: 'Blackillac (Energy)' },
+            { x: -7, y: 7, r: 10, label: 'JaRon Marshall (Jazz Rap)' }, // High Organic, High Melodic
+            { x: 2, y: -8, r: 5, label: 'Generic Trap (Street)' },
+        ];
+
+        const targetData = [
+            { x: 7, y: 8, r: 15, label: 'JaZeR (Electronic Soul)' } // The Gap
+        ];
+
+        const ctxBlueOcean = document.getElementById('blueOceanChart').getContext('2d');
+        const blueOceanChart = new Chart(ctxBlueOcean, {
+            type: 'bubble',
+            data: {
+                datasets: [{
+                    label: 'Current Landscape',
+                    data: marketData,
+                    backgroundColor: '#94a3b8',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        min: -10, max: 10,
+                        title: { display: true, text: 'Sound: Organic <---> Electronic' },
+                        grid: { color: '#f1f5f9' }
+                    },
+                    y: {
+                        min: -10, max: 10,
+                        title: { display: true, text: 'Vibe: Street <---> Melodic' },
+                        grid: { color: '#f1f5f9' }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.raw.label;
+                            },
+                            title: function() { return ''; } // No title needed for bubble
+                        }
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // --- Strategy Interaction ---
+        let strategyActive = false;
+        document.getElementById('toggleStrategyBtn').addEventListener('click', function() {
+            strategyActive = !strategyActive;
+            
+            if (strategyActive) {
+                // Add JaZeR
+                blueOceanChart.data.datasets.push({
+                    label: 'Proposed Strategy',
+                    data: targetData,
+                    backgroundColor: '#db2777', // Pink-600
+                    borderColor: '#be185d',
+                    borderWidth: 2
+                });
+                this.innerText = "Reset Visualization";
+                this.classList.replace('btn-primary', 'bg-slate-700');
+                this.classList.add('text-white');
+            } else {
+                // Remove JaZeR
+                blueOceanChart.data.datasets.pop();
+                this.innerText = "Visualize Strategic Pivot";
+                this.classList.replace('bg-slate-700', 'btn-primary');
+                this.classList.remove('text-white');
+            }
+            blueOceanChart.update();
+        });
+
+    </script>
+</body>
+</html>

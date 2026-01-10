@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JaZeR: Executive Launch Strategy & 90-Day Plan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Custom Font Import */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F3F4F6; /* Cool Gray 100 */
+            color: #1F2937; /* Cool Gray 800 */
+        }
+
+        /* Chart Container Styling - Mandatory Requirements */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+
+        /* Responsive height adjustments */
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        /* Timeline Styling (CSS Only - No SVG) */
+        .timeline-line {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: #E5E7EB;
+            z-index: 0;
+        }
+        
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #4F46E5;
+            border: 4px solid #C7D2FE;
+            z-index: 10;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4F46E5; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4338ca; 
+        }
+    </style>
+    <!-- 
+        Palette: Vibrant Cyber-Chill
+        Primary: #4F46E5 (Indigo)
+        Secondary: #06B6D4 (Cyan)
+        Accent: #F43F5E (Rose)
+        Neutral: #1F2937 (Dark Gray)
+        
+        Plan Summary:
+        1. Context: Visualizing the gap in the market.
+        2. Pillars: Brand, Music, Local connection.
+        3. Timeline: 3-Month breakdown.
+        4. KPIs: Measurable targets.
+        
+        Visualization Choices (NO SVG):
+        - Status Gauge: Chart.js Doughnut
+        - Growth Projections: Chart.js Line
+        - Engagement Targets: Chart.js Bar
+        - Timeline: CSS/HTML List
+        - Pillars: HTML Cards
+    -->
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Header Section -->
+    <header class="max-w-7xl mx-auto mb-12 text-center">
+        <div class="inline-block bg-indigo-600 text-white px-4 py-1 rounded-full text-sm font-bold mb-4 tracking-wide uppercase shadow-lg">Confidential Strategy Doc</div>
+        <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4 tracking-tight">JaZeR <span class="text-indigo-600">Launch Plan</span></h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Executive summary and 90-day tactical roadmap to capture the "Blue Ocean" of Austin's melodic electronic-hip-hop scene.</p>
+    </header>
+
+    <!-- Main Grid Layout -->
+    <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
+
+        <!-- SECTION 1: Executive Snapshot (Gauge & Cards) -->
+        <div class="col-span-1 md:col-span-2 lg:col-span-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 border-l-4 border-indigo-500 pl-4">1. Executive Snapshot</h2>
+            <p class="text-gray-600 mb-6 bg-white p-4 rounded-lg shadow-sm">
+                The current status is critical but primed for growth. We are starting from zero ("Red") but facing a significant market gap ("Blue Ocean"). The primary risk is fading into obscurity amidst the noise of generic releases.
+            </p>
+        </div>
+
+        <!-- Status Gauge -->
+        <div class="col-span-1 md:col-span-1 lg:col-span-4 bg-white rounded-xl shadow-md p-6 border-t-4 border-rose-500">
+            <h3 class="text-lg font-bold text-gray-700 mb-2">Current Status</h3>
+            <div class="chart-container h-64">
+                <canvas id="statusChart"></canvas>
+            </div>
+            <div class="text-center mt-4">
+                <span class="text-3xl font-bold text-rose-500">RED PHASE</span>
+                <p class="text-sm text-gray-500">Launch Phase: No footprint yet.</p>
+            </div>
+        </div>
+
+        <!-- Opportunity vs Risk Cards -->
+        <div class="col-span-1 md:col-span-1 lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Opportunity -->
+            <div class="bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl shadow-md p-6 text-white transform transition hover:-translate-y-1">
+                <div class="text-4xl mb-4">🌊</div>
+                <h3 class="text-2xl font-bold mb-2">Top Opportunity</h3>
+                <h4 class="text-xl font-semibold opacity-90 mb-2">"The Blue Ocean"</h4>
+                <p class="text-blue-100">Filling the void in Austin for a high-quality, melodic, "Mac Miller-esque" electronic-hip-hop artist. No direct competitors in the local high-tier scene.</p>
+            </div>
+
+            <!-- Risk -->
+            <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-rose-500">
+                <div class="text-4xl mb-4">⚠️</div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Primary Risk: Obscurity</h3>
+                <p class="text-gray-600">Getting lost in the "SoundCloud Rapper" noise. We combat this through <span class="font-bold text-rose-500">hyper-professional visual branding</span> and distinct sonic quality.</p>
+            </div>
+
+            <!-- Strategy Summary -->
+            <div class="md:col-span-2 bg-indigo-50 rounded-xl p-6 border border-indigo-100">
+                <h3 class="text-lg font-bold text-indigo-900 mb-3">The Synthesis</h3>
+                <p class="text-indigo-800">
+                    To succeed, JaZeR must bypass the amateur phase entirely. We treat the debut not as a "try-out" but as a polished product launch. The 90-day sprint focuses on asset banking first, then a waterfall release strategy.
+                </p>
+            </div>
+        </div>
+
+        <!-- SECTION 2: Strategic Pillars -->
+        <div class="col-span-1 md:col-span-2 lg:col-span-12 mt-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 border-l-4 border-indigo-500 pl-4">2. Strategic Pillars</h2>
+            <p class="text-gray-600 mb-6">Our execution rests on three non-negotiable pillars. These guide every decision, from Instagram captions to mixing choices.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Pillar 1 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-indigo-600 h-2 w-full"></div>
+                    <div class="p-6">
+                        <div class="text-4xl mb-4 text-center">👁️</div>
+                        <h3 class="text-xl font-bold text-center text-gray-800 mb-2">Brand: The Vibe Curator</h3>
+                        <p class="text-gray-600 text-sm text-center">High-art visuals, introspection, creative lifestyle. Moving away from "hustle culture" aesthetics to "artistic depth."</p>
+                    </div>
+                </div>
+                <!-- Pillar 2 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-cyan-500 h-2 w-full"></div>
+                    <div class="p-6">
+                        <div class="text-4xl mb-4 text-center">💧</div>
+                        <h3 class="text-xl font-bold text-center text-gray-800 mb-2">Music: Waterfall Singles</h3>
+                        <p class="text-gray-600 text-sm text-center">Consistent, high-quality, melodic rap suitable for "Chill" playlists. Frequency builds momentum.</p>
+                    </div>
+                </div>
+                <!-- Pillar 3 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-rose-500 h-2 w-full"></div>
+                    <div class="p-6">
+                        <div class="text-4xl mb-4 text-center">🌵</div>
+                        <h3 class="text-xl font-bold text-center text-gray-800 mb-2">Local: Austin Roots</h3>
+                        <p class="text-gray-600 text-sm text-center">Network with the LIVE scene (Empire, KUTX). Building a physical fanbase, not just digital ghosts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: 90-Day Sprint (Timeline) -->
+        <div class="col-span-1 md:col-span-1 lg:col-span-7 mt-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 border-l-4 border-indigo-500 pl-4">3. The 90-Day Sprint</h2>
+            <p class="text-gray-600 mb-6">A strict 2-week block schedule to move from zero to live performance readiness.</p>
+
+            <div class="bg-white rounded-xl shadow-md p-6 relative overflow-hidden">
+                <!-- Month 1 -->
+                <div class="mb-8 relative pl-8">
+                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-gray-200"></div>
+                    <div class="absolute left-[-6px] top-0 w-4 h-4 rounded-full bg-gray-400 border-2 border-white"></div>
+                    
+                    <h3 class="text-xl font-bold text-gray-800 mb-2 uppercase tracking-wider">Month 1: Foundation <span class="text-sm font-normal text-gray-500 normal-case">(The Stealth Phase)</span></h3>
+                    
+                    <div class="mb-4 bg-gray-50 p-4 rounded-lg border-l-4 border-gray-400">
+                        <h4 class="font-bold text-gray-700">Weeks 1-2: Asset Creation</h4>
+                        <ul class="list-disc list-inside text-sm text-gray-600 mt-2 space-y-1">
+                            <li>Finalize Single 1 Master</li>
+                            <li>Shoot Cover Art & Spotify Canvas (High Aesthetic)</li>
+                            <li>Set up Spotify for Artists & Social Handles</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-gray-400">
+                        <h4 class="font-bold text-gray-700">Weeks 3-4: The Setup</h4>
+                        <ul class="list-disc list-inside text-sm text-gray-600 mt-2 space-y-1">
+                            <li>Upload Single 1 to DistroKid (4 weeks out)</li>
+                            <li>Pitch to Spotify Editorial (Critical Step)</li>
+                            <li>Start "Teasing" content on TikTok/Reels</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Month 2 -->
+                <div class="mb-8 relative pl-8">
+                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-indigo-200"></div>
+                    <div class="absolute left-[-6px] top-0 w-4 h-4 rounded-full bg-indigo-600 border-2 border-white"></div>
+                    
+                    <h3 class="text-xl font-bold text-indigo-700 mb-2 uppercase tracking-wider">Month 2: Launch <span class="text-sm font-normal text-gray-500 normal-case">(The "Hello" Phase)</span></h3>
+                    
+                    <div class="mb-4 bg-indigo-50 p-4 rounded-lg border-l-4 border-indigo-500">
+                        <h4 class="font-bold text-indigo-900">Weeks 5-6: Single 1 Release 🚀</h4>
+                        <ul class="list-disc list-inside text-sm text-indigo-800 mt-2 space-y-1">
+                            <li><strong>Release Day:</strong> Push all socials to Spotify</li>
+                            <li>Submit to Indie Curators (Sphere of Hip Hop)</li>
+                            <li>Monitor "Release Radar" pickup</li>
+                        </ul>
+                    </div>
+                    <div class="bg-indigo-50 p-4 rounded-lg border-l-4 border-indigo-500">
+                        <h4 class="font-bold text-indigo-900">Weeks 7-8: Momentum</h4>
+                        <ul class="list-disc list-inside text-sm text-indigo-800 mt-2 space-y-1">
+                            <li>Continue content for Single 1</li>
+                            <li>Upload Single 2 (Waterfall Setup)</li>
+                            <li>Attend local shows (Empire/Mohawk) for networking</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Month 3 -->
+                <div class="relative pl-8">
+                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-cyan-200"></div>
+                    <div class="absolute left-[-6px] top-0 w-4 h-4 rounded-full bg-cyan-500 border-2 border-white"></div>
+                    
+                    <h3 class="text-xl font-bold text-cyan-700 mb-2 uppercase tracking-wider">Month 3: Sustain <span class="text-sm font-normal text-gray-500 normal-case">(The "Proof" Phase)</span></h3>
+                    
+                    <div class="mb-4 bg-cyan-50 p-4 rounded-lg border-l-4 border-cyan-500">
+                        <h4 class="font-bold text-cyan-900">Weeks 9-10: Single 2 Release</h4>
+                        <ul class="list-disc list-inside text-sm text-cyan-800 mt-2 space-y-1">
+                            <li>Single 1 streams should boost Single 2 algorithmically</li>
+                            <li>Analyze Data: Demographics check (City/Age)</li>
+                        </ul>
+                    </div>
+                    <div class="bg-cyan-50 p-4 rounded-lg border-l-4 border-cyan-500">
+                        <h4 class="font-bold text-cyan-900">Weeks 11-12: The First Show</h4>
+                        <ul class="list-disc list-inside text-sm text-cyan-800 mt-2 space-y-1">
+                            <li>Secure slot on local showcase/open mic</li>
+                            <li>First Merch Drop (Stickers/Tees)</li>
+                            <li><strong>Goal Check:</strong> >30% Save Rate?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 4: KPI Dashboard -->
+        <div class="col-span-1 md:col-span-1 lg:col-span-5 mt-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 border-l-4 border-indigo-500 pl-4">4. KPI Targets</h2>
+            <p class="text-gray-600 mb-6">Quantifiable metrics to validate the strategy. If we miss these, we pivot.</p>
+
+            <!-- KPI 1: Listener Growth -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-gray-700">Projected Monthly Listeners</h3>
+                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-bold">Goal: 1,000</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="growthChart"></canvas>
+                </div>
+                <p class="text-xs text-gray-500 mt-2">Projection based on waterfall release strategy compounding streams.</p>
+            </div>
+
+            <!-- KPI 2: Quality Metrics -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-gray-700">Target Quality Metrics</h3>
+                    <span class="text-xs text-gray-500">Industry Standard vs. JaZeR Goal</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="kpiBarChart"></canvas>
+                </div>
+                <div class="mt-4 grid grid-cols-2 gap-4">
+                    <div class="bg-indigo-50 p-3 rounded">
+                        <span class="block text-2xl font-bold text-indigo-600">30%</span>
+                        <span class="text-xs text-gray-600">Save Rate Goal</span>
+                    </div>
+                    <div class="bg-cyan-50 p-3 rounded">
+                        <span class="block text-2xl font-bold text-cyan-600">+50</span>
+                        <span class="text-xs text-gray-600">New Followers/Mo</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Connection Goals -->
+            <div class="mt-6 bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl p-6 text-white shadow-lg">
+                <h3 class="font-bold text-lg mb-3">📍 Local Network Goals</h3>
+                <ul class="space-y-3">
+                    <li class="flex items-center">
+                        <span class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center mr-3 text-xs">✓</span>
+                        <span>Contact 1 Booker (Empire/Mohawk)</span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center mr-3 text-xs">✓</span>
+                        <span>Connect with 3 Local Artists</span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center mr-3 text-xs">✓</span>
+                        <span>Identify 1 "Champion" at KUTX</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="max-w-7xl mx-auto mt-12 mb-8 text-center text-gray-500 text-sm">
+        <p>© 2024 JaZeR Management Team. Internal Document.</p>
+    </footer>
+
+    <!-- Chart.js Scripts -->
+    <script>
+        // --- UTILITY: Label Wrapping for Chart.js ---
+        // Splits long strings into arrays of strings for multi-line labels
+        function wrapLabel(str, maxChars) {
+            if (str.length <= maxChars) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + 1 + words[i].length <= maxChars) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // --- Common Chart Options ---
+        const commonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                tooltip: {
+                    backgroundColor: 'rgba(31, 41, 55, 0.9)',
+                    padding: 12,
+                    cornerRadius: 8,
+                    callbacks: {
+                        // MANDATORY: Handle multi-line labels in tooltips
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                                return label.join(' ');
+                            } else {
+                                return label;
+                            }
+                        }
+                    }
+                },
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: { family: 'Inter', size: 12 },
+                        usePointStyle: true,
+                        padding: 20
+                    }
+                }
+            }
+        };
+
+        // --- CHART 1: Status Gauge (Doughnut) ---
+        const ctxStatus = document.getElementById('statusChart').getContext('2d');
+        new Chart(ctxStatus, {
+            type: 'doughnut',
+            data: {
+                labels: ['Readiness Gap', 'Current Status'],
+                datasets: [{
+                    data: [90, 10], // 10% Ready, 90% Gap
+                    backgroundColor: ['#E5E7EB', '#F43F5E'], // Gray gap, Red status
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                ...commonOptions,
+                cutout: '75%', // Thinner ring
+                rotation: -90, // Start from top
+                circumference: 180, // Half circle
+                plugins: {
+                    ...commonOptions.plugins,
+                    legend: { display: false },
+                    tooltip: { enabled: false } // Disable tooltip for simple gauge
+                }
+            }
+        });
+
+        // --- CHART 2: Projected Listener Growth (Line) ---
+        const ctxGrowth = document.getElementById('growthChart').getContext('2d');
+        new Chart(ctxGrowth, {
+            type: 'line',
+            data: {
+                labels: ['Start', 'Month 1', 'Month 2', 'Month 3'],
+                datasets: [{
+                    label: 'Monthly Listeners',
+                    data: [0, 150, 500, 1000],
+                    borderColor: '#4F46E5', // Indigo Primary
+                    backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4, // Smooth curve
+                    fill: true,
+                    pointBackgroundColor: '#FFFFFF',
+                    pointBorderColor: '#4F46E5',
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                ...commonOptions,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { borderDash: [5, 5], color: '#F3F4F6' },
+                        ticks: { font: { family: 'Inter' } }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { font: { family: 'Inter' } }
+                    }
+                }
+            }
+        });
+
+        // --- CHART 3: Quality Metrics (Bar) ---
+        const kpiLabels = ['Save Rate (%)', 'Follower Growth', 'Engagement Rate (%)'];
+        // Wrap labels just in case
+        const wrappedKpiLabels = kpiLabels.map(l => wrapLabel(l, 16));
+
+        const ctxKpi = document.getElementById('kpiBarChart').getContext('2d');
+        new Chart(ctxKpi, {
+            type: 'bar',
+            data: {
+                labels: wrappedKpiLabels,
+                datasets: [{
+                    label: 'JaZeR Goal',
+                    data: [30, 150, 15], // 30% Save rate, normalized follower growth visual, 15% eng
+                    backgroundColor: '#06B6D4', // Cyan Secondary
+                    borderRadius: 6
+                },
+                {
+                    label: 'Avg. Amateur',
+                    data: [5, 20, 3], // Comparison data
+                    backgroundColor: '#E5E7EB',
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                ...commonOptions,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { borderDash: [5, 5], color: '#F3F4F6' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>

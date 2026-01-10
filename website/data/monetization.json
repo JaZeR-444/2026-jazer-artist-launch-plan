@@ -1,0 +1,134 @@
+{
+  "title": "Monetization & Pricing Strategy",
+  "source": "Module 09 - Monetization and Pricing Benchmarks",
+  "lastUpdated": "2026-01-09",
+  "revenueModel": [
+    {
+      "tier": "Entry (Traffic)",
+      "product": "Spotify Stream",
+      "price": "$0.003",
+      "margin": "~0%",
+      "rationale": "Marketing channel. Not income.",
+      "purpose": "Discovery and audience building"
+    },
+    {
+      "tier": "Core (Profit)",
+      "product": "T-Shirt",
+      "priceRange": "$25 - $30",
+      "margin": "40-50%",
+      "rationale": "The standard supporter badge",
+      "purpose": "Primary merchandise revenue"
+    },
+    {
+      "tier": "Premium (Profit)",
+      "product": "Hoodie",
+      "priceRange": "$45 - $60",
+      "margin": "40%",
+      "rationale": "High value item for superfans",
+      "purpose": "Higher ticket merchandise"
+    },
+    {
+      "tier": "VIP (High Ticket)",
+      "product": "Limited Vinyl",
+      "priceRange": "$30 - $40",
+      "margin": "Variable",
+      "rationale": "Collectors item (Future goal)",
+      "purpose": "Premium collectible for die-hard fans"
+    }
+  ],
+  "merchStrategy": {
+    "designPhilosophy": "Minimalist Streetwear - Do NOT just put 'JaZeR' in big letters",
+    "concept": "Abstract art, 'Vibe' quotes, small embroidered logos",
+    "rationale": "People want to wear cool clothes, not just a billboard for a new artist",
+    "aesthetic": "Museum gift shop quality"
+  },
+  "first100Drop": {
+    "name": "Founders Club",
+    "quantity": "25-50 units (small batch)",
+    "distribution": "Sell directly via DM or BigCartel/Shopify",
+    "pricing": "Standard or slight premium for exclusivity",
+    "goal": "Breakeven on cost + create 25 walking billboards in Austin",
+    "strategy": "Limited run creates scarcity and early supporter exclusivity"
+  },
+  "pricingBenchmarks": {
+    "tshirts": {
+      "standard": "$25",
+      "premium": "$30-35",
+      "premiumCriteria": "Heavyweight or vintage wash"
+    },
+    "hoodies": {
+      "standard": "$45",
+      "premium": "$60",
+      "premiumCriteria": "High quality materials and unique design"
+    },
+    "stickers": {
+      "price": "Free (or $5 for a pack)",
+      "strategy": "Give away at shows - get your name on laptops and water bottles"
+    }
+  },
+  "spotifyIntegration": [
+    {
+      "tool": "Merchbar",
+      "function": "List physical stock to appear on Spotify profile",
+      "requirement": "Must have inventory"
+    },
+    {
+      "tool": "Artist Pick",
+      "function": "Highlight merch store or upcoming show on profile",
+      "strategy": "Use when running campaign or before show"
+    }
+  ],
+  "productRoadmap": {
+    "phase1": {
+      "timeline": "Weeks 1-4",
+      "products": ["Stickers (free giveaway)"],
+      "goal": "Brand awareness"
+    },
+    "phase2": {
+      "timeline": "Weeks 5-8 (after Single 1 release)",
+      "products": ["Limited T-shirts (25-50 units)", "Sticker packs ($5)"],
+      "goal": "First revenue + walking billboards"
+    },
+    "phase3": {
+      "timeline": "Weeks 9-12 (after Single 2)",
+      "products": ["Hoodies", "Expanded T-shirt designs", "Tote bags"],
+      "goal": "Diversified product line for live shows"
+    },
+    "phase4": {
+      "timeline": "Post-90 days",
+      "products": ["Vinyl", "Art prints", "Dad hats"],
+      "goal": "Premium collectibles"
+    }
+  },
+  "designExamples": {
+    "concepts": [
+      "Abstract cover art from single printed on oversized tee",
+      "Small embroidered logo on pocket or sleeve",
+      "'The Vibe Curator' text in minimal sans-serif font",
+      "Austin coordinates (30.2672° N, 97.7431° W) on back neck",
+      "Lyric snippet in elegant typography"
+    ],
+    "avoidances": [
+      "Large 'JaZeR' text across chest",
+      "Generic rapper aesthetic",
+      "Cheap print-on-demand look",
+      "Overly busy designs"
+    ]
+  },
+  "revenueProjections": {
+    "conservative": {
+      "scenario": "25 shirts @ $25, 50 stickers free",
+      "revenue": "$625",
+      "costs": "$375 (shirts at $15 cost)",
+      "profit": "$250",
+      "note": "Plus 25 walking billboards"
+    },
+    "moderate": {
+      "scenario": "50 shirts @ $28, 10 hoodies @ $50",
+      "revenue": "$1,900",
+      "costs": "$1,050",
+      "profit": "$850",
+      "note": "After second release with growing fanbase"
+    }
+  }
+}

@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JaZeR | The Vibe Curator · Strategic Growth Intelligence</title>
+
+    <!-- SEO -->
+    <meta name="description" content="Strategic Spotify growth intelligence for JaZeR - Austin's next electronic soul curator. Data-driven research from 0 to 100k listeners.">
+    <meta name="keywords" content="JaZeR, Austin hip-hop, electronic soul, Spotify strategy, music marketing">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="JaZeR | The Vibe Curator">
+    <meta property="og:description" content="Strategic Spotify growth intelligence - 10 research modules, 90-day execution plan">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- GSAP Core + Plugins -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
+
+    <style>
+        :root {
+            --color-bg-primary: #050816;
+            --color-bg-secondary: #0f172a;
+            --color-surface: #1a1f3a;
+            --color-cyan: #06d6a0;
+            --color-lime: #a3ff12;
+            --color-violet: #c77dff;
+            --color-pink: #ff006e;
+            --color-orange: #ff7b00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--color-bg-primary);
+            color: #f8fafc;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Custom Cursor - Vibe Orb */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            background: #ffffff;
+            border-radius: 50%;
+            position: fixed;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Animated Gradient Background */
+        .gradient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg,
+                var(--color-bg-primary) 0%,
+                var(--color-bg-secondary) 50%,
+                var(--color-surface) 100%);
+        }
+
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.3;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--color-cyan), transparent);
+            top: -10%;
+            right: -10%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--color-violet), transparent);
+            bottom: -10%;
+            left: -10%;
+            animation-delay: 5s;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--color-lime), transparent);
+            top: 50%;
+            left: 50%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, 100px) scale(1.1); }
+            50% { transform: translate(-30px, -80px) scale(0.9); }
+            75% { transform: translate(-70px, 50px) scale(1.05); }
+        }
+
+        /* Audio Waveform Bars */
+        .waveform {
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            height: 100px;
+            justify-content: center;
+        }
+
+        .wave-bar {
+            width: 4px;
+            background: linear-gradient(to top, var(--color-cyan), var(--color-lime));
+            border-radius: 2px;
+            animation: wave 1s ease-in-out infinite;
+        }
+
+        .wave-bar:nth-child(1) { animation-delay: 0s; }
+        .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+        .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+        .wave-bar:nth-child(4) { animation-delay: 0.3s; }
+        .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+        .wave-bar:nth-child(6) { animation-delay: 0.3s; }
+        .wave-bar:nth-child(7) { animation-delay: 0.2s; }
+        .wave-bar:nth-child(8) { animation-delay: 0.1s; }
+
+        @keyframes wave {
+            0%, 100% { height: 20px; }
+            50% { height: 80px; }
+        }
+
+        /* Glass Morphism - Enhanced */
+        .glass {
+            background: rgba(26, 31, 58, 0.5);
+            backdrop-filter: blur(24px) saturate(150%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        /* Neon Text */
+        .neon-text {
+            text-shadow:
+                0 0 10px rgba(6, 214, 160, 0.8),
+                0 0 20px rgba(6, 214, 160, 0.6),
+                0 0 30px rgba(6, 214, 160, 0.4),
+                0 0 40px rgba(6, 214, 160, 0.2);
+        }
+
+        .neon-text-violet {
+            text-shadow:
+                0 0 10px rgba(199, 125, 255, 0.8),
+                0 0 20px rgba(199, 125, 255, 0.6),
+                0 0 30px rgba(199, 125, 255, 0.4);
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--color-cyan), var(--color-lime), var(--color-violet));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% auto;
+            animation: gradient-shift 3s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Cards */
+        .premium-card {
+            background: rgba(26, 31, 58, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .premium-card:hover {
+            background: rgba(26, 31, 58, 0.7);
+            border-color: var(--color-cyan);
+            transform: translateY(-8px);
+            box-shadow:
+                0 20px 60px rgba(6, 214, 160, 0.3),
+                0 0 40px rgba(6, 214, 160, 0.2);
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-cyan), var(--color-lime));
+            color: var(--color-bg-primary);
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(6, 214, 160, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--color-cyan);
+            color: var(--color-cyan);
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-cyan);
+            color: var(--color-bg-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(6, 214, 160, 0.3);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--color-bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--color-cyan), var(--color-violet));
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--color-lime), var(--color-cyan));
+        }
+
+        /* Timeline Dot Animation */
+        .timeline-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--color-cyan);
+            box-shadow: 0 0 20px rgba(6, 214, 160, 0.6);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(6, 214, 160, 0.6);
+            }
+            50% {
+                transform: scale(1.2);
+                box-shadow: 0 0 40px rgba(6, 214, 160, 1);
+            }
+        }
+
+        /* Loading Animation - starts visible, GSAP handles opacity */
+        .reveal-text {
+            opacity: 1;
+        }
+
+        /* CRITICAL: All animated elements must be visible by default */
+        .snapshot-card, .pillar-card, .timeline-phase, .kpi-card, .module-card {
+            opacity: 1 !important;
+            transform: none;
+        }
+
+        /* Enhanced Glass Effects */
+        .glass-premium {
+            background: rgba(26, 31, 58, 0.4);
+            backdrop-filter: blur(30px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        /* Card 3D Tilt Effect */
+        .tilt-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tilt-card:hover { transform: translateZ(20px); }
+
+        /* Shimmer Button Effect */
+        .shimmer-btn { position: relative; overflow: hidden; }
+        .shimmer-btn::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s ease;
+        }
+        .shimmer-btn:hover::after { left: 100%; }
+
+        /* Glow Pulse Animation */
+        @keyframes glow-pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(6, 214, 160, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(6, 214, 160, 0.6), 0 0 60px rgba(163, 255, 18, 0.3); }
+        }
+        .glow-active { animation: glow-pulse 2s ease-in-out infinite; }
+
+        /* Text Gradient Animation */
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animated-gradient {
+            background-size: 300% 300%;
+            animation: gradient-flow 4s ease infinite;
+        }
+
+        /* Noise Texture Overlay */
+        .noise-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Badge Styles */
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-red {
+            background: rgba(255, 0, 110, 0.2);
+            color: #ff6b9d;
+            border: 1px solid rgba(255, 0, 110, 0.4);
+            box-shadow: 0 0 20px rgba(255, 0, 110, 0.3);
+        }
+
+        .badge-cyan {
+            background: rgba(6, 214, 160, 0.2);
+            color: var(--color-cyan);
+            border: 1px solid rgba(6, 214, 160, 0.4);
+        }
+
+        /* Stats Counter */
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        /* Parallax Layers */
+        .parallax-layer {
+            will-change: transform;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+            .cursor, .cursor-follower {
+                display: none;
+            }
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Hide default cursor on desktop */
+        @media (min-width: 769px) {
+            a, button, .card {
+                cursor: none !important;
+            }
+        }
+
+        /* Nav Glass Effect */
+        nav {
+            background: rgba(5, 8, 22, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Active Nav Link */
+        .nav-link {
+            position: relative;
+            padding-bottom: 4px;
+        }
+        .nav-link.active {
+            color: var(--color-cyan) !important;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--color-cyan), var(--color-lime));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        .nav-link.active::after { transform: scaleX(1); }
+        .nav-link:hover::after { transform: scaleX(0.5); }
+
+        /* Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 80px; left: 0; right: 0;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: 9999;
+        }
+        .scroll-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--color-cyan), var(--color-lime), var(--color-violet));
+            transition: width 0.1s linear;
+        }
+
+        /* Section Indicator Dots - Larger touch targets for mobile */
+        .section-indicators {
+            position: fixed;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: none; /* Hide on mobile by default */
+            flex-direction: column;
+            gap: 16px;
+        }
+        @media (min-width: 1024px) {
+            .section-indicators { display: flex; }
+        }
+        .section-dot {
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .section-dot:hover {
+            background: rgba(6, 214, 160, 0.5);
+            transform: scale(1.3);
+        }
+        .section-dot.active {
+            background: var(--color-cyan);
+            border-color: var(--color-cyan);
+            box-shadow: 0 0 15px rgba(6, 214, 160, 0.6);
+        }
+        .section-dot .tooltip {
+            position: absolute;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(26, 31, 58, 0.95);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            border: 1px solid rgba(6, 214, 160, 0.3);
+        }
+        .section-dot:hover .tooltip { opacity: 1; }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px; right: 30px;
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-cyan), var(--color-lime));
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 5px 20px rgba(6, 214, 160, 0.4);
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(6, 214, 160, 0.6);
+        }
+        .back-to-top svg { width: 24px; height: 24px; fill: #050816; }
+
+        /* Current Section Label (Mobile) - Hidden to reduce clutter */
+        .current-section-label {
+            display: none;
+        }
+
+        /* Vinyl Record Animation */
+        .vinyl {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at center, #1a1f3a 20%, transparent 21%),
+                radial-gradient(circle at center, #0f172a 40%, #1a1f3a 41%),
+                radial-gradient(circle at center, #050816 60%, #0f172a 61%),
+                conic-gradient(from 0deg, #1a1f3a, #0f172a, #1a1f3a);
+            position: relative;
+            animation: spin 8s linear infinite;
+        }
+
+        .vinyl::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-cyan), var(--color-violet));
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+
+    <!-- Page Transition Overlay -->
+    <div class="transition-overlay fixed inset-0 bg-slate-950 z-[10000] pointer-events-none opacity-0"></div>
+
+    <!-- Animated Background -->
+    <div class="gradient-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-4">
+                    <div class="waveform" style="height: 40px; gap: 2px;">
+                        <div class="wave-bar" style="width: 3px;"></div>
+                        <div class="wave-bar" style="width: 3px;"></div>
+                        <div class="wave-bar" style="width: 3px;"></div>
+                        <div class="wave-bar" style="width: 3px;"></div>
+                    </div>
+                    <span class="text-2xl font-bold neon-text">JaZeR</span>
+                    <span class="text-slate-500 text-sm hidden lg:inline mono">// THE_VIBE_CURATOR</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#hero" class="nav-link text-slate-300 hover:text-cyan-400 transition-colors font-medium active" data-section="hero">Home</a>
+                    <a href="#intelligence" class="nav-link text-slate-300 hover:text-cyan-400 transition-colors font-medium" data-section="intelligence">Intelligence</a>
+                    <a href="#strategy" class="nav-link text-slate-300 hover:text-cyan-400 transition-colors font-medium" data-section="strategy">Strategy</a>
+                    <a href="#execution" class="nav-link text-slate-300 hover:text-cyan-400 transition-colors font-medium" data-section="execution">Execution</a>
+                    <a href="modules.html" class="text-slate-300 hover:text-cyan-400 transition-colors font-medium">Modules</a>
+                    <a href="dashboard.html" class="btn-primary px-6 py-3 rounded-full">Dashboard</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-slate-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-xl z-40 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden flex items-center justify-center">
+        <div class="flex flex-col items-center space-y-8 text-2xl font-bold">
+            <a href="#hero" class="mobile-nav-link text-slate-300 hover:text-cyan-400 transition-colors" data-section="hero">Home</a>
+            <a href="#intelligence" class="mobile-nav-link text-slate-300 hover:text-cyan-400 transition-colors" data-section="intelligence">Intelligence</a>
+            <a href="#strategy" class="mobile-nav-link text-slate-300 hover:text-cyan-400 transition-colors" data-section="strategy">Strategy</a>
+            <a href="#execution" class="mobile-nav-link text-slate-300 hover:text-cyan-400 transition-colors" data-section="execution">Execution</a>
+            <a href="modules.html" class="mobile-nav-link text-slate-300 hover:text-cyan-400 transition-colors">Modules</a>
+            <a href="dashboard.html" class="btn-primary px-8 py-4 rounded-full text-base">Launch Dashboard</a>
+        </div>
+    </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress">
+        <div class="scroll-progress-bar" id="scrollProgress"></div>
+    </div>
+
+    <!-- Section Indicator Dots -->
+    <div class="section-indicators">
+        <div class="section-dot active" data-section="hero"><span class="tooltip">Home</span></div>
+        <div class="section-dot" data-section="intelligence"><span class="tooltip">Intelligence</span></div>
+        <div class="section-dot" data-section="strategy"><span class="tooltip">Strategy</span></div>
+        <div class="section-dot" data-section="execution"><span class="tooltip">Execution</span></div>
+        <div class="section-dot" data-section="modules"><span class="tooltip">Modules</span></div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+    </button>
+
+    <!-- Current Section Label (Mobile) -->
+    <div class="current-section-label" id="currentSectionLabel">Home</div>
+
+    <!-- Hero Section -->\r\n    <section id=\"hero\" class=\"relative min-h-screen flex items-center justify-center px-6 overflow-hidden\">
+        <!-- Parallax Vinyl -->
+        <div class="absolute right-[-150px] top-1/4 parallax-layer opacity-10" data-speed="0.5">
+            <div class="vinyl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto text-center relative z-10">
+            <!-- Status Badge -->
+            <div class="mb-8 reveal-text" data-delay="0">
+                <span class="badge badge-red">🔴 LAUNCH PHASE · ZERO TO ONE</span>
+            </div>
+
+            <!-- Main Headline -->
+            <h1 class="text-6xl md:text-8xl lg:text-9xl font-black mb-6 reveal-text" data-delay="0.2">
+                <span class="block">THE</span>
+                <span class="block gradient-text">VIBE</span>
+                <span class="block neon-text-violet">CURATOR</span>
+            </h1>
+
+            <!-- Subheadline -->
+            <p class="text-xl md:text-3xl text-slate-300 mb-4 max-w-4xl mx-auto font-light reveal-text" data-delay="0.4">
+                Strategic Spotify Growth Intelligence
+            </p>
+            <p class="text-lg md:text-xl text-slate-400 mb-12 max-w-3xl mx-auto reveal-text" data-delay="0.6">
+                <span class="mono text-cyan-400">Austin, TX</span> · Electronic Soul · Melodic Hip-Hop
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16 reveal-text" data-delay="0.8">
+                <a href="#90-day-plan" class="btn-primary px-10 py-5 rounded-full text-lg font-bold">
+                    View 90-Day Sprint →
+                </a>
+                <a href="modules.html" class="btn-secondary px-10 py-5 rounded-full text-lg font-bold">
+                    Explore Research
+                </a>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto reveal-text" data-delay="1">
+                <div class="stat-item">
+                    <div class="stat-number gradient-text" data-target="10">0</div>
+                    <div class="text-sm text-slate-400 uppercase tracking-wider mono">Modules</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number gradient-text" data-target="90">0</div>
+                    <div class="text-sm text-slate-400 uppercase tracking-wider mono">Days</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number gradient-text" data-target="50" data-suffix="+">0</div>
+                    <div class="text-sm text-slate-400 uppercase tracking-wider mono">Tactics</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number gradient-text" data-target="100" data-suffix="%">0</div>
+                    <div class="text-sm text-slate-400 uppercase tracking-wider mono">Data-Driven</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2">
+            <div class="flex flex-col items-center gap-2 animate-bounce">
+                <span class="text-xs text-slate-500 uppercase tracking-widest mono">Scroll</span>
+                <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Statement -->
+    <section class="py-20 px-6 relative">
+        <div class="max-w-5xl mx-auto">
+            <div class="glass rounded-3xl p-12 md:p-20 text-center">
+                <h2 class="text-4xl md:text-6xl font-bold mb-8 parallax-layer" data-speed="0.3">
+                    <span class="gradient-text">From Zero to One</span>
+                </h2>
+                <p class="text-xl md:text-2xl text-slate-300 leading-relaxed mb-8">
+                    A comprehensive strategic research system for scaling JaZeR from <span class="neon-text font-bold">0 to 100k+ monthly listeners</span> on Spotify.
+                </p>
+                <p class="text-lg text-slate-400 leading-relaxed">
+                    Data-driven intelligence spanning market landscape, audience profiling, playlist strategy, algorithmic optimization, and the complete 90-day execution roadmap for Austin's next electronic soul curator.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strategic Snapshot -->
+    <section id="intelligence" class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <span class="mono text-cyan-400 text-sm uppercase tracking-widest">Strategic Intelligence</span>
+                <h2 class="text-5xl md:text-7xl font-bold mt-4 mb-6">
+                    Executive <span class="gradient-text">Snapshot</span>
+                </h2>
+                <p class="text-xl text-slate-400 max-w-3xl mx-auto">
+                    Current reality and strategic positioning in the Austin melodic hip-hop ecosystem
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Current Status -->
+                <div class="premium-card p-10 rounded-3xl snapshot-card">
+                    <div class="badge badge-red mb-6">CURRENT STATUS</div>
+                    <h3 class="text-3xl font-bold mb-4 text-red-400">
+                        🔴 Launch Phase
+                    </h3>
+                    <p class="text-slate-300 text-lg leading-relaxed">
+                        No footprint, blank canvas. The Zero to One phase.
+                    </p>
+                    <div class="mt-8 p-4 bg-slate-900/50 rounded-xl">
+                        <div class="mono text-xs text-slate-500">CURRENT METRICS</div>
+                        <div class="text-2xl font-bold text-slate-400 mt-2">0 → ∞</div>
+                    </div>
+                </div>
+
+                <!-- Top Opportunity -->
+                <div class="premium-card p-10 rounded-3xl snapshot-card">
+                    <div class="badge badge-cyan mb-6">TOP OPPORTUNITY</div>
+                    <h3 class="text-3xl font-bold mb-4 neon-text">
+                        The Blue Ocean
+                    </h3>
+                    <p class="text-slate-300 text-lg leading-relaxed">
+                        Filling the void in Austin for high-quality, melodic, "Mac Miller-esque" electronic hip-hop.
+                    </p>
+                    <div class="mt-8 p-4 bg-slate-900/50 rounded-xl">
+                        <div class="mono text-xs text-slate-500">MARKET GAP</div>
+                        <div class="text-2xl font-bold text-cyan-400 mt-2">Electronic Soul Niche</div>
+                    </div>
+                </div>
+
+                <!-- Primary Risk -->
+                <div class="premium-card p-10 rounded-3xl snapshot-card">
+                    <div class="badge badge-cyan mb-6" style="background: rgba(199, 125, 255, 0.2); color: #c77dff; border-color: rgba(199, 125, 255, 0.4);">PRIMARY RISK</div>
+                    <h3 class="text-3xl font-bold mb-4 neon-text-violet">
+                        Obscurity
+                    </h3>
+                    <p class="text-slate-300 text-lg leading-relaxed">
+                        Getting lost in the noise by failing to establish a distinct, professional visual and sonic brand.
+                    </p>
+                    <div class="mt-8 p-4 bg-slate-900/50 rounded-xl">
+                        <div class="mono text-xs text-slate-500">MITIGATION</div>
+                        <div class="text-2xl font-bold text-violet-400 mt-2">Brand Differentiation</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strategic Pillars -->
+    <section id="strategy" class="py-20 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <span class="mono text-lime-400 text-sm uppercase tracking-widest">Strategic Foundation</span>
+                <h2 class="text-5xl md:text-7xl font-bold mt-4 mb-6">
+                    The Three <span class="gradient-text">Pillars</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass p-12 rounded-3xl text-center pillar-card" style="border: 2px solid rgba(6, 214, 160, 0.3);">
+                    <div class="text-7xl mb-6">🎨</div>
+                    <h3 class="text-3xl font-bold mb-3 neon-text">BRAND</h3>
+                    <p class="text-xl font-semibold mb-4 text-cyan-400">"The Vibe Curator"</p>
+                    <p class="text-slate-400 leading-relaxed">
+                        High-art visuals, introspection, creative lifestyle.
+                    </p>
+                </div>
+
+                <div class="glass p-12 rounded-3xl text-center pillar-card" style="border: 2px solid rgba(163, 255, 18, 0.3);">
+                    <div class="text-7xl mb-6">🎵</div>
+                    <h3 class="text-3xl font-bold mb-3" style="color: var(--color-lime);">MUSIC</h3>
+                    <p class="text-xl font-semibold mb-4" style="color: var(--color-lime);">"Waterfall" Singles</p>
+                    <p class="text-slate-400 leading-relaxed">
+                        Consistent, high-quality melodic rap for "Chill" playlists.
+                    </p>
+                </div>
+
+                <div class="glass p-12 rounded-3xl text-center pillar-card" style="border: 2px solid rgba(199, 125, 255, 0.3);">
+                    <div class="text-7xl mb-6">🎸</div>
+                    <h3 class="text-3xl font-bold mb-3 neon-text-violet">LOCAL</h3>
+                    <p class="text-xl font-semibold mb-4 text-violet-400">"Austin Roots"</p>
+                    <p class="text-slate-400 leading-relaxed">
+                        Network with live scene (Empire, KUTX) for physical fanbase.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 90-Day Sprint Calendar -->
+    <section id="execution" class="py-20 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <span class="mono text-violet-400 text-sm uppercase tracking-widest">Execution Roadmap</span>
+                <h2 class="text-5xl md:text-7xl font-bold mt-4 mb-6">
+                    The 90-Day <span class="gradient-text">Sprint</span>
+                </h2>
+                <p class="text-xl text-slate-400 max-w-3xl mx-auto">
+                    From foundation to proof in 12 weeks · Three phases of strategic execution
+                </p>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Month 1 -->
+                <div class="glass p-10 md:p-12 rounded-3xl timeline-phase">
+                    <div class="flex flex-col md:flex-row items-start gap-6 mb-8">
+                        <div class="timeline-dot"></div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-4">
+                                <h3 class="text-4xl font-bold neon-text">Month 1</h3>
+                                <span class="badge badge-cyan">THE "STEALTH" PHASE</span>
+                            </div>
+                            <p class="text-xl text-slate-300 mb-8">Foundation · Build all assets and infrastructure before launch</p>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="bg-slate-900/50 p-6 rounded-xl">
+                                    <h4 class="font-bold text-lg mb-4 text-cyan-400 mono">WEEK 1-2 → Asset Creation</h4>
+                                    <ul class="space-y-3 text-slate-300">
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-cyan-400 mt-1">●</span>
+                                            <span>Finalize Single 1 master</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-cyan-400 mt-1">●</span>
+                                            <span>Shoot cover art & Canvas (high aesthetic)</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-cyan-400 mt-1">●</span>
+                                            <span>Set up Spotify for Artists & socials</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="bg-slate-900/50 p-6 rounded-xl">
+                                    <h4 class="font-bold text-lg mb-4 text-cyan-400 mono">WEEK 3-4 → The Setup</h4>
+                                    <ul class="space-y-3 text-slate-300">
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-cyan-400 mt-1">●</span>
+                                            <span>Upload Single 1 to DistroKid (4 weeks out)</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-cyan-400 mt-1">●</span>
+                                            <span>Pitch to Spotify Editorial (S4A)</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-cyan-400 mt-1">●</span>
+                                            <span>Start teasing on TikTok/Reels</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Month 2 -->
+                <div class="glass p-10 md:p-12 rounded-3xl timeline-phase">
+                    <div class="flex flex-col md:flex-row items-start gap-6 mb-8">
+                        <div class="timeline-dot" style="background: var(--color-lime);"></div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-4">
+                                <h3 class="text-4xl font-bold" style="color: var(--color-lime);">Month 2</h3>
+                                <span class="badge badge-cyan" style="background: rgba(163, 255, 18, 0.2); color: var(--color-lime); border-color: rgba(163, 255, 18, 0.4);">THE "HELLO" PHASE</span>
+                            </div>
+                            <p class="text-xl text-slate-300 mb-8">Launch · Release Single 1 and build initial momentum</p>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="bg-slate-900/50 p-6 rounded-xl">
+                                    <h4 class="font-bold text-lg mb-4 mono" style="color: var(--color-lime);">WEEK 5-6 → Single 1 Release</h4>
+                                    <ul class="space-y-3 text-slate-300">
+                                        <li class="flex items-start gap-3">
+                                            <span class="mt-1" style="color: var(--color-lime);">●</span>
+                                            <span><strong>RELEASE DAY:</strong> Push all socials</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="mt-1" style="color: var(--color-lime);">●</span>
+                                            <span>Submit to indie curators</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="mt-1" style="color: var(--color-lime);">●</span>
+                                            <span>Check Release Radar pickup</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="bg-slate-900/50 p-6 rounded-xl">
+                                    <h4 class="font-bold text-lg mb-4 mono" style="color: var(--color-lime);">WEEK 7-8 → Momentum</h4>
+                                    <ul class="space-y-3 text-slate-300">
+                                        <li class="flex items-start gap-3">
+                                            <span class="mt-1" style="color: var(--color-lime);">●</span>
+                                            <span>Continue content for Single 1</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="mt-1" style="color: var(--color-lime);">●</span>
+                                            <span>Upload Single 2 (Waterfall)</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="mt-1" style="color: var(--color-lime);">●</span>
+                                            <span>Network at local shows</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Month 3 -->
+                <div class="glass p-10 md:p-12 rounded-3xl timeline-phase">
+                    <div class="flex flex-col md:flex-row items-start gap-6 mb-8">
+                        <div class="timeline-dot" style="background: var(--color-violet);"></div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-4">
+                                <h3 class="text-4xl font-bold neon-text-violet">Month 3</h3>
+                                <span class="badge badge-cyan" style="background: rgba(199, 125, 255, 0.2); color: var(--color-violet); border-color: rgba(199, 125, 255, 0.4);">THE "PROOF" PHASE</span>
+                            </div>
+                            <p class="text-xl text-slate-300 mb-8">Sustain & Expand · Prove traction with Single 2 and first live show</p>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="bg-slate-900/50 p-6 rounded-xl">
+                                    <h4 class="font-bold text-lg mb-4 text-violet-400 mono">WEEK 9-10 → Single 2</h4>
+                                    <ul class="space-y-3 text-slate-300">
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-violet-400 mt-1">●</span>
+                                            <span>Waterfall effect boosts Single 2</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-violet-400 mt-1">●</span>
+                                            <span>Analyze data (Cities, Age)</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="bg-slate-900/50 p-6 rounded-xl">
+                                    <h4 class="font-bold text-lg mb-4 text-violet-400 mono">WEEK 11-12 → First Show</h4>
+                                    <ul class="space-y-3 text-slate-300">
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-violet-400 mt-1">●</span>
+                                            <span>Secure local showcase slot</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-violet-400 mt-1">●</span>
+                                            <span>First Merch Drop (stickers/tees)</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-violet-400 mt-1">●</span>
+                                            <span>Review: >30% Save Rate?</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPIs -->
+            <div class="mt-20">
+                <h3 class="text-3xl font-bold text-center mb-12">
+                    Key Performance <span class="gradient-text">Indicators</span>
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="glass p-8 rounded-2xl text-center kpi-card">
+                        <div class="text-5xl font-black mb-3 neon-text">>30%</div>
+                        <div class="text-sm uppercase tracking-widest text-slate-400 mono">Save Rate</div>
+                    </div>
+                    <div class="glass p-8 rounded-2xl text-center kpi-card">
+                        <div class="text-5xl font-black mb-3" style="color: var(--color-lime);">+50</div>
+                        <div class="text-sm uppercase tracking-widest text-slate-400 mono">Followers/Month</div>
+                    </div>
+                    <div class="glass p-8 rounded-2xl text-center kpi-card">
+                        <div class="text-5xl font-black mb-3 neon-text-violet">1,000</div>
+                        <div class="text-sm uppercase tracking-widest text-slate-400 mono">Monthly Listeners</div>
+                    </div>
+                    <div class="glass p-8 rounded-2xl text-center kpi-card">
+                        <div class="text-5xl font-black mb-3 neon-text">1+3</div>
+                        <div class="text-sm uppercase tracking-widest text-slate-400 mono">Local Connections</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modules Showcase -->
+    <section id="90-day-plan" class="py-32 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <span class="mono text-cyan-400 text-sm uppercase tracking-widest">Complete System</span>
+                <h2 class="text-5xl md:text-7xl font-bold mt-4 mb-6">
+                    10 Research <span class="gradient-text">Modules</span>
+                </h2>
+                <p class="text-xl text-slate-400 max-w-3xl mx-auto">
+                    Comprehensive intelligence spanning every domain of Spotify growth
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="premium-card p-8 rounded-2xl module-card">
+                    <div class="badge badge-cyan mb-4">MODULE 01</div>
+                    <h3 class="text-2xl font-bold mb-3">Research Brief</h3>
+                    <p class="text-slate-400 mb-4">Foundation and reality check for launch phase</p>
+                    <a href="module-01.html" class="text-cyan-400 hover:text-cyan-300 font-semibold">Explore →</a>
+                </div>
+
+                <div class="premium-card p-8 rounded-2xl module-card">
+                    <div class="badge badge-cyan mb-4">MODULE 02</div>
+                    <h3 class="text-2xl font-bold mb-3">Market Landscape</h3>
+                    <p class="text-slate-400 mb-4">Competitive positioning in Austin hip-hop</p>
+                    <a href="module-02.html" class="text-cyan-400 hover:text-cyan-300 font-semibold">Explore →</a>
+                </div>
+
+                <div class="premium-card p-8 rounded-2xl module-card">
+                    <div class="badge badge-cyan mb-4">MODULE 03</div>
+                    <h3 class="text-2xl font-bold mb-3">Audience Profile</h3>
+                    <p class="text-slate-400 mb-4">"Creative Casey" persona and demographics</p>
+                    <a href="module-03.html" class="text-cyan-400 hover:text-cyan-300 font-semibold">Explore →</a>
+                </div>
+
+                <div class="premium-card p-8 rounded-2xl module-card">
+                    <div class="badge badge-cyan mb-4" style="background: rgba(163, 255, 18, 0.2); color: var(--color-lime); border-color: rgba(163, 255, 18, 0.4);">MODULE 04</div>
+                    <h3 class="text-2xl font-bold mb-3">Playlist Strategy</h3>
+                    <p class="text-slate-400 mb-4">Curator targeting and gateway tactics</p>
+                    <a href="module-04.html" class="text-cyan-400 hover:text-cyan-300 font-semibold">Explore →</a>
+                </div>
+
+                <div class="premium-card p-8 rounded-2xl module-card">
+                    <div class="badge badge-cyan mb-4" style="background: rgba(163, 255, 18, 0.2); color: var(--color-lime); border-color: rgba(163, 255, 18, 0.4);">MODULE 05</div>
+                    <h3 class="text-2xl font-bold mb-3">Release Strategy</h3>
+                    <p class="text-slate-400 mb-4">Waterfall timing and asset optimization</p>
+                    <a href="module-05.html" class="text-cyan-400 hover:text-cyan-300 font-semibold">Explore →</a>
+                </div>
+
+                <div class="premium-card p-8 rounded-2xl module-card">
+                    <div class="badge badge-cyan mb-4" style="background: rgba(163, 255, 18, 0.2); color: var(--color-lime); border-color: rgba(163, 255, 18, 0.4);">MODULE 06</div>
+                    <h3 class="text-2xl font-bold mb-3">Algorithm Drivers</h3>
+                    <p class="text-slate-400 mb-4">Spotify signal optimization</p>
+                    <a href="module-06.html" class="text-cyan-400 hover:text-cyan-300 font-semibold">Explore →</a>
+                </div>
+
+                <div class="premium-card p-8 rounded-2xl module-card">
+                    <div class="badge badge-cyan mb-4" style="background: rgba(199, 125, 255, 0.2); color: var(--color-violet); border-color: rgba(199, 125, 255, 0.4);">MODULE 07</div>
+                    <h3 class="text-2xl font-bold mb-3">Marketing Channels</h3>
+                    <p class="text-slate-400 mb-4">ROI analysis and conversion funnels</p>
+                    <a href="module-07.html" class="text-cyan-400 hover:text-cyan-300 font-semibold">Explore →</a>
+                </div>
+
+                <div class="premium-card p-8 rounded-2xl module-card">
+                    <div class="badge badge-cyan mb-4" style="background: rgba(199, 125, 255, 0.2); color: var(--color-violet); border-color: rgba(199, 125, 255, 0.4);">MODULE 08</div>
+                    <h3 class="text-2xl font-bold mb-3">Touring Strategy</h3>
+                    <p class="text-slate-400 mb-4">Venue targeting and Texas Triangle</p>
+                    <a href="module-08.html" class="text-cyan-400 hover:text-cyan-300 font-semibold">Explore →</a>
+                </div>
+
+                <div class="premium-card p-8 rounded-2xl module-card">
+                    <div class="badge badge-cyan mb-4" style="background: rgba(199, 125, 255, 0.2); color: var(--color-violet); border-color: rgba(199, 125, 255, 0.4);">MODULE 09</div>
+                    <h3 class="text-2xl font-bold mb-3">Monetization</h3>
+                    <p class="text-slate-400 mb-4">Pricing benchmarks and merch strategy</p>
+                    <a href="module-09.html" class="text-cyan-400 hover:text-cyan-300 font-semibold">Explore →</a>
+                </div>
+
+                <div class="premium-card p-8 rounded-2xl module-card" style="border: 2px solid var(--color-cyan);">
+                    <div class="badge badge-cyan mb-4" style="background: rgba(199, 125, 255, 0.2); color: var(--color-violet); border-color: rgba(199, 125, 255, 0.4);">MODULE 10</div>
+                    <h3 class="text-2xl font-bold mb-3">90-Day Plan</h3>
+                    <p class="text-slate-400 mb-4">Executive summary and sprint calendar</p>
+                    <a href="module-10.html" class="text-cyan-400 hover:text-cyan-300 font-semibold">Explore →</a>
+                </div>
+            </div>
+
+            <div class="text-center mt-16">
+                <a href="modules.html" class="btn-primary px-12 py-5 rounded-full text-lg font-bold inline-block">
+                    View All Modules
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-32 px-6 relative">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="glass p-16 rounded-3xl cta-section">
+                <h2 class="text-4xl md:text-6xl font-bold mb-8">
+                    Ready to <span class="gradient-text">Execute</span>?
+                </h2>
+                <p class="text-xl text-slate-300 mb-12">
+                    Access the interactive dashboard, download complete reports, and start the 90-day sprint.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                    <a href="dashboard.html" class="btn-primary px-10 py-5 rounded-full text-lg font-bold">
+                        Open Dashboard
+                    </a>
+                    <a href="downloads.html" class="btn-secondary px-10 py-5 rounded-full text-lg font-bold">
+                        Download Reports
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 px-6 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="waveform" style="height: 30px; gap: 2px;">
+                            <div class="wave-bar" style="width: 3px;"></div>
+                            <div class="wave-bar" style="width: 3px;"></div>
+                            <div class="wave-bar" style="width: 3px;"></div>
+                        </div>
+                        <h3 class="text-2xl font-bold neon-text">JaZeR</h3>
+                    </div>
+                    <p class="text-slate-400 text-lg max-w-md">
+                        Strategic Spotify growth intelligence system for Austin's next electronic soul curator.
+                    </p>
+                    <div class="mt-6 mono text-sm text-slate-500">
+                        <p>Austin, TX · 30.2672° N, 97.7431° W</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-cyan-400 uppercase tracking-wider text-sm">Navigation</h4>
+                    <ul class="space-y-3 text-slate-400">
+                        <li><a href="modules.html" class="hover:text-cyan-400 transition-colors">All Modules</a></li>
+                        <li><a href="dashboard.html" class="hover:text-cyan-400 transition-colors">Dashboard</a></li>
+                        <li><a href="downloads.html" class="hover:text-cyan-400 transition-colors">Downloads</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-cyan-400 uppercase tracking-wider text-sm">System Info</h4>
+                    <ul class="space-y-3 text-slate-400 mono text-sm">
+                        <li>10 Research Modules</li>
+                        <li>90-Day Sprint Plan</li>
+                        <li>100% Data-Driven</li>
+                        <li>v1.0.0</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center pt-12 border-t border-slate-800">
+                <p class="text-slate-500 mono text-sm">
+                    &copy; 2026 JaZeR Strategic Research System · Built for Artist Development
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP Animations -->
+    <script>
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+        // Premium UI Loaded via premium-ui.js
+    </script>
+    <script src="assets/js/premium-ui.js" defer></script>
+    <script>
+
+        // Hero Text Staggered Reveal with Split Text Effect
+        const heroTimeline = gsap.timeline({ defaults: { ease: 'power4.out' } });
+        
+        heroTimeline
+            .from('.badge-red', { y: -30, opacity: 0, duration: 0.6 })
+            .from('h1 span', { y: 60, opacity: 0, stagger: 0.1, duration: 0.8 }, '-=0.4')
+            .from('.reveal-text[data-delay]', { y: 40, opacity: 0, stagger: 0.15, duration: 0.7 }, '-=0.5')
+            .from('.stat-item', { scale: 0.5, opacity: 0, stagger: 0.1, duration: 0.5, ease: 'back.out(1.5)' }, '-=0.3');
+
+        // Floating Orbs Animation Enhancement
+        gsap.utils.toArray('.gradient-orb').forEach((orb, i) => {
+            gsap.to(orb, {
+                x: 'random(-100, 100)',
+                y: 'random(-100, 100)',
+                scale: 'random(0.8, 1.2)',
+                duration: 'random(15, 25)',
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut',
+                delay: i * 2
+            });
+        });
+
+        // Parallax Effects - Enhanced
+        gsap.utils.toArray('.parallax-layer').forEach(layer => {
+            const speed = layer.dataset.speed || 0.5;
+            gsap.to(layer, {
+                y: () => -window.innerHeight * speed,
+                scale: 1.1,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: layer,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 1.5
+                }
+            });
+        });
+
+        // Sections Reveal with Fade Up - FIXED: Using gsap.set + to instead of from
+        // This ensures elements are visible by default and only animate if ScrollTrigger works
+        gsap.utils.toArray('section').forEach(section => {
+            const elements = section.querySelectorAll('h2, h3, p:not(.stat-number), .glass, .premium-card, .grid > *');
+            
+            // Set initial state with GSAP (not hiding by default)
+            gsap.set(elements, { opacity: 1, y: 0 });
+            
+            // Animate on scroll (enhancement, not requirement)
+            ScrollTrigger.batch(elements, {
+                start: 'top 85%',
+                onEnter: batch => gsap.from(batch, {
+                    y: 40,
+                    opacity: 0,
+                    duration: 0.8,
+                    stagger: 0.1,
+                    ease: 'power2.out',
+                    clearProps: 'all' // Clear inline styles after animation
+                })
+            });
+        });
+
+        // Snapshot Cards - Subtle reveal instead of flip (safer)
+        ScrollTrigger.batch('.snapshot-card', {
+            start: 'top 90%',
+            onEnter: batch => gsap.from(batch, {
+                y: 30,
+                opacity: 0,
+                stagger: 0.15,
+                duration: 0.6,
+                ease: 'power2.out',
+                clearProps: 'all'
+            })
+        });
+
+        // Pillar Cards - Safe pop animation
+        ScrollTrigger.batch('.pillar-card', {
+            start: 'top 90%',
+            onEnter: batch => gsap.from(batch, {
+                scale: 0.9,
+                opacity: 0,
+                stagger: 0.1,
+                duration: 0.5,
+                ease: 'back.out(1.5)',
+                clearProps: 'all'
+            })
+        });
+
+        // Timeline Phases - Slide in safely
+        ScrollTrigger.batch('.timeline-phase', {
+            start: 'top 90%',
+            onEnter: batch => gsap.from(batch, {
+                x: -50,
+                opacity: 0,
+                stagger: 0.15,
+                duration: 0.7,
+                ease: 'power2.out',
+                clearProps: 'all'
+            })
+        });
+
+        // KPI Cards - Bounce in safely
+        ScrollTrigger.batch('.kpi-card', {
+            start: 'top 90%',
+            onEnter: batch => gsap.from(batch, {
+                scale: 0.8,
+                opacity: 0,
+                stagger: 0.08,
+                duration: 0.5,
+                ease: 'back.out(1.7)',
+                clearProps: 'all'
+            })
+        });
+
+        // Module Cards - Wave effect safely
+        ScrollTrigger.batch('.module-card', {
+            start: 'top 90%',
+            onEnter: batch => gsap.from(batch, {
+                y: 40,
+                opacity: 0,
+                stagger: 0.06,
+                duration: 0.6,
+                ease: 'power2.out',
+                clearProps: 'all'
+            })
+        });
+
+        // CTA Section Zoom In
+        gsap.from('.cta-section', {
+            scale: 0.85,
+            opacity: 0,
+            duration: 1.2,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: '.cta-section', start: 'top 75%' }
+        });
+
+        // Smooth Scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    gsap.to(window, {
+                        duration: 1.2,
+                        scrollTo: { y: target, offsetY: 80 },
+                        ease: 'power3.inOut'
+                    });
+                }
+            });
+        });
+
+        // Add glow-active class to primary buttons
+        document.querySelectorAll('.btn-primary').forEach(btn => {
+            btn.classList.add('glow-active', 'shimmer-btn');
+        });
+
+        // Counter Animation moved to premium-ui.js
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('translate-x-full');
+                document.body.classList.toggle('overflow-hidden');
+            });
+
+            // Close menu when clicking a link
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('translate-x-full');
+                    document.body.classList.remove('overflow-hidden');
+                });
+            });
+        }
+
+        // ============================================
+        // NAVIGATION CLARITY: Scroll-Spy System
+        // ============================================
+        
+        const sections = ['hero', 'intelligence', 'strategy', 'execution', '90-day-plan'];
+        const sectionNames = { 'hero': 'Home', 'intelligence': 'Intelligence', 'strategy': 'Strategy', 'execution': 'Execution', '90-day-plan': 'Modules' };
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sectionDots = document.querySelectorAll('.section-dot');
+        const scrollProgressBar = document.getElementById('scrollProgress');
+        const backToTopBtn = document.getElementById('backToTop');
+        const currentSectionLabel = document.getElementById('currentSectionLabel');
+
+        // Update scroll progress bar
+        function updateScrollProgress() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            if (scrollProgressBar) scrollProgressBar.style.width = `${progress}%`;
+        }
+
+        // Update active section indicators
+        function updateActiveSection() {
+            const scrollPos = window.scrollY + window.innerHeight / 3;
+            let currentSection = 'hero';
+
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                if (section && section.offsetTop <= scrollPos) {
+                    currentSection = sectionId;
+                }
+            });
+
+            // Update nav links
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.section === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Update section dots
+            sectionDots.forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.dataset.section === currentSection || 
+                    (dot.dataset.section === 'modules' && currentSection === '90-day-plan')) {
+                    dot.classList.add('active');
+                }
+            });
+
+            // Update mobile section label
+            if (currentSectionLabel) {
+                currentSectionLabel.textContent = sectionNames[currentSection] || 'Home';
+            }
+        }
+
+        // Show/hide back-to-top button
+        function updateBackToTop() {
+            if (backToTopBtn) {
+                if (window.scrollY > 500) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            }
+        }
+
+        // Back to top click handler
+        if (backToTopBtn) {
+            backToTopBtn.addEventListener('click', () => {
+                gsap.to(window, { scrollTo: 0, duration: 1, ease: 'power3.inOut' });
+            });
+        }
+
+        // Section dot click handlers
+        sectionDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const sectionId = dot.dataset.section === 'modules' ? '90-day-plan' : dot.dataset.section;
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    gsap.to(window, { scrollTo: { y: section, offsetY: 80 }, duration: 1, ease: 'power3.inOut' });
+                }
+            });
+        });
+
+        // Scroll event listener with throttle
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (!scrollTimeout) {
+                scrollTimeout = setTimeout(() => {
+                    updateScrollProgress();
+                    updateActiveSection();
+                    updateBackToTop();
+                    scrollTimeout = null;
+                }, 16); // ~60fps
+            }
+        });
+
+        // Initial call
+        updateScrollProgress();
+        updateActiveSection();
+
+        console.log('✨ JaZeR Premium UI Loaded with Navigation Clarity');
+    </script>
+</body>
+</html>

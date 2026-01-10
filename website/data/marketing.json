@@ -1,0 +1,133 @@
+{
+  "title": "Marketing Channel Effectiveness",
+  "source": "Module 07 - Marketing Channel Effectiveness",
+  "lastUpdated": "2026-01-09",
+  "channelROI": [
+    {
+      "channel": "Instagram Reels",
+      "costEffort": "High Effort / $0",
+      "conversionQuality": "High (Visual connection)",
+      "scalability": "Viral Potential",
+      "verdict": "ESSENTIAL",
+      "priority": 1,
+      "recommended": true
+    },
+    {
+      "channel": "TikTok",
+      "costEffort": "High Effort / $0",
+      "conversionQuality": "Med (Fickle audience)",
+      "scalability": "Massive Reach",
+      "verdict": "ESSENTIAL",
+      "priority": 2,
+      "recommended": true
+    },
+    {
+      "channel": "Meta Ads (IG)",
+      "costEffort": "$$ (Mid)",
+      "conversionQuality": "High (Targeting)",
+      "scalability": "Linear Scale",
+      "verdict": "Start when you have content",
+      "priority": 3,
+      "recommended": true,
+      "minBudget": "$5/day"
+    },
+    {
+      "channel": "Playlisting (Paid)",
+      "costEffort": "$$ (Low/Mid)",
+      "conversionQuality": "Low (Passive listeners)",
+      "scalability": "Capped",
+      "verdict": "Use sparingly for 'Social Proof'",
+      "priority": 4,
+      "recommended": false
+    }
+  ],
+  "conversionFunnel": [
+    {
+      "stage": "Top of Funnel (Discovery)",
+      "content": "'If you like Mac Miller, you need to hear this...' (Reels/TikTok)",
+      "goal": "Get them to view the profile",
+      "metrics": ["Profile visits", "Video views", "Engagement rate"]
+    },
+    {
+      "stage": "Middle of Funnel (Consideration)",
+      "content": "Pinned posts showing the BEST song snippet + 'The Artist' vibe",
+      "goal": "Click the 'Link in Bio' (Smart Link)",
+      "metrics": ["Link clicks", "Profile follows", "Story views"]
+    },
+    {
+      "stage": "Bottom of Funnel (Action)",
+      "content": "Spotify Smart Link",
+      "goal": "Stream + FOLLOW + SAVE",
+      "metrics": ["Spotify streams", "Follower conversion", "Save rate"]
+    }
+  ],
+  "creativeBestPractices": [
+    {
+      "tactic": "The Hook",
+      "description": "Visually and audibly hook them in 1.5 seconds",
+      "example": "POV: You found your new favorite late-night drive song",
+      "format": "Text overlays on compelling visuals"
+    },
+    {
+      "tactic": "The Process",
+      "description": "Show the DAW (Logic/Ableton). 'How I flipped this sample.'",
+      "audience": "Musicians and 'Creative Casey' love this",
+      "format": "Screen recording with voiceover or captions"
+    },
+    {
+      "tactic": "The Vibe",
+      "description": "Aesthetic shots of Austin/Studio with the song playing",
+      "style": "No talking. Just vibe.",
+      "format": "Cinematic b-roll with music"
+    }
+  ],
+  "budgetAllocation": {
+    "bootstrap": {
+      "name": "Low/Bootstrap",
+      "budget": "$0 - $500",
+      "allocation": {
+        "organicContent": "100%",
+        "adSpend": "0%"
+      },
+      "strategy": [
+        "Post 1-2 Reels/TikToks daily",
+        "$0 ad spend - save money for high-quality cover art or mixing"
+      ]
+    },
+    "seed": {
+      "name": "Seed",
+      "budget": "$500 - $2,000",
+      "allocation": {
+        "contentCreation": "70%",
+        "metaAds": "30%"
+      },
+      "strategy": [
+        "Better videos, maybe a videographer for a day",
+        "Test $5/day ads on Instagram Stories targeting 'Mac Miller' interest"
+      ]
+    }
+  },
+  "contentCalendar": {
+    "frequency": "1-2 posts per day (Reels/TikTok)",
+    "contentMix": {
+      "musicPreviews": "40% (Snippet teasers, lip sync, performance)",
+      "processContent": "30% (Studio sessions, beat breakdowns)",
+      "vibeContent": "20% (Lifestyle, Austin aesthetics)",
+      "engagement": "10% (Trending sounds, challenges)"
+    }
+  },
+  "platformSpecifics": {
+    "instagram": {
+      "formats": ["Reels", "Stories", "Feed posts"],
+      "bestTimes": "Evenings (7-10pm)",
+      "targeting": "Mac Miller, ProbCause, Anderson .Paak fans",
+      "hashtagStrategy": "Mix of 10k-100k follower hashtags (#indierap, #austinmusic, #chillhop)"
+    },
+    "tiktok": {
+      "formats": ["Short-form video (15-60s)"],
+      "bestTimes": "Late night (10pm-1am) when creative types are active",
+      "targeting": "Use trending sounds, but make it your own",
+      "strategy": "Authenticity over polish - phone footage works"
+    }
+  }
+}

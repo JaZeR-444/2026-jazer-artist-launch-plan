@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JaZeR: Release Strategy Benchmarks & Blueprint</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- 
+    PALETTE SELECTION: "Energetic & Digital"
+    Primary Purple: #7C3AED (Violet-600)
+    Vibrant Pink: #DB2777 (Pink-600)
+    Electric Blue: #2563EB (Blue-600)
+    Dark: #111827 (Gray-900)
+    Background: #F3F4F6 (Gray-100)
+    -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F3F4F6;
+            color: #1F2937;
+        }
+        
+        /* Chart Container Rules - MANDATORY */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px; /* Base height */
+            max-height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+
+        /* Custom Utilities */
+        .card-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .timeline-connector {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            background-color: #E5E7EB;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .step-circle {
+            z-index: 10;
+        }
+    </style>
+    <!-- 
+    NARRATIVE PLAN:
+    1. Header: Establish the artist context (JaZeR) and the objective (Best-in-Class Release).
+    2. Strategy Benchmarking: Compare the 3 researched approaches (Album vs. Waterfall vs. EP Tease) using a Radar chart to show trade-offs.
+    3. The Waterfall Logic: Deep dive into WHY Waterfall wins using a Stacked Bar chart to simulate stream accumulation (The "Second Life" effect).
+    4. The Execution Blueprint: A 4-Month timeline visual using HTML/Tailwind (No Mermaid).
+    5. Asset Density: A breakdown of the deliverables needed per single using a Doughnut chart.
+    -->
+    <!-- CONFIRMATION: NO SVG USED. NO MERMAID JS USED. -->
+</head>
+<body class="bg-gray-100 text-gray-800 antialiased">
+
+    <!-- Header Section -->
+    <header class="bg-gradient-to-r from-violet-900 via-purple-800 to-pink-700 text-white py-12 px-4 shadow-xl">
+        <div class="max-w-6xl mx-auto text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">JaZeR</h1>
+            <h2 class="text-xl md:text-2xl font-light text-pink-100 uppercase tracking-widest">Release Strategy & Market Benchmarks</h2>
+            <div class="mt-8 flex flex-wrap justify-center gap-4 text-sm font-semibold">
+                <span class="bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm">Genre: Melodic Hip-Hop / R&B</span>
+                <span class="bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm">Benchmark: Mac Miller / ProbCause</span>
+                <span class="bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm">Focus: Waterfall Strategy</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-12 space-y-16">
+
+        <!-- INTRO & CONTEXT -->
+        <section class="max-w-4xl mx-auto text-center">
+            <p class="text-xl text-gray-600 leading-relaxed">
+                To break through the noise in the <strong>Melodic Hip-Hop</strong> lane, consistency is currency. 
+                Our research benchmarks against the "slow burn" success of artists like <strong>ProbCause</strong> and the catalog longevity of <strong>Mac Miller</strong>.
+                The objective is to design a release cadence that maximizes algorithmic favor while building a cohesive "visual world" for JaZeR.
+            </p>
+        </section>
+
+        <!-- SECTION 1: STRATEGY COMPARISON (Radar Chart) -->
+        <section>
+            <div class="flex flex-col md:flex-row items-center justify-between mb-8">
+                <div class="md:w-2/3">
+                    <h3 class="text-3xl font-bold text-gray-900 border-l-8 border-violet-600 pl-4">1. Strategy Benchmarks</h3>
+                    <p class="mt-2 text-gray-600">
+                        We analyzed three common release structures. While the "Album Drop" offers artistic prestige, it suffers from a sharp decay in attention. 
+                        The <strong>"Waterfall"</strong> strategy is selected as the optimal path for JaZeR, balancing asset load with superior momentum.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <!-- Text Cards -->
+                <div class="space-y-4">
+                    <div class="bg-white p-6 rounded-xl card-shadow border-l-4 border-gray-400 opacity-75">
+                        <h4 class="text-lg font-bold text-gray-700">Option A: The Album Drop</h4>
+                        <p class="text-sm text-gray-500 mt-1">High artistic statement, but "Algorithm hates it." One spike, then silence.</p>
+                        <span class="inline-block mt-2 text-xs font-bold text-red-500 bg-red-100 px-2 py-1 rounded">Avoid (Phase 1)</span>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl card-shadow border-l-4 border-violet-600 transform scale-105 ring-4 ring-violet-50">
+                        <h4 class="text-lg font-bold text-violet-700">Option B: The Waterfall (Selected)</h4>
+                        <p class="text-sm text-gray-500 mt-1">Constant growth. Each song boosts the previous one via track-listing. High asset demand.</p>
+                        <span class="inline-block mt-2 text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded">Best Option</span>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl card-shadow border-l-4 border-pink-400 opacity-75">
+                        <h4 class="text-lg font-bold text-gray-700">Option C: The EP Tease</h4>
+                        <p class="text-sm text-gray-500 mt-1">Middle ground. Builds a world but slower than pure singles.</p>
+                        <span class="inline-block mt-2 text-xs font-bold text-yellow-600 bg-yellow-100 px-2 py-1 rounded">Good for Phase 2</span>
+                    </div>
+                </div>
+
+                <!-- Radar Chart -->
+                <div class="bg-white p-4 rounded-xl card-shadow">
+                    <h4 class="text-center font-semibold text-gray-500 mb-4 text-sm">Performance Scorecard</h4>
+                    <div class="chart-container">
+                        <canvas id="strategyRadarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: THE WATERFALL EFFECT (Stacked Bar) -->
+        <section class="bg-gray-50 rounded-2xl p-8 border border-gray-200">
+            <h3 class="text-3xl font-bold text-gray-900 border-l-8 border-pink-600 pl-4 mb-6">2. The "Waterfall" Effect</h3>
+            <p class="text-gray-600 mb-8 max-w-3xl">
+                Why choose Waterfall? It artificially extends the lifespan of every single. 
+                By releasing <strong>Single 2</strong> as a "Single," but including <strong>Single 1</strong> as "Track 2," we trigger a second wave of streams for the older track.
+                The chart below simulates the cumulative stream volume compared to a traditional linear release.
+            </p>
+
+            <div class="bg-white p-6 rounded-xl card-shadow">
+                <div class="chart-container">
+                    <canvas id="waterfallBarChart"></canvas>
+                </div>
+                <div class="mt-4 text-center text-sm text-gray-400 italic">
+                    *Simulation assumes standard 20% decay rate without waterfall intervention.
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: THE 4-MONTH BLUEPRINT (Timeline) -->
+        <section>
+            <h3 class="text-3xl font-bold text-gray-900 border-l-8 border-blue-600 pl-4 mb-8">3. The 4-Month Blueprint</h3>
+            <p class="text-gray-600 mb-12">
+                A structured execution plan to maintain the 4-6 week cadence. This schedule ensures JaZeR stays in the "Release Radar" loop constantly.
+            </p>
+
+            <div class="relative max-w-4xl mx-auto">
+                <!-- Vertical Line -->
+                <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-violet-500 to-pink-500 transform md:-translate-x-1/2"></div>
+
+                <!-- Month 1 -->
+                <div class="relative flex flex-col md:flex-row items-center mb-16">
+                    <div class="flex-1 md:text-right md:pr-12 mb-4 md:mb-0 w-full pl-12 md:pl-0">
+                        <h4 class="text-2xl font-bold text-violet-700">Month 1: The Intro</h4>
+                        <div class="text-sm font-semibold text-gray-500 uppercase tracking-wide">Vibe: Accessibility</div>
+                        <p class="mt-2 text-gray-600 text-sm">The most catchy, melodic track. Aiming for mass appeal and "Fresh Finds" playlisting.</p>
+                    </div>
+                    <div class="absolute left-0 md:left-1/2 w-8 h-8 bg-violet-600 rounded-full border-4 border-white shadow-lg transform md:-translate-x-1/2 flex items-center justify-center">
+                        <span class="text-white text-xs font-bold">1</span>
+                    </div>
+                    <div class="flex-1 md:pl-12 w-full pl-12 md:pl-0">
+                        <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-violet-300">
+                            <ul class="text-sm space-y-1 text-gray-600">
+                                <li><strong>Asset:</strong> Bright, clean cover art</li>
+                                <li><strong>Video:</strong> Performance-based visual</li>
+                                <li><strong>Action:</strong> Pitch to Editors T-4 Weeks</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Month 2 -->
+                <div class="relative flex flex-col md:flex-row items-center mb-16">
+                    <div class="flex-1 md:text-right md:pr-12 mb-4 md:mb-0 order-1 md:order-1 w-full pl-12 md:pl-0">
+                        <div class="bg-white p-4 rounded-lg shadow-sm border-r-0 md:border-r-4 border-l-4 md:border-l-0 border-pink-300">
+                            <ul class="text-sm space-y-1 text-gray-600">
+                                <li><strong>Tactic:</strong> Waterfall Single 1 (S2=Trk1, S1=Trk2)</li>
+                                <li><strong>Video:</strong> "Vibe" / Abstract visuals</li>
+                                <li><strong>Target:</strong> Niche blogs & curators</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="absolute left-0 md:left-1/2 w-8 h-8 bg-pink-600 rounded-full border-4 border-white shadow-lg transform md:-translate-x-1/2 flex items-center justify-center z-10">
+                        <span class="text-white text-xs font-bold">2</span>
+                    </div>
+                    <div class="flex-1 md:pl-12 order-2 md:order-2 w-full pl-12 md:pl-0">
+                        <h4 class="text-2xl font-bold text-pink-700">Month 2: The Vibe</h4>
+                        <div class="text-sm font-semibold text-gray-500 uppercase tracking-wide">Vibe: Artistic / Deep Cut</div>
+                        <p class="mt-2 text-gray-600 text-sm">A deeper cut showcasing artistic range. This gives Single 1 a "second life" via the waterfall method.</p>
+                    </div>
+                </div>
+
+                <!-- Month 3 -->
+                <div class="relative flex flex-col md:flex-row items-center mb-16">
+                    <div class="flex-1 md:text-right md:pr-12 mb-4 md:mb-0 w-full pl-12 md:pl-0">
+                        <h4 class="text-2xl font-bold text-blue-700">Month 3: The Banger</h4>
+                        <div class="text-sm font-semibold text-gray-500 uppercase tracking-wide">Vibe: High Energy / Collab</div>
+                        <p class="mt-2 text-gray-600 text-sm">High energy track, potentially with an Austin local feature. Waterfalls S2 and S1 behind it.</p>
+                    </div>
+                    <div class="absolute left-0 md:left-1/2 w-8 h-8 bg-blue-600 rounded-full border-4 border-white shadow-lg transform md:-translate-x-1/2 flex items-center justify-center">
+                        <span class="text-white text-xs font-bold">3</span>
+                    </div>
+                    <div class="flex-1 md:pl-12 w-full pl-12 md:pl-0">
+                        <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-blue-300">
+                            <ul class="text-sm space-y-1 text-gray-600">
+                                <li><strong>Tactic:</strong> Waterfall S2 + S1</li>
+                                <li><strong>Video:</strong> Collab/Community focus</li>
+                                <li><strong>Event:</strong> Local activation tease</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Month 4 -->
+                <div class="relative flex flex-col md:flex-row items-center">
+                    <div class="flex-1 md:text-right md:pr-12 mb-4 md:mb-0 order-1 md:order-1 w-full pl-12 md:pl-0">
+                        <div class="bg-white p-4 rounded-lg shadow-sm border-r-0 md:border-r-4 border-l-4 md:border-l-0 border-gray-400">
+                            <ul class="text-sm space-y-1 text-gray-600">
+                                <li><strong>Content:</strong> 3 Singles + 2 New Tracks</li>
+                                <li><strong>Event:</strong> Release Party @ Empire Control Room</li>
+                                <li><strong>Merch:</strong> Limited run drop</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="absolute left-0 md:left-1/2 w-8 h-8 bg-gray-800 rounded-full border-4 border-white shadow-lg transform md:-translate-x-1/2 flex items-center justify-center z-10">
+                        <span class="text-white text-xs font-bold">4</span>
+                    </div>
+                    <div class="flex-1 md:pl-12 order-2 md:order-2 w-full pl-12 md:pl-0">
+                        <h4 class="text-2xl font-bold text-gray-900">Month 4: The EP</h4>
+                        <div class="text-sm font-semibold text-gray-500 uppercase tracking-wide">Vibe: Compilation</div>
+                        <p class="mt-2 text-gray-600 text-sm">The full project compilation. Capitalizing on the momentum of the previous 3 months.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: ASSET CHECKLIST (Doughnut Chart) -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+                <h3 class="text-3xl font-bold text-gray-900 border-l-8 border-violet-600 pl-4 mb-6">4. Asset Deliverables</h3>
+                <p class="text-gray-600 mb-6">
+                    A modern rollout is 80% visual. The "Waterfall" strategy requires high asset density to sustain interest over the 4-6 week gap between songs.
+                </p>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <span class="flex-shrink-0 h-6 w-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3 text-xs font-bold">✓</span>
+                        <div>
+                            <span class="font-bold text-gray-800">Spotify Canvas</span>
+                            <p class="text-sm text-gray-500">3-8 second looping video. Critical for engagement metrics.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="flex-shrink-0 h-6 w-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3 text-xs font-bold">✓</span>
+                        <div>
+                            <span class="font-bold text-gray-800">Vertical Video Trio</span>
+                            <p class="text-sm text-gray-500">1. Teaser (Snippet), 2. Launch (Lip-sync), 3. Story (Process).</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="flex-shrink-0 h-6 w-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3 text-xs font-bold">✓</span>
+                        <div>
+                            <span class="font-bold text-gray-800">Pre-Save & Pitch</span>
+                            <p class="text-sm text-gray-500">Feature.fm link + 500 char pitch for editors.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl card-shadow flex flex-col items-center justify-center">
+                <h4 class="font-semibold text-gray-500 mb-4 text-sm">Effort Allocation per Release</h4>
+                <div class="chart-container">
+                    <canvas id="assetsDoughnutChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-400 text-sm py-12 border-t border-gray-200">
+            <p>Generated for JaZeR Release Planning • Based on "05 - Release Strategy Benchmarks"</p>
+        </footer>
+
+    </main>
+
+    <!-- SCRIPT SECTION -->
+    <script>
+        // --- UTILITY: WRAP LABELS ---
+        function formatLabel(str, maxwidth) {
+            if (typeof str !== 'string' || str.length <= maxwidth) return str;
+            const sections = [];
+            const words = str.split(' ');
+            let temp = '';
+            words.forEach(function(item, index) {
+                if (temp.length > 0) {
+                    const concat = temp + ' ' + item;
+                    if (concat.length > maxwidth) {
+                        sections.push(temp);
+                        temp = item;
+                    } else {
+                        temp = concat;
+                    }
+                } else {
+                    temp = item;
+                }
+                if (index === words.length - 1) {
+                    sections.push(temp);
+                }
+            });
+            return sections;
+        }
+
+        // --- GLOBAL CHART DEFAULTS ---
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.color = '#4B5563';
+        Chart.defaults.scale.grid.color = '#E5E7EB';
+
+        // --- CHART 1: STRATEGY RADAR ---
+        const radarCtx = document.getElementById('strategyRadarChart').getContext('2d');
+        new Chart(radarCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Algorithmic Favor', 'Momentum Build', 'Asset Efficiency', 'Artistic Statement', 'Fan Retention'],
+                datasets: [{
+                    label: 'The Waterfall (Winner)',
+                    data: [90, 85, 40, 70, 95], // High Algo, High Momentum, Low Efficiency (High Effort), Good Art, High Retention
+                    fill: true,
+                    backgroundColor: 'rgba(124, 58, 237, 0.2)', // Violet
+                    borderColor: 'rgb(124, 58, 237)',
+                    pointBackgroundColor: 'rgb(124, 58, 237)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgb(124, 58, 237)'
+                }, {
+                    label: 'Album Drop',
+                    data: [30, 40, 80, 100, 50], // Low Algo, Low Momentum, High Efficiency (Do it once), High Art, Med Retention
+                    fill: true,
+                    backgroundColor: 'rgba(219, 39, 119, 0.1)', // Pink
+                    borderColor: 'rgb(219, 39, 119)',
+                    pointBackgroundColor: 'rgb(219, 39, 119)',
+                    pointBorderColor: '#fff',
+                    borderDash: [5, 5]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: '#E5E7EB' },
+                        grid: { color: '#E5E7EB' },
+                        pointLabels: {
+                            font: { size: 12, weight: 'bold' }
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                return Array.isArray(label) ? label.join(' ') : label;
+                            }
+                        }
+                    },
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // --- CHART 2: WATERFALL EFFECT (Stacked Bar) ---
+        const waterfallCtx = document.getElementById('waterfallBarChart').getContext('2d');
+        // Data logic: 
+        // Month 1: S1 (100)
+        // Month 2: S2 (100) + S1 (80 - carryover)
+        // Month 3: S3 (100) + S2 (80) + S1 (60)
+        // Month 4: EP (150) + S3 (80) + S2 (60) + S1 (40)
+        new Chart(waterfallCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Month 1 (Intro)', 'Month 2 (Vibe)', 'Month 3 (Banger)', 'Month 4 (EP Drop)'],
+                datasets: [
+                    {
+                        label: 'Single 1 Streams',
+                        data: [1000, 800, 600, 400], // Decaying but present
+                        backgroundColor: '#7C3AED', // Violet
+                    },
+                    {
+                        label: 'Single 2 Streams',
+                        data: [0, 1000, 800, 600],
+                        backgroundColor: '#DB2777', // Pink
+                    },
+                    {
+                        label: 'Single 3 Streams',
+                        data: [0, 0, 1000, 800],
+                        backgroundColor: '#2563EB', // Blue
+                    },
+                    {
+                        label: 'New EP Tracks',
+                        data: [0, 0, 0, 1500],
+                        backgroundColor: '#1F2937', // Dark Gray
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true },
+                    y: { 
+                        stacked: true,
+                        title: { display: true, text: 'Simulated Stream Velocity' }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                return Array.isArray(label) ? label.join(' ') : label;
+                            }
+                        }
+                    },
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // --- CHART 3: ASSET ALLOCATION (Doughnut) ---
+        const assetsCtx = document.getElementById('assetsDoughnutChart').getContext('2d');
+        new Chart(assetsCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Vertical Video (TikTok/Reels)', 'Spotify Canvas', 'Static Art & Photos', 'Pitching & Admin'],
+                datasets: [{
+                    data: [50, 20, 15, 15],
+                    backgroundColor: [
+                        '#DB2777', // Pink (High effort video)
+                        '#7C3AED', // Violet
+                        '#2563EB', // Blue
+                        '#9CA3AF'  // Gray
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                return Array.isArray(label) ? label.join(' ') : label;
+                            }
+                        }
+                    },
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

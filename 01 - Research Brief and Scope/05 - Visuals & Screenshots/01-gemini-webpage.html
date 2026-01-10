@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JaZeR: Strategic Launch Blueprint</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Custom Scrollbar for a slick feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8b5cf6; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d946ef; 
+        }
+
+        /* Chart Container Styling - MANDATORY & CRITICAL */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Constrain max width for readability */
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px; /* Base height */
+            max-height: 400px;
+        }
+        
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+
+        /* Glassmorphism Card Styles */
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.3);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        /* Interactive Element Highlights */
+        .interactive-highlight {
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .interactive-highlight:hover {
+            color: #d946ef; /* Fuchsia */
+            text-decoration: underline;
+        }
+
+        /* Tab Navigation Active State */
+        .tab-active {
+            border-bottom: 2px solid #06b6d4; /* Cyan */
+            color: #ffffff;
+        }
+        .tab-inactive {
+            color: #94a3b8; /* Slate 400 */
+        }
+        .tab-inactive:hover {
+            color: #cbd5e1; /* Slate 300 */
+        }
+    </style>
+    <!-- Chosen Palette: Neon Nightlife (Violet #8b5cf6, Cyan #06b6d4, Fuchsia #d946ef on Slate #0f172a Background) -->
+    <!-- Application Structure Plan: 
+         1. Hero Section: Sets the stage with Artist Profile & "North Star" goals clearly visible.
+         2. The Reality Check (Dashboard): Uses a Bar Chart to visualize the "Gap" (0 to 100k listeners) and a Radar Chart for "Market Fit" to show *how* JaZeR competes (Live vs Digital). This groups the "Analysis" content.
+         3. Strategic Pillars (Interactive Cards): Breaks down the "Deep Dive Questions" into 4 actionable areas. User clicks aren't needed, but hover states reveal the focus.
+         4. The 90-Day Roadmap (Tabs + Chart): A phased timeline view. Users can switch between phases (Intel, Strategy, Execution) to see specific tasks. A Stacked Bar Chart visualizes the shifting "Effort Allocation" (e.g., Research vs Marketing) over time.
+         Rationale: The "Zero to One" journey requires understanding the gap, defining the niche, and then executing a timeline. This flow moves from "Why" to "What" to "When". 
+    -->
+    <!-- Visualization & Content Choices:
+         1. "The Gap" (Bar Chart): Compares current reality (0) to goal (100k). Goal: Inform/Compare. Justification: Stark visual of the challenge.
+         2. "Differentiation Strategy" (Radar Chart): Compares JaZeR's attributes (Live, Lyrics, Soul) vs Generic SoundCloud Rapper. Goal: Compare/Relationships. Justification: Shows the "Unfair Advantage" in the Austin market.
+         3. "Effort Allocation" (Stacked Bar): Shows how the workload shifts from Phase 1 (Intelligence) to Phase 3 (Execution). Goal: Change/Process. Justification: Visualizes the changing nature of work over the 90 days.
+         4. Roadmap (Tabs): Organizes the text-heavy timeline into digestible chunks. Goal: Organize.
+         CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="bg-slate-900 text-slate-50 font-sans antialiased selection:bg-fuchsia-500 selection:text-white pb-20">
+
+    <!-- Header / Hero -->
+    <header class="w-full py-12 px-4 md:px-8 border-b border-slate-800 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 shadow-lg">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-violet-400 to-fuchsia-400">
+                JaZeR
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-400 font-light tracking-wide uppercase">
+                Strategic Launch Profile & Research Roadmap
+            </p>
+            <div class="mt-6 flex flex-wrap justify-center gap-4 text-sm font-semibold">
+                <span class="px-4 py-2 rounded-full bg-slate-800 border border-cyan-500/30 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.2)]">
+                    📍 Austin, TX
+                </span>
+                <span class="px-4 py-2 rounded-full bg-slate-800 border border-violet-500/30 text-violet-400 shadow-[0_0_10px_rgba(139,92,246,0.2)]">
+                    🎵 Neo-Soul / Melodic Rap
+                </span>
+                <span class="px-4 py-2 rounded-full bg-slate-800 border border-fuchsia-500/30 text-fuchsia-400 shadow-[0_0_10px_rgba(217,70,239,0.2)]">
+                    🚀 Phase: Zero to One
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 gap-16">
+
+        <!-- Section 1: The Reality Check (Context & Gap) -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6">
+                <div class="border-l-4 border-fuchsia-500 pl-6">
+                    <h2 class="text-3xl font-bold text-white mb-2">The Reality Gap</h2>
+                    <p class="text-slate-400 text-lg">
+                        JaZeR is currently in the <strong>Launch Phase</strong>. Digital searches reveal no footprint. The mission is to bridge the chasm between obscurity and a sustainable regional touring career by leveraging Austin's unique live music ecosystem.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                    <div class="glass-card p-6 rounded-xl border-t-4 border-red-500">
+                        <h3 class="text-slate-400 text-xs uppercase tracking-wider font-bold">Current Reality</h3>
+                        <p class="text-4xl font-extrabold text-white mt-2">0</p>
+                        <p class="text-xs text-slate-500 mt-1">Monthly Listeners / Awareness</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-xl border-t-4 border-emerald-500">
+                        <h3 class="text-slate-400 text-xs uppercase tracking-wider font-bold">The "North Star"</h3>
+                        <p class="text-4xl font-extrabold text-emerald-400 mt-2">100k</p>
+                        <p class="text-xs text-slate-500 mt-1">Monthly Listeners / Regional Tour</p>
+                    </div>
+                </div>
+                <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
+                    <p class="text-sm text-slate-300">
+                        <strong>Strategy Implication:</strong> We cannot optimize what doesn't exist. The strategy must be aggressive <em>Creation</em> (Content, Brand, Network) rather than just <em>Optimization</em>.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Visualization: The Gap -->
+            <div class="glass-card p-6 rounded-2xl shadow-2xl">
+                <div class="mb-4 text-center">
+                    <h3 class="text-xl font-semibold text-white">Target Impact Gap</h3>
+                    <p class="text-sm text-slate-400">Visualizing the scale of the required ascent.</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="gapChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Market Positioning (Austin Context) -->
+        <section>
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-3xl font-bold text-white mb-4">The Austin Advantage</h2>
+                <p class="text-slate-300 text-lg">
+                    Austin is the "Live Music Capital," not the "SoundCloud Rap Capital." Success here requires pivoting away from generic digital trends to lean into <strong>live instrumentation, lyrical depth, and soul-influenced delivery</strong>.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Text Context -->
+                <div class="lg:col-span-1 space-y-6">
+                    <div class="glass-card p-6 rounded-xl border-l-4 border-cyan-500">
+                        <h3 class="text-lg font-bold text-cyan-400 mb-3">Sonic Benchmarks</h3>
+                        <ul class="space-y-4 text-slate-300 text-sm">
+                            <li class="flex items-start">
+                                <span class="text-cyan-500 mr-2 text-lg">⦿</span>
+                                <span><strong>Mac Miller (Circles):</strong> Introspective, melodic, musical.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-cyan-500 mr-2 text-lg">⦿</span>
+                                <span><strong>ProbCause:</strong> Versatile flow, electronic/soul fusion.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-cyan-500 mr-2 text-lg">⦿</span>
+                                <span><strong>Anderson .Paak:</strong> The pinnacle of the Drummer/Rapper archetype.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="glass-card p-6 rounded-xl border-l-4 border-violet-500">
+                        <h3 class="text-lg font-bold text-violet-400 mb-3">Local Trailblazers</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-2">
+                            The path has been paved by these key Austin acts:
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-violet-900/50 text-violet-300 px-2 py-1 rounded text-xs border border-violet-700">Magna Carda</span>
+                            <span class="bg-violet-900/50 text-violet-300 px-2 py-1 rounded text-xs border border-violet-700">Blackillac</span>
+                            <span class="bg-violet-900/50 text-violet-300 px-2 py-1 rounded text-xs border border-violet-700">Deezie Brown</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visualization: Differentiation Radar -->
+                <div class="lg:col-span-2 glass-card p-6 rounded-2xl">
+                    <div class="mb-4 flex flex-col md:flex-row justify-between items-end">
+                        <div>
+                            <h3 class="text-xl font-semibold text-white">Differentiation Strategy</h3>
+                            <p class="text-sm text-slate-400">JaZeR's Profile vs. The Saturated Market Baseline</p>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Strategic Deep Dive (The 4 Pillars) -->
+        <section>
+            <div class="flex items-center mb-8">
+                <div class="h-10 w-2 bg-violet-500 mr-4 rounded-full"></div>
+                <h2 class="text-3xl font-bold text-white">The 4 Strategic Pillars</h2>
+            </div>
+            
+            <p class="text-slate-400 mb-8 max-w-4xl">
+                To bridge the gap, we must answer four critical questions. These pillars define the research modules we will execute.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Pillar 1 -->
+                <div class="glass-card p-6 rounded-xl relative overflow-hidden group hover:bg-slate-800 transition-colors cursor-default">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl font-bold group-hover:opacity-20 transition-opacity text-fuchsia-500">1</div>
+                    <div class="text-fuchsia-400 text-4xl mb-4">🎤</div>
+                    <h3 class="text-xl font-bold text-white mb-2">The "Live" Edge</h3>
+                    <p class="text-slate-400 text-sm mb-4">How to bypass digital noise by winning the physical room in Austin.</p>
+                    <div class="border-t border-slate-700 pt-3 mt-auto">
+                        <span class="text-xs font-mono text-fuchsia-300">Target: Empire, Mohawk</span>
+                    </div>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="glass-card p-6 rounded-xl relative overflow-hidden group hover:bg-slate-800 transition-colors cursor-default">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl font-bold group-hover:opacity-20 transition-opacity text-cyan-500">2</div>
+                    <div class="text-cyan-400 text-4xl mb-4">👁️</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Visual Identity</h3>
+                    <p class="text-slate-400 text-sm mb-4">Adopting "Artistic" signaling to stand out from generic releases.</p>
+                    <div class="border-t border-slate-700 pt-3 mt-auto">
+                        <span class="text-xs font-mono text-cyan-300">Target: Lo-fi / Abstract</span>
+                    </div>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="glass-card p-6 rounded-xl relative overflow-hidden group hover:bg-slate-800 transition-colors cursor-default">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl font-bold group-hover:opacity-20 transition-opacity text-violet-500">3</div>
+                    <div class="text-violet-400 text-4xl mb-4">📡</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Algorithmic Entry</h3>
+                    <p class="text-slate-400 text-sm mb-4">Targeting "Start-up" playlists like Mellow Bars or Jazz Rap.</p>
+                    <div class="border-t border-slate-700 pt-3 mt-auto">
+                        <span class="text-xs font-mono text-violet-300">Target: Discover Weekly</span>
+                    </div>
+                </div>
+
+                <!-- Pillar 4 -->
+                <div class="glass-card p-6 rounded-xl relative overflow-hidden group hover:bg-slate-800 transition-colors cursor-default">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl font-bold group-hover:opacity-20 transition-opacity text-emerald-500">4</div>
+                    <div class="text-emerald-400 text-4xl mb-4">🤝</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Collaborative Net</h3>
+                    <p class="text-slate-400 text-sm mb-4">Networking with producers behind Magna Carda & JaRon Marshall.</p>
+                    <div class="border-t border-slate-700 pt-3 mt-auto">
+                        <span class="text-xs font-mono text-emerald-300">Target: Sonic Credibility</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: 90-Day Execution Roadmap -->
+        <section class="mb-12">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+                <div class="flex items-center">
+                    <div class="h-10 w-2 bg-cyan-500 mr-4 rounded-full"></div>
+                    <h2 class="text-3xl font-bold text-white">90-Day Research Roadmap</h2>
+                </div>
+            </div>
+
+            <!-- Tab Navigation for Phases -->
+            <div class="flex border-b border-slate-700 mb-6">
+                <button onclick="switchTab('phase1')" id="tab-phase1" class="px-6 py-3 font-medium text-lg focus:outline-none transition-colors tab-active">
+                    Phase 1: Foundation
+                </button>
+                <button onclick="switchTab('phase2')" id="tab-phase2" class="px-6 py-3 font-medium text-lg focus:outline-none transition-colors tab-inactive">
+                    Phase 2: Strategy
+                </button>
+                <button onclick="switchTab('phase3')" id="tab-phase3" class="px-6 py-3 font-medium text-lg focus:outline-none transition-colors tab-inactive">
+                    Phase 3: Execution
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Dynamic Content Area -->
+                <div class="lg:col-span-2 min-h-[300px]">
+                    
+                    <!-- Phase 1 Content -->
+                    <div id="content-phase1" class="bg-slate-800/50 rounded-xl p-8 border border-slate-700 h-full">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-2xl font-bold text-cyan-400">Intelligence & Foundation</h3>
+                            <span class="bg-cyan-900/30 text-cyan-200 px-3 py-1 rounded text-sm border border-cyan-500/30">Days 1-30</span>
+                        </div>
+                        <p class="text-slate-300 mb-6 italic">Goal: Define the "Vibe Curator" and map the local terrain.</p>
+                        <ul class="space-y-4">
+                            <li class="bg-slate-900/50 p-4 rounded-lg flex gap-4 items-center">
+                                <span class="text-2xl">🕵️‍♂️</span>
+                                <div>
+                                    <strong class="text-white block">Spotify Market Landscape (Module 02)</strong>
+                                    <span class="text-slate-400 text-sm">Map the exact "Also Like" web of Magna Carda/Deezie Brown.</span>
+                                </div>
+                            </li>
+                            <li class="bg-slate-900/50 p-4 rounded-lg flex gap-4 items-center">
+                                <span class="text-2xl">🎧</span>
+                                <div>
+                                    <strong class="text-white block">Listener Profile (Module 03)</strong>
+                                    <span class="text-slate-400 text-sm">Define where "Mac Miller fans" hang out online (Subreddits, Discord).</span>
+                                </div>
+                            </li>
+                            <li class="bg-slate-900/50 p-4 rounded-lg flex gap-4 items-center">
+                                <span class="text-2xl">🎸</span>
+                                <div>
+                                    <strong class="text-white block">Touring Demand (Module 08)</strong>
+                                    <span class="text-slate-400 text-sm">Identify specific opening slots at local showcases.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Phase 2 Content (Hidden by default) -->
+                    <div id="content-phase2" class="bg-slate-800/50 rounded-xl p-8 border border-slate-700 h-full hidden">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-2xl font-bold text-violet-400">Strategy Formulation</h3>
+                            <span class="bg-violet-900/30 text-violet-200 px-3 py-1 rounded text-sm border border-violet-500/30">Days 30-60</span>
+                        </div>
+                        <p class="text-slate-300 mb-6 italic">Goal: Design the "Waterfall" release and playlist attack plan.</p>
+                        <ul class="space-y-4">
+                            <li class="bg-slate-900/50 p-4 rounded-lg flex gap-4 items-center">
+                                <span class="text-2xl">🌊</span>
+                                <div>
+                                    <strong class="text-white block">Release Benchmarks (Module 05)</strong>
+                                    <span class="text-slate-400 text-sm">Design schedule: Single -> Single -> EP to maximize algo chances.</span>
+                                </div>
+                            </li>
+                            <li class="bg-slate-900/50 p-4 rounded-lg flex gap-4 items-center">
+                                <span class="text-2xl">📜</span>
+                                <div>
+                                    <strong class="text-white block">Playlist Intelligence (Module 04)</strong>
+                                    <span class="text-slate-400 text-sm">Build target list of curators for "Chill Rap" & "Neo-Soul".</span>
+                                </div>
+                            </li>
+                            <li class="bg-slate-900/50 p-4 rounded-lg flex gap-4 items-center">
+                                <span class="text-2xl">📣</span>
+                                <div>
+                                    <strong class="text-white block">Marketing Channels (Module 07)</strong>
+                                    <span class="text-slate-400 text-sm">Determine cost-effective paid social strategy (Reels/TikTok).</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Phase 3 Content (Hidden by default) -->
+                    <div id="content-phase3" class="bg-slate-800/50 rounded-xl p-8 border border-slate-700 h-full hidden">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-2xl font-bold text-fuchsia-400">Execution & Optimization</h3>
+                            <span class="bg-fuchsia-900/30 text-fuchsia-200 px-3 py-1 rounded text-sm border border-fuchsia-500/30">Days 60-90</span>
+                        </div>
+                        <p class="text-slate-300 mb-6 italic">Goal: Launch, monitor KPIs, and capture initial value.</p>
+                        <ul class="space-y-4">
+                            <li class="bg-slate-900/50 p-4 rounded-lg flex gap-4 items-center">
+                                <span class="text-2xl">📈</span>
+                                <div>
+                                    <strong class="text-white block">Algorithmic Drivers (Module 06)</strong>
+                                    <span class="text-slate-400 text-sm">Monitor "Release Radar" and "Discover Weekly" traction.</span>
+                                </div>
+                            </li>
+                            <li class="bg-slate-900/50 p-4 rounded-lg flex gap-4 items-center">
+                                <span class="text-2xl">👕</span>
+                                <div>
+                                    <strong class="text-white block">Monetization (Module 09)</strong>
+                                    <span class="text-slate-400 text-sm">Set up limited run merch for the first 100 super-fans.</span>
+                                </div>
+                            </li>
+                            <li class="bg-slate-900/50 p-4 rounded-lg flex gap-4 items-center">
+                                <span class="text-2xl">📋</span>
+                                <div>
+                                    <strong class="text-white block">Executive Summary (Module 10)</strong>
+                                    <span class="text-slate-400 text-sm">90-day review and strategy pivot for the next quarter.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Visualization: Effort Allocation -->
+                <div class="lg:col-span-1 glass-card p-6 rounded-2xl flex flex-col">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-semibold text-white">Effort Allocation</h3>
+                        <p class="text-xs text-slate-400">How focus shifts per phase.</p>
+                    </div>
+                    <div class="chart-container flex-grow">
+                        <canvas id="roadmapChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center py-12 border-t border-slate-800 mt-8">
+            <h3 class="text-2xl font-bold text-white mb-2">Execute. Adapt. Evolve.</h3>
+            <p class="text-slate-400 max-w-2xl mx-auto px-4">
+                Success for JaZeR will not come from copying the charts, but by owning the unique intersection of 
+                Austin's live culture and the global appetite for authentic, melodic hip-hop.
+            </p>
+        </footer>
+
+    </main>
+
+    <script>
+        // --- LOGIC: Tab Switching ---
+        function switchTab(phaseId) {
+            // Hide all content
+            document.getElementById('content-phase1').classList.add('hidden');
+            document.getElementById('content-phase2').classList.add('hidden');
+            document.getElementById('content-phase3').classList.add('hidden');
+            
+            // Show selected content
+            document.getElementById('content-' + phaseId).classList.remove('hidden');
+
+            // Reset tab styles
+            ['phase1', 'phase2', 'phase3'].forEach(id => {
+                const tab = document.getElementById('tab-' + id);
+                tab.classList.remove('tab-active');
+                tab.classList.add('tab-inactive');
+                tab.style.borderBottom = 'none';
+            });
+
+            // Set active tab style
+            const activeTab = document.getElementById('tab-' + phaseId);
+            activeTab.classList.remove('tab-inactive');
+            activeTab.classList.add('tab-active');
+            
+            // Set border color based on phase
+            if(phaseId === 'phase1') activeTab.style.borderColor = '#06b6d4'; // Cyan
+            if(phaseId === 'phase2') activeTab.style.borderColor = '#8b5cf6'; // Violet
+            if(phaseId === 'phase3') activeTab.style.borderColor = '#d946ef'; // Fuchsia
+        }
+
+        // --- UTILITY: Label Wrapping for Chart.js ---
+        function wrapLabels(labels, maxChars = 16) {
+            return labels.map(label => {
+                if (label.length <= maxChars) return label;
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = words[0];
+
+                for (let i = 1; i < words.length; i++) {
+                    if (currentLine.length + 1 + words[i].length <= maxChars) {
+                        currentLine += ' ' + words[i];
+                    } else {
+                        lines.push(currentLine);
+                        currentLine = words[i];
+                    }
+                }
+                lines.push(currentLine);
+                return lines;
+            });
+        }
+
+        // --- UTILITY: Common Tooltip Config ---
+        const commonTooltip = {
+            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+            titleColor: '#f8fafc',
+            bodyColor: '#cbd5e1',
+            borderColor: '#334155',
+            borderWidth: 1,
+            padding: 10,
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // --- CHART 1: The Gap (Bar Chart) ---
+        const ctxGap = document.getElementById('gapChart').getContext('2d');
+        new Chart(ctxGap, {
+            type: 'bar',
+            data: {
+                labels: wrapLabels(['Current Monthly Listeners', 'Target Monthly Listeners']),
+                datasets: [{
+                    label: 'Listener Count',
+                    data: [100, 100000], // Using 100 visually for "0" to make it barely visible but present
+                    backgroundColor: [
+                        'rgba(239, 68, 68, 0.8)', // Red for current
+                        'rgba(16, 185, 129, 0.8)'  // Emerald for target
+                    ],
+                    borderColor: [
+                        'rgba(239, 68, 68, 1)',
+                        'rgba(16, 185, 129, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        ...commonTooltip,
+                        callbacks: {
+                            ...commonTooltip.callbacks,
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y === 100) {
+                                     label += '0 (Current)';
+                                } else {
+                                     label += context.parsed.y.toLocaleString();
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        type: 'logarithmic', 
+                        grid: { color: '#334155' },
+                        ticks: { color: '#94a3b8', callback: function(value) { return value.toLocaleString(); } }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#f8fafc', font: { weight: 'bold' } }
+                    }
+                }
+            }
+        });
+
+        // --- CHART 2: Differentiation Radar (Radar Chart) ---
+        const ctxRadar = document.getElementById('radarChart').getContext('2d');
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: wrapLabels([
+                    'Live Performance', 
+                    'Lyrical Depth', 
+                    'Melodic/Soul Vibe', 
+                    'Digital Viral Hype', 
+                    'Generic Beats',
+                    'Local Networking'
+                ]),
+                datasets: [{
+                    label: 'JaZeR Strategy',
+                    data: [90, 85, 95, 40, 10, 85],
+                    backgroundColor: 'rgba(139, 92, 246, 0.5)', // Violet
+                    borderColor: '#8b5cf6',
+                    pointBackgroundColor: '#8b5cf6',
+                    borderWidth: 2,
+                    pointRadius: 4
+                }, {
+                    label: 'Generic Artist',
+                    data: [30, 40, 30, 80, 90, 20],
+                    backgroundColor: 'rgba(148, 163, 184, 0.15)', // Slate
+                    borderColor: '#94a3b8',
+                    pointBackgroundColor: '#94a3b8',
+                    borderWidth: 2,
+                    borderDash: [5, 5],
+                    pointRadius: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: '#cbd5e1', font: {size: 14} } },
+                    tooltip: commonTooltip
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: '#334155' },
+                        grid: { color: '#334155' },
+                        pointLabels: {
+                            color: '#e2e8f0',
+                            font: { size: 12, weight: 'bold' }
+                        },
+                        ticks: { display: false, backdropColor: 'transparent' },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                }
+            }
+        });
+
+        // --- CHART 3: Roadmap Allocations (Stacked Bar - Horizontal) ---
+        const ctxRoadmap = document.getElementById('roadmapChart').getContext('2d');
+        new Chart(ctxRoadmap, {
+            type: 'bar', // Using standard bar but will set indexAxis to 'y'
+            data: {
+                labels: wrapLabels(['Phase 1', 'Phase 2', 'Phase 3']),
+                datasets: [
+                    {
+                        label: 'Research',
+                        data: [70, 20, 10],
+                        backgroundColor: '#06b6d4', // Cyan
+                    },
+                    {
+                        label: 'Strategy',
+                        data: [20, 60, 20],
+                        backgroundColor: '#8b5cf6', // Violet
+                    },
+                    {
+                        label: 'Execution',
+                        data: [10, 20, 70],
+                        backgroundColor: '#d946ef', // Fuchsia
+                    }
+                ]
+            },
+            options: {
+                indexAxis: 'y', // Horizontal bars
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { color: '#cbd5e1', boxWidth: 12 } },
+                    tooltip: commonTooltip
+                },
+                scales: {
+                    x: {
+                        stacked: true,
+                        grid: { display: false, color: '#334155' },
+                        ticks: { color: '#94a3b8', display: false } 
+                    },
+                    y: {
+                        stacked: true,
+                        grid: { display: false },
+                        ticks: { color: '#f8fafc', font: { weight: 'bold' } }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

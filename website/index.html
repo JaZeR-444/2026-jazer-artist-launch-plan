@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JaZeR | Strategic Spotify Growth System</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Comprehensive strategic research system for scaling JaZeR from 0 to 100k+ monthly listeners on Spotify. Data-driven intelligence for the Austin melodic hip-hop scene.">
+    <meta name="keywords" content="JaZeR, Spotify growth, Austin hip-hop, melodic rap, music marketing strategy">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="JaZeR | Strategic Spotify Growth System">
+    <meta property="og:description" content="Data-driven research spanning market landscape, audience intelligence, playlist strategy, and 90-day execution plan.">
+    <meta property="og:type" content="website">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* Gradient Effects */
+        .gradient-text {
+            background: linear-gradient(135deg, #22d3ee 0%, #a3e635 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-border {
+            border: 2px solid transparent;
+            background: linear-gradient(#1e293b, #1e293b) padding-box,
+                        linear-gradient(135deg, #22d3ee, #a3e635, #8b5cf6) border-box;
+        }
+
+        /* Glow Effects */
+        .glow-cyan {
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+        }
+
+        .glow-lime {
+            box-shadow: 0 0 20px rgba(163, 230, 53, 0.3);
+        }
+
+        .glow-violet {
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Button Hover Effects */
+        .btn-primary {
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(34, 211, 238, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #a3e635, #84cc16);
+            transition: all 0.3s ease;
+            color: #0f172a;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(163, 230, 53, 0.4);
+        }
+
+        /* Card Styles */
+        .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: #22d3ee;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 40px rgba(34, 211, 238, 0.2);
+        }
+
+        /* Badge Styles */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-red {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            border: 1px solid #dc2626;
+        }
+
+        .badge-cyan {
+            background: rgba(34, 211, 238, 0.2);
+            color: #67e8f9;
+            border: 1px solid #22d3ee;
+        }
+
+        .badge-lime {
+            background: rgba(163, 230, 53, 0.2);
+            color: #d9f99d;
+            border: 1px solid #a3e635;
+        }
+
+        .badge-violet {
+            background: rgba(139, 92, 246, 0.2);
+            color: #c4b5fd;
+            border: 1px solid #8b5cf6;
+        }
+
+        /* Timeline Styles */
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, #22d3ee, #a3e635, #8b5cf6);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #22d3ee;
+            border: 2px solid #0f172a;
+        }
+
+        /* KPI Card */
+        .kpi-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid #334155;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+        }
+
+        .kpi-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #22d3ee, #a3e635);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl font-bold gradient-text">JaZeR</span>
+                    <span class="text-slate-400 text-sm hidden sm:inline">| Strategic Growth System</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#overview" class="text-slate-300 hover:text-cyan-400 transition">Overview</a>
+                    <a href="#strategy" class="text-slate-300 hover:text-cyan-400 transition">Strategy</a>
+                    <a href="#90-day-plan" class="text-slate-300 hover:text-cyan-400 transition">90-Day Plan</a>
+                    <a href="modules.html" class="text-slate-300 hover:text-cyan-400 transition">All Modules</a>
+                    <a href="dashboard.html" class="btn-primary px-4 py-2 rounded-lg text-white font-semibold">Dashboard</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-300 hover:text-cyan-400">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-800 border-t border-slate-700">
+            <div class="px-4 py-3 space-y-3">
+                <a href="#overview" class="block text-slate-300 hover:text-cyan-400 transition">Overview</a>
+                <a href="#strategy" class="block text-slate-300 hover:text-cyan-400 transition">Strategy</a>
+                <a href="#90-day-plan" class="block text-slate-300 hover:text-cyan-400 transition">90-Day Plan</a>
+                <a href="modules.html" class="block text-slate-300 hover:text-cyan-400 transition">All Modules</a>
+                <a href="dashboard.html" class="block btn-primary px-4 py-2 rounded-lg text-white font-semibold text-center">Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <div class="inline-block mb-4" data-aos="fade-down">
+                <span class="badge badge-red text-sm">🔴 LAUNCH PHASE</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6" data-aos="fade-up">
+                From <span class="gradient-text">Zero to One</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-300 mb-8 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                A comprehensive strategic research system for scaling JaZeR from 0 to 100k+ monthly listeners on Spotify. Data-driven intelligence spanning market landscape, audience profiling, playlist strategy, and algorithmic optimization.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center" data-aos="fade-up" data-aos-delay="200">
+                <a href="#90-day-plan" class="btn-primary px-8 py-4 rounded-lg text-white font-semibold text-lg w-full sm:w-auto">
+                    View 90-Day Sprint
+                </a>
+                <a href="modules.html" class="btn-secondary px-8 py-4 rounded-lg font-semibold text-lg w-full sm:w-auto">
+                    Explore All Modules
+                </a>
+                <a href="downloads.html" class="border border-slate-600 hover:border-cyan-400 px-8 py-4 rounded-lg text-slate-300 hover:text-cyan-400 font-semibold text-lg transition w-full sm:w-auto">
+                    Download Reports
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Overview -->
+    <section id="overview" class="py-16 px-4 bg-slate-800/50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Research System Overview</h2>
+                <p class="text-slate-400 text-lg">10 modules covering every aspect of strategic Spotify growth</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="kpi-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="kpi-value">10</div>
+                    <div class="text-slate-400 mt-2 font-semibold">Strategic Modules</div>
+                </div>
+                <div class="kpi-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="kpi-value">90</div>
+                    <div class="text-slate-400 mt-2 font-semibold">Day Sprint Plan</div>
+                </div>
+                <div class="kpi-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="kpi-value">50+</div>
+                    <div class="text-slate-400 mt-2 font-semibold">Actionable Tactics</div>
+                </div>
+                <div class="kpi-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="kpi-value">100%</div>
+                    <div class="text-slate-400 mt-2 font-semibold">Data-Driven</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Executive Snapshot -->
+    <section id="strategy" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4">Executive Snapshot</h2>
+                <p class="text-slate-400 text-lg">Current reality and strategic positioning</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+                <!-- Current Status -->
+                <div class="card p-8 rounded-xl" data-aos="fade-right">
+                    <div class="badge badge-red mb-4">Current Status</div>
+                    <h3 class="text-2xl font-bold mb-3 text-red-400">🔴 Launch Phase</h3>
+                    <p class="text-slate-300">No footprint, blank canvas. The Zero to One phase.</p>
+                </div>
+
+                <!-- Top Opportunity -->
+                <div class="card p-8 rounded-xl" data-aos="fade-up">
+                    <div class="badge badge-cyan mb-4">Top Opportunity</div>
+                    <h3 class="text-2xl font-bold mb-3 text-cyan-400">The Blue Ocean</h3>
+                    <p class="text-slate-300">Filling the void in Austin for high-quality, melodic, "Mac Miller-esque" electronic hip-hop.</p>
+                </div>
+
+                <!-- Primary Risk -->
+                <div class="card p-8 rounded-xl" data-aos="fade-left">
+                    <div class="badge badge-violet mb-4">Primary Risk</div>
+                    <h3 class="text-2xl font-bold mb-3 text-violet-400">Obscurity</h3>
+                    <p class="text-slate-300">Getting lost in the noise by failing to establish a distinct, professional visual and sonic brand.</p>
+                </div>
+            </div>
+
+            <!-- Strategic Pillars -->
+            <div class="mb-16" data-aos="fade-up">
+                <h3 class="text-3xl font-bold mb-8 text-center">Strategic Pillars</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="gradient-border p-6 rounded-xl">
+                        <div class="text-4xl mb-3">🎨</div>
+                        <h4 class="text-xl font-bold mb-2 text-cyan-400">Brand</h4>
+                        <p class="text-lg font-semibold mb-2">"The Vibe Curator"</p>
+                        <p class="text-slate-400">High-art visuals, introspection, creative lifestyle.</p>
+                    </div>
+                    <div class="gradient-border p-6 rounded-xl">
+                        <div class="text-4xl mb-3">🎵</div>
+                        <h4 class="text-xl font-bold mb-2 text-lime-400">Music</h4>
+                        <p class="text-lg font-semibold mb-2">"Waterfall" Singles</p>
+                        <p class="text-slate-400">Consistent, high-quality melodic rap for "Chill" playlists.</p>
+                    </div>
+                    <div class="gradient-border p-6 rounded-xl">
+                        <div class="text-4xl mb-3">🎸</div>
+                        <h4 class="text-xl font-bold mb-2 text-violet-400">Local</h4>
+                        <p class="text-lg font-semibold mb-2">"Austin Roots"</p>
+                        <p class="text-slate-400">Network with live scene (Empire, KUTX) for physical fanbase.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 90-Day Sprint Calendar -->
+    <section id="90-day-plan" class="py-20 px-4 bg-slate-800/50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4">The 90-Day Sprint Calendar</h2>
+                <p class="text-slate-400 text-lg">From foundation to proof in 12 weeks</p>
+            </div>
+
+            <div class="space-y-0">
+                <!-- Month 1 -->
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-dot" style="background: #22d3ee;"></div>
+                    <div class="card p-8 rounded-xl">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-cyan-400">Month 1: Foundation</h3>
+                            <span class="badge badge-cyan">The "Stealth" Phase</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-bold text-lg mb-3 text-slate-200">Week 1-2: Asset Creation</h4>
+                                <ul class="space-y-2 text-slate-400">
+                                    <li class="flex items-start">
+                                        <span class="text-cyan-400 mr-2">→</span>
+                                        <span>Finalize Single 1 master</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-cyan-400 mr-2">→</span>
+                                        <span>Shoot cover art & Canvas (high aesthetic value)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-cyan-400 mr-2">→</span>
+                                        <span>Set up Spotify for Artists & social profiles</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-3 text-slate-200">Week 3-4: The Setup</h4>
+                                <ul class="space-y-2 text-slate-400">
+                                    <li class="flex items-start">
+                                        <span class="text-cyan-400 mr-2">→</span>
+                                        <span>Upload Single 1 to DistroKid (4 weeks out)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-cyan-400 mr-2">→</span>
+                                        <span>Pitch to Spotify Editorial (S4A)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-cyan-400 mr-2">→</span>
+                                        <span>Start teasing content on TikTok/Reels</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Month 2 -->
+                <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
+                    <div class="timeline-dot" style="background: #a3e635;"></div>
+                    <div class="card p-8 rounded-xl">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-lime-400">Month 2: Launch</h3>
+                            <span class="badge badge-lime">The "Hello" Phase</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-bold text-lg mb-3 text-slate-200">Week 5-6: Single 1 Release</h4>
+                                <ul class="space-y-2 text-slate-400">
+                                    <li class="flex items-start">
+                                        <span class="text-lime-400 mr-2">→</span>
+                                        <span><strong>Release Day:</strong> Push all socials to Spotify</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-lime-400 mr-2">→</span>
+                                        <span>Submit to indie curators (Sphere of Hip Hop, Impulse)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-lime-400 mr-2">→</span>
+                                        <span>Check "Release Radar" pickup</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-3 text-slate-200">Week 7-8: Momentum</h4>
+                                <ul class="space-y-2 text-slate-400">
+                                    <li class="flex items-start">
+                                        <span class="text-lime-400 mr-2">→</span>
+                                        <span>Continue content for Single 1</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-lime-400 mr-2">→</span>
+                                        <span>Upload Single 2 (Waterfall setup)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-lime-400 mr-2">→</span>
+                                        <span>Attend local shows (Empire/Mohawk) to network</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Month 3 -->
+                <div class="timeline-item" data-aos="fade-right" data-aos-delay="200">
+                    <div class="timeline-dot" style="background: #8b5cf6;"></div>
+                    <div class="card p-8 rounded-xl">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-violet-400">Month 3: Sustain & Expand</h3>
+                            <span class="badge badge-violet">The "Proof" Phase</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-bold text-lg mb-3 text-slate-200">Week 9-10: Single 2 Release</h4>
+                                <ul class="space-y-2 text-slate-400">
+                                    <li class="flex items-start">
+                                        <span class="text-violet-400 mr-2">→</span>
+                                        <span>Single 1 streams should boost Single 2</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-violet-400 mr-2">→</span>
+                                        <span>Analyze data: Who is listening? (Cities, Age)</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-3 text-slate-200">Week 11-12: The First Show</h4>
+                                <ul class="space-y-2 text-slate-400">
+                                    <li class="flex items-start">
+                                        <span class="text-violet-400 mr-2">→</span>
+                                        <span>Secure slot on local showcase (Reason and Rhyme)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-violet-400 mr-2">→</span>
+                                        <span>First Merch Drop (Stickers/Tees) for early supporters</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-violet-400 mr-2">→</span>
+                                        <span>Review metrics: Are we at >30% Save Rate?</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KPIs Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4">Key Performance Indicators</h2>
+                <p class="text-slate-400 text-lg">Success metrics for the 90-day sprint</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="gradient-border p-8 rounded-xl" data-aos="fade-up" data-aos-delay="0">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-cyan-400">Save Rate</h3>
+                        <span class="text-3xl font-bold text-cyan-400">>30%</span>
+                    </div>
+                    <p class="text-slate-400">Indicates high listener quality. Tells Spotify "This song is good."</p>
+                </div>
+
+                <div class="gradient-border p-8 rounded-xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-lime-400">Follower Growth</h3>
+                        <span class="text-3xl font-bold text-lime-400">+50/mo</span>
+                    </div>
+                    <p class="text-slate-400">Organic follower growth per month. Building true fans, not passive listeners.</p>
+                </div>
+
+                <div class="gradient-border p-8 rounded-xl" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-violet-400">Monthly Listeners</h3>
+                        <span class="text-3xl font-bold text-violet-400">1,000</span>
+                    </div>
+                    <p class="text-slate-400">Target within 90 days. Foundation for algorithmic growth and Marquee eligibility.</p>
+                </div>
+
+                <div class="gradient-border p-8 rounded-xl" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-cyan-400">Local Connection</h3>
+                        <span class="text-3xl font-bold text-cyan-400">1+3</span>
+                    </div>
+                    <p class="text-slate-400">Contact with 1 booker and 3 local artists. Build real physical fanbase.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Module Showcase -->
+    <section class="py-20 px-4 bg-slate-800/50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4">Complete Research System</h2>
+                <p class="text-slate-400 text-lg">10 strategic modules covering every growth domain</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Module Cards (First 6) -->
+                <div class="card p-6 rounded-xl" data-aos="fade-up">
+                    <div class="badge badge-cyan mb-3">Module 01</div>
+                    <h3 class="text-xl font-bold mb-2">Research Brief & Scope</h3>
+                    <p class="text-slate-400 text-sm mb-4">Foundation and reality check for launch phase strategy.</p>
+                    <a href="module-01.html" class="text-cyan-400 hover:text-cyan-300 text-sm font-semibold">Explore →</a>
+                </div>
+
+                <div class="card p-6 rounded-xl" data-aos="fade-up" data-aos-delay="50">
+                    <div class="badge badge-cyan mb-3">Module 02</div>
+                    <h3 class="text-xl font-bold mb-2">Spotify Market Landscape</h3>
+                    <p class="text-slate-400 text-sm mb-4">Competitive positioning in the Austin hip-hop scene.</p>
+                    <a href="module-02.html" class="text-cyan-400 hover:text-cyan-300 text-sm font-semibold">Explore →</a>
+                </div>
+
+                <div class="card p-6 rounded-xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="badge badge-cyan mb-3">Module 03</div>
+                    <h3 class="text-xl font-bold mb-2">Audience & Listener Profile</h3>
+                    <p class="text-slate-400 text-sm mb-4">Target audience intelligence and "Creative Casey" persona.</p>
+                    <a href="module-03.html" class="text-cyan-400 hover:text-cyan-300 text-sm font-semibold">Explore →</a>
+                </div>
+
+                <div class="card p-6 rounded-xl" data-aos="fade-up" data-aos-delay="150">
+                    <div class="badge badge-lime mb-3">Module 04</div>
+                    <h3 class="text-xl font-bold mb-2">Playlist Strategy Intelligence</h3>
+                    <p class="text-slate-400 text-sm mb-4">Playlist ecosystem mapping and curator targeting.</p>
+                    <a href="module-04.html" class="text-cyan-400 hover:text-cyan-300 text-sm font-semibold">Explore →</a>
+                </div>
+
+                <div class="card p-6 rounded-xl" data-aos="fade-up" data-aos-delay="200">
+                    <div class="badge badge-lime mb-3">Module 05</div>
+                    <h3 class="text-xl font-bold mb-2">Release Strategy Benchmarks</h3>
+                    <p class="text-slate-400 text-sm mb-4">Waterfall release strategy and timing optimization.</p>
+                    <a href="module-05.html" class="text-cyan-400 hover:text-cyan-300 text-sm font-semibold">Explore →</a>
+                </div>
+
+                <div class="card p-6 rounded-xl" data-aos="fade-up" data-aos-delay="250">
+                    <div class="badge badge-lime mb-3">Module 06</div>
+                    <h3 class="text-xl font-bold mb-2">Algorithmic Growth Drivers</h3>
+                    <p class="text-slate-400 text-sm mb-4">Spotify algorithm optimization and signal benchmarks.</p>
+                    <a href="module-06.html" class="text-cyan-400 hover:text-cyan-300 text-sm font-semibold">Explore →</a>
+                </div>
+
+                <div class="card p-6 rounded-xl" data-aos="fade-up">
+                    <div class="badge badge-violet mb-3">Module 07</div>
+                    <h3 class="text-xl font-bold mb-2">Marketing Channel Effectiveness</h3>
+                    <p class="text-slate-400 text-sm mb-4">Cross-platform marketing and ROI analysis.</p>
+                    <a href="module-07.html" class="text-cyan-400 hover:text-cyan-300 text-sm font-semibold">Explore →</a>
+                </div>
+
+                <div class="card p-6 rounded-xl" data-aos="fade-up" data-aos-delay="50">
+                    <div class="badge badge-violet mb-3">Module 08</div>
+                    <h3 class="text-xl font-bold mb-2">Touring & Spotify Demand Signals</h3>
+                    <p class="text-slate-400 text-sm mb-4">Geographic strategy and Austin venue targeting.</p>
+                    <a href="module-08.html" class="text-cyan-400 hover:text-cyan-300 text-sm font-semibold">Explore →</a>
+                </div>
+
+                <div class="card p-6 rounded-xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="badge badge-violet mb-3">Module 09</div>
+                    <h3 class="text-xl font-bold mb-2">Monetization & Pricing Benchmarks</h3>
+                    <p class="text-slate-400 text-sm mb-4">Revenue optimization and merch strategy.</p>
+                    <a href="module-09.html" class="text-cyan-400 hover:text-cyan-300 text-sm font-semibold">Explore →</a>
+                </div>
+            </div>
+
+            <div class="text-center" data-aos="fade-up">
+                <a href="modules.html" class="btn-primary px-8 py-4 rounded-lg text-white font-semibold text-lg inline-block">
+                    View All Modules
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <div data-aos="zoom-in">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6">Ready to Execute?</h2>
+                <p class="text-xl text-slate-300 mb-8">Access the full research system, interactive dashboard, and downloadable reports.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="dashboard.html" class="btn-primary px-8 py-4 rounded-lg text-white font-semibold text-lg">
+                        Open Dashboard
+                    </a>
+                    <a href="downloads.html" class="btn-secondary px-8 py-4 rounded-lg font-semibold text-lg">
+                        Download All Reports
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 bg-slate-900 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold gradient-text mb-4">JaZeR Research</h3>
+                    <p class="text-slate-400">Strategic Spotify growth intelligence system for Austin melodic hip-hop.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-slate-300">Quick Links</h4>
+                    <ul class="space-y-2 text-slate-400">
+                        <li><a href="modules.html" class="hover:text-cyan-400 transition">All Modules</a></li>
+                        <li><a href="dashboard.html" class="hover:text-cyan-400 transition">Dashboard</a></li>
+                        <li><a href="downloads.html" class="hover:text-cyan-400 transition">Downloads</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-slate-300">System Info</h4>
+                    <ul class="space-y-2 text-slate-400">
+                        <li>10 Research Modules</li>
+                        <li>90-Day Execution Plan</li>
+                        <li>100% Data-Driven</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center text-slate-500 text-sm pt-8 border-t border-slate-800">
+                <p>&copy; 2026 JaZeR Strategic Research System. Built for artist development.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

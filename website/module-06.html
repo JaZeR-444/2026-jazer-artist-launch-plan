@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 06: Algorithmic Growth Drivers | JaZeR Research</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --bg: #050816;
+            --surface: #1a1f3a;
+            --cyan: #06d6a0;
+            --lime: #a3ff12;
+            --violet: #c77dff;
+        }
+        
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: #f8fafc;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+        
+        .cursor {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, var(--cyan), var(--lime));
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+            mix-blend-mode: difference;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease;
+        }
+        
+        @media (max-width: 768px) { .cursor { display: none; } }
+        
+        .transition-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 10000;
+            pointer-events: none;
+            opacity: 0;
+        }
+        
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--cyan), var(--lime));
+            z-index: 9999;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+        
+        .gradient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.4;
+        }
+        
+        .orb-1 { width: 400px; height: 400px; background: var(--cyan); top: -100px; right: -100px; }
+        .orb-2 { width: 300px; height: 300px; background: var(--violet); bottom: 20%; left: -50px; }
+        .orb-3 { width: 250px; height: 250px; background: var(--lime); bottom: -100px; right: 20%; }
+        
+        .glass {
+            background: rgba(26, 31, 58, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-strong {
+            background: rgba(26, 31, 58, 0.8);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--cyan), var(--lime));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .neon-lime { text-shadow: 0 0 10px rgba(163, 255, 18, 0.8); }
+        .neon-cyan { text-shadow: 0 0 10px rgba(6, 214, 160, 0.8); }
+        
+        .badge-lime {
+            background: rgba(163, 255, 18, 0.2);
+            color: var(--lime);
+            border: 1px solid rgba(163, 255, 18, 0.4);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .badge-progress {
+            background: rgba(6, 214, 160, 0.2);
+            color: var(--cyan);
+            border: 1px solid rgba(6, 214, 160, 0.4);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .content-card {
+            background: rgba(26, 31, 58, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .content-card:hover {
+            border-color: var(--lime);
+            box-shadow: 0 20px 60px rgba(163, 255, 18, 0.15);
+            transform: translateY(-4px);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--cyan), var(--lime));
+            color: var(--bg);
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn-primary:hover::before { left: 100%; }
+        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 40px rgba(6, 214, 160, 0.4); }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: #f8fafc;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--cyan);
+            background: rgba(6, 214, 160, 0.1);
+        }
+        
+        .tldr-box {
+            background: linear-gradient(135deg, rgba(163, 255, 18, 0.1), rgba(163, 255, 18, 0.03));
+            border-left: 4px solid var(--lime);
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        
+        .data-table th {
+            background: rgba(163, 255, 18, 0.1);
+            color: var(--lime);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid rgba(163, 255, 18, 0.3);
+        }
+        
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .data-table tr:hover td {
+            background: rgba(163, 255, 18, 0.05);
+        }
+        
+        .metric-card {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .metric-value {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+        
+        .sticky-nav {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+        }
+        
+        footer {
+            background: rgba(5, 8, 22, 0.9);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 6rem;
+            right: 2rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(26, 31, 58, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 50;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: var(--lime);
+            color: var(--bg);
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="transition-overlay"></div>
+    <div class="progress-bar" id="progress-bar"></div>
+    
+    <div class="gradient-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+    
+    <nav class="glass-strong sticky top-0 z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index-premium.html" class="text-2xl font-bold neon-lime nav-link">JaZeR</a>
+            <div class="flex items-center gap-6">
+                <span class="badge-progress hidden md:inline">Module 6 of 10</span>
+                <div class="hidden md:flex space-x-6">
+                    <a href="modules.html" class="text-slate-300 hover:text-lime-400 nav-link transition-all">All Modules</a>
+                    <a href="dashboard.html" class="text-slate-300 hover:text-lime-400 nav-link transition-all">Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="py-20 px-6">
+        <div class="max-w-5xl mx-auto text-center">
+            <span class="badge-lime mb-6 inline-block hero-badge opacity-0">MODULE 06 · STRATEGY</span>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                <span class="hero-title opacity-0">Algorithmic</span><br/>
+                <span class="gradient-text hero-title opacity-0">Growth Drivers</span>
+            </h1>
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto hero-subtitle opacity-0">Decoding Spotify's engagement signals</p>
+            <div class="flex flex-wrap justify-center gap-4 mt-8">
+                <a href="../06 - Algorithmic Growth Drivers/02 - Markdown Notes/JaZeR-06-Algorithmic-Growth-Drivers.md" 
+                   download 
+                   class="btn-primary px-8 py-4 rounded-full inline-flex items-center gap-2 hero-cta opacity-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    </svg>
+                    Download Markdown
+                </a>
+                <a href="#tldr" class="btn-secondary px-8 py-4 rounded-full inline-flex items-center gap-2 hero-cta opacity-0">
+                    Jump to TL;DR
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="tldr" class="py-8 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="tldr-box p-8 rounded-2xl content-card">
+                <h2 class="text-2xl font-bold mb-4 neon-lime flex items-center gap-3">
+                    <span class="text-3xl">📌</span> TL;DR
+                </h2>
+                <p class="text-lg text-slate-300 mb-6">
+                    <strong class="text-lime-400">Save Rate >30%</strong> and 
+                    <strong class="text-red-400">Skip Rate <35%</strong> are the keys to Discover Weekly. 
+                    Start your song IMMEDIATELY (vocals in 0-3 seconds). Use Canvas for +145% share rate.
+                </p>
+                <ul class="space-y-3 text-slate-300">
+                    <li class="flex items-start gap-3">
+                        <span class="text-lime-400 text-xl">→</span>
+                        <span>Ask fans to "Heart" the track in every CTA</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-cyan-400 text-xl">→</span>
+                        <span>No 15-second slow intros — hook them in 3 seconds</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-violet-400 text-xl">→</span>
+                        <span>Need 1,000 streams in 28 days for Marquee eligibility</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 px-6">
+        <div class="max-w-5xl mx-auto space-y-12">
+            
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+                    <span class="text-3xl">📊</span> Algorithm Scorecard
+                </h2>
+                <div class="overflow-x-auto">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Signal</th>
+                                <th>Weight</th>
+                                <th>Why It Matters</th>
+                                <th>Optimize</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-slate-300">
+                            <tr>
+                                <td class="font-bold neon-lime">Save Ratio</td>
+                                <td class="text-green-400">HIGHEST</td>
+                                <td>Tells Spotify "This is good"</td>
+                                <td>Ask fans to Heart</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">Repeat Listens</td>
+                                <td class="text-green-400">HIGH</td>
+                                <td>Song is addictive</td>
+                                <td>Catchy hooks</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold text-red-400">Skip Rate (&lt;30s)</td>
+                                <td class="text-red-400">NEGATIVE</td>
+                                <td>Song is trash signal</td>
+                                <td>No long intros</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">Playlist Adds</td>
+                                <td class="text-yellow-400">MED/HIGH</td>
+                                <td>Viral coefficient</td>
+                                <td>Create own playlist</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+                    <span class="text-3xl">🎯</span> Metric Benchmarks
+                </h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="glass p-6 rounded-2xl metric-card">
+                        <h3 class="text-lg text-slate-400 mb-2">Save Rate</h3>
+                        <div class="metric-value neon-lime">>30%</div>
+                        <p class="text-slate-400 mt-2 text-sm">Excellent. <10% is poor.</p>
+                    </div>
+                    <div class="glass p-6 rounded-2xl metric-card">
+                        <h3 class="text-lg text-slate-400 mb-2">Skip Rate</h3>
+                        <div class="metric-value text-red-400">&lt;35%</div>
+                        <p class="text-slate-400 mt-2 text-sm">>50% = intro too long</p>
+                    </div>
+                    <div class="glass p-6 rounded-2xl metric-card">
+                        <h3 class="text-lg text-slate-400 mb-2">Marquee</h3>
+                        <div class="metric-value neon-cyan">1k</div>
+                        <p class="text-slate-400 mt-2 text-sm">Streams in 28 days</p>
+                    </div>
+                    <div class="glass p-6 rounded-2xl metric-card">
+                        <h3 class="text-lg text-slate-400 mb-2">Discovery</h3>
+                        <div class="metric-value text-violet-400">25k</div>
+                        <p class="text-slate-400 mt-2 text-sm">Monthly listeners goal</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+                    <span class="text-3xl">⚡</span> Tactical Recommendations
+                </h2>
+                <div class="space-y-4">
+                    <div class="glass p-6 rounded-xl">
+                        <h3 class="font-bold neon-lime text-lg">The "0:00" Rule</h3>
+                        <p class="text-slate-300 mt-2">Vocals or melody must start within 0-3 seconds. No 15s fade-ins.</p>
+                    </div>
+                    <div class="glass p-6 rounded-xl">
+                        <h3 class="font-bold neon-cyan text-lg">Structure</h3>
+                        <p class="text-slate-300 mt-2">Verse-Chorus within first 45 seconds. Don't make them wait.</p>
+                    </div>
+                    <div class="glass p-6 rounded-xl">
+                        <h3 class="font-bold text-violet-400 text-lg">Canvas</h3>
+                        <p class="text-slate-300 mt-2">High-quality Canvas = +145% share rate. USE IT.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+                    <span class="text-3xl">📻</span> "Radio" Triggers
+                </h2>
+                <p class="text-slate-300 mb-6">To get on <strong class="text-lime-400">"Mac Miller Radio"</strong> you need data associations.</p>
+                <div class="glass p-6 rounded-xl">
+                    <p class="text-slate-300 mb-4"><strong>Goal:</strong> Spotify sees "User A listened to Mac Miller, then JaZeR, and didn't skip."</p>
+                    <ul class="space-y-3 text-slate-300">
+                        <li class="flex items-start gap-3">
+                            <span class="text-lime-400 text-xl">→</span>
+                            <span>Drive external traffic targeting Mac Miller fans</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-cyan-400 text-xl">→</span>
+                            <span>Collab with artists already in that algorithm</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="sticky-nav">
+        <div class="glass-strong px-6 py-3 rounded-full flex items-center gap-4">
+            <a href="module-05.html" class="btn-secondary px-4 py-2 rounded-full text-sm nav-link">← Prev</a>
+            <span class="text-slate-400 text-sm hidden md:inline">Module 6 of 10</span>
+            <a href="module-07.html" class="btn-primary px-4 py-2 rounded-full text-sm nav-link">Next →</a>
+        </div>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    </button>
+
+    <footer class="py-12 px-6 mt-20">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-4">
+                    <span class="text-2xl font-bold neon-lime">JaZeR</span>
+                    <span class="text-slate-500">// Research System</span>
+                </div>
+                <div class="flex gap-6 text-slate-400">
+                    <a href="modules.html" class="hover:text-lime-400 transition-colors nav-link">All Modules</a>
+                    <a href="dashboard.html" class="hover:text-lime-400 transition-colors nav-link">Dashboard</a>
+                    <a href="index-premium.html" class="hover:text-lime-400 transition-colors nav-link">Home</a>
+                </div>
+            </div>
+            <div class="text-center mt-8 text-slate-600 text-sm">
+                © 2026 JaZeR Strategic Research System · Module 06
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/premium-ui.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Hero Animation
+        gsap.set('.hero-badge, .hero-title, .hero-subtitle, .hero-cta', { y: 30 });
+        const heroTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        heroTL
+            .to('.hero-badge', { opacity: 1, y: 0, duration: 0.6, delay: 0.2 })
+            .to('.hero-title', { opacity: 1, y: 0, duration: 0.8, stagger: 0.2 }, '-=0.3')
+            .to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
+            .to('.hero-cta', { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }, '-=0.2');
+        
+        // Metric Cards Animation
+        gsap.from('.metric-card', { 
+            scale: 0.8, 
+            opacity: 0, 
+            stagger: 0.1, 
+            duration: 0.6, 
+            ease: 'back.out(1.5)', 
+            scrollTrigger: { trigger: '.metric-card', start: 'top 85%' } 
+        });
+        
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+        });
+        
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        gsap.from('.content-card', {
+            y: 60,
+            opacity: 0,
+            stagger: 0.15,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: '.content-card',
+                start: 'top 85%'
+            }
+        });
+        
+        gsap.utils.toArray('.gradient-orb').forEach((orb, i) => {
+            gsap.to(orb, {
+                x: 'random(-50, 50)',
+                y: 'random(-50, 50)',
+                scale: 'random(0.9, 1.1)',
+                duration: 'random(10, 20)',
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut',
+                delay: i * 1.5
+            });
+        });
+    </script>
+</body>
+</html>

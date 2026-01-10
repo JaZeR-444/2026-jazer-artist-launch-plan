@@ -1,0 +1,130 @@
+{
+  "title": "Playlist Targeting Strategy",
+  "source": "Module 04 - Playlist Strategy Intelligence",
+  "lastUpdated": "2026-01-09",
+  "playlists": [
+    {
+      "name": "Mellow Bars",
+      "type": "Spotify Editorial",
+      "followers": 500000,
+      "followersDisplay": "500k+",
+      "entryDifficulty": "Very High",
+      "strategicValue": "The 'Holy Grail' for this niche",
+      "priority": 1,
+      "tier": "aspirational",
+      "tactics": "Editorial pitch via Spotify for Artists 2+ weeks before release"
+    },
+    {
+      "name": "Jazz Rap",
+      "type": "Spotify Editorial",
+      "followers": 1500000,
+      "followersDisplay": "1.5M+",
+      "entryDifficulty": "Very High",
+      "strategicValue": "Massive exposure for soulful tracks",
+      "priority": 2,
+      "tier": "aspirational",
+      "tactics": "Editorial pitch, require soulful/jazzy production elements"
+    },
+    {
+      "name": "Fresh Finds: Hip Hop",
+      "type": "Spotify Editorial",
+      "followers": 100000,
+      "followersDisplay": "100k+",
+      "entryDifficulty": "High",
+      "strategicValue": "Best editorial entry point for new acts",
+      "priority": 3,
+      "tier": "target",
+      "tactics": "Focus on this as primary editorial entry point"
+    },
+    {
+      "name": "Sphere of Hip Hop",
+      "type": "Indie/Curator",
+      "followers": 50000,
+      "followersDisplay": "50k+",
+      "entryDifficulty": "Medium",
+      "strategicValue": "High credibility, loyal niche audience",
+      "priority": 4,
+      "tier": "immediate",
+      "tactics": "SubmitHub pitch: 'For fans of Mac Miller's jazzier side'",
+      "genre": "Jazzy, Boom-Bap, Lofi, Soulful"
+    },
+    {
+      "name": "Impulse: Neo-Soul/R&B",
+      "type": "Indie/Curator",
+      "followers": 20000,
+      "followersDisplay": "20k+",
+      "entryDifficulty": "Low/Med",
+      "strategicValue": "Excellent 'Gateway' playlist",
+      "priority": 5,
+      "tier": "immediate",
+      "tactics": "Groover submission, no autotune overload, keep it soulful",
+      "genre": "Neo-soul, Alternative R&B"
+    },
+    {
+      "name": "Study Beats (Various)",
+      "type": "User Generated",
+      "followers": null,
+      "followersDisplay": "Varies",
+      "entryDifficulty": "Low",
+      "strategicValue": "High volume, passive streaming",
+      "priority": 6,
+      "tier": "volume",
+      "tactics": "PlaylistPartner for chill/study vibes, boost save rate with passive listeners"
+    }
+  ],
+  "gatewayTargets": [
+    {
+      "curator": "Sphere of Hip Hop",
+      "platform": "SubmitHub",
+      "pitchAngle": "For fans of Mac Miller's jazzier side",
+      "genre": "Jazzy, Boom-Bap, Lofi, Soulful"
+    },
+    {
+      "curator": "Impulse",
+      "platform": "Groover",
+      "requirement": "No autotune overload. Keep it soulful.",
+      "genre": "Neo-soul, Alternative R&B"
+    },
+    {
+      "curator": "PlaylistPartner",
+      "platform": "Direct",
+      "strategy": "Good for boosting 'Save Rate' with passive listeners",
+      "focus": "Chill and Study vibes"
+    },
+    {
+      "curator": "Austin Music Foundation / KUTX",
+      "platform": "Local submission",
+      "strategy": "Weekly playlists, local artist features",
+      "focus": "Austin-based artists"
+    }
+  ],
+  "optimizationChecklist": [
+    {
+      "item": "Sonic Fit",
+      "requirement": "Track intro <15 seconds (critical for skip rate)"
+    },
+    {
+      "item": "Metadata",
+      "requirement": "Tagged as 'Chill,' 'Melodic,' 'Urban,' 'Alternative'"
+    },
+    {
+      "item": "Timing",
+      "requirement": "Pitch to Spotify Editorial at least 2 weeks before release via S4A"
+    },
+    {
+      "item": "Visuals",
+      "requirement": "Canvas uploaded and matches the vibe (looping animation)"
+    }
+  ],
+  "algorithmicBridge": {
+    "goal": "Trigger Discover Weekly",
+    "saveRateTarget": "~30%",
+    "skipRateTarget": "<35% in first week",
+    "strategy": [
+      "Use Gateway Playlists (Sphere of Hip Hop) to get first 1,000 listeners",
+      "Quality listeners save the track (they like this genre)",
+      "Their saves tell Spotify: 'People who like Mac Miller also like JaZeR'",
+      "Spotify algorithm serves JaZeR to more Mac Miller fans via Discover Weekly"
+    ]
+  }
+}

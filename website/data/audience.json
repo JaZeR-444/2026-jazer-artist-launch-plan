@@ -1,0 +1,139 @@
+{
+  "title": "Target Audience Profile",
+  "source": "Module 03 - Audience and Listener Profile",
+  "lastUpdated": "2026-01-09",
+  "superfanPersona": {
+    "name": "Creative Casey",
+    "age": 24,
+    "occupation": "Graphic Designer / Freelance Creative / Barista",
+    "mantra": "I just need something to vibe to while I create",
+    "topArtists": [
+      {
+        "name": "Mac Miller",
+        "reason": "The God",
+        "rank": 1
+      },
+      {
+        "name": "Anderson .Paak",
+        "reason": "For the groove",
+        "rank": 2
+      },
+      {
+        "name": "ProbCause",
+        "reason": "For the energy",
+        "rank": 3
+      },
+      {
+        "name": "Smino",
+        "reason": "For the unique flows",
+        "rank": 4
+      },
+      {
+        "name": "Still Woozy",
+        "reason": "For the indie crossover",
+        "rank": 5
+      }
+    ],
+    "psychographics": {
+      "values": ["Creativity", "Authenticity", "Artistic expression", "Indie culture"],
+      "lifestyle": "Creative freelancer, coffee shop worker, side hustler",
+      "musicUse": "Background for creative work, late-night drives, focus sessions"
+    }
+  },
+  "geographicHeatmap": {
+    "tier1": {
+      "name": "The 'Vibe' Hubs",
+      "markets": [
+        {
+          "city": "Austin, TX",
+          "reason": "Home base. High concentration of live music lovers",
+          "priority": "Critical"
+        },
+        {
+          "city": "Denver, CO",
+          "reason": "Massive market for 'Electronic Hip-Hop' (ProbCause/GRiZ influence)",
+          "priority": "High"
+        },
+        {
+          "city": "Portland/Seattle",
+          "reason": "Strong demographic fit for 'Melodic/Indie Rap'",
+          "priority": "High"
+        },
+        {
+          "city": "Los Angeles, CA",
+          "reason": "Epicenter of the 'Mac Miller' sound",
+          "priority": "High"
+        }
+      ]
+    },
+    "tier2": {
+      "name": "Global Pockets",
+      "markets": [
+        {
+          "city": "Santiago, Chile",
+          "reason": "Seen in Blakchyl's data - Latin America consumes 'Chill Rap' at massive volume",
+          "priority": "Medium"
+        },
+        {
+          "city": "Mexico City, Mexico",
+          "reason": "High volume consumption of chill/melodic rap",
+          "priority": "Medium"
+        }
+      ]
+    }
+  },
+  "digitalHabitat": {
+    "reddit": [
+      "r/MacMiller",
+      "r/hiphopheads",
+      "r/LofiHipHop"
+    ],
+    "discord": [
+      "Lofi Girl server",
+      "Local Austin creative servers (Blak Marigold)"
+    ],
+    "youtube": [
+      "'Study With Me' channels",
+      "NPR Tiny Desk binges"
+    ],
+    "behaviors": [
+      "Follows artists on release day",
+      "Makes personal playlists",
+      "Shares music discovery via IG stories",
+      "Attends small local shows"
+    ]
+  },
+  "nonMusicBrands": {
+    "fashion": [
+      "Thrifted vintage",
+      "Carhartt WIP",
+      "Online Ceramics"
+    ],
+    "tech": [
+      "Apple (MacBook for creative work)",
+      "Teenage Engineering (cool synths)"
+    ],
+    "lifestyle": [
+      "Specialty coffee",
+      "Local breweries",
+      "Hiking/outdoors (Austin Greenbelt)"
+    ]
+  },
+  "strategicImplications": [
+    {
+      "area": "Visuals",
+      "insight": "'Casey' is a creative. Cover art cannot be generic.",
+      "action": "Art must look like ART - abstract, painted, or highly stylized photography (Mac Miller's Faces or Circles aesthetic)"
+    },
+    {
+      "area": "Content",
+      "insight": "Don't just post 'New Music Out Now'",
+      "action": "Post 'The process of making this beat' or 'Late night studio vibes' - show the CREATIVE LIFESTYLE Casey aspires to"
+    },
+    {
+      "area": "Merch",
+      "insight": "No cheap gildan tees",
+      "action": "Think 'Museum Gift Shop' quality. Tote bags, high-quality prints, or 'dad hats' work better than loud logos"
+    }
+  ]
+}

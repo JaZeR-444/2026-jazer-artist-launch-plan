@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 02: Spotify Market Landscape | JaZeR Research</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --bg: #050816;
+            --surface: #1a1f3a;
+            --cyan: #06d6a0;
+            --lime: #a3ff12;
+            --violet: #c77dff;
+        }
+        
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: #f8fafc; margin: 0; overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+        
+        .cursor { width: 20px; height: 20px; background: linear-gradient(135deg, var(--cyan), var(--lime)); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99999; mix-blend-mode: difference; transform: translate(-50%, -50%); }
+        @media (max-width: 768px) { .cursor { display: none; } }
+        
+        .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--cyan), var(--lime)); z-index: 9999; width: 0%; }
+        
+        .gradient-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .gradient-orb { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.4; }
+        .orb-1 { width: 400px; height: 400px; background: var(--cyan); top: -100px; right: -100px; }
+        .orb-2 { width: 300px; height: 300px; background: var(--violet); bottom: 20%; left: -50px; }
+        
+        .glass { background: rgba(26, 31, 58, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .glass-strong { background: rgba(26, 31, 58, 0.8); backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.15); }
+        
+        .gradient-text { background: linear-gradient(135deg, var(--cyan), var(--lime), var(--violet)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .neon-cyan { text-shadow: 0 0 10px rgba(6, 214, 160, 0.8); }
+        
+        .badge-cyan { background: rgba(6, 214, 160, 0.2); color: var(--cyan); border: 1px solid rgba(6, 214, 160, 0.4); padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        
+        .content-card { background: rgba(26, 31, 58, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.4s; }
+        .content-card:hover { border-color: var(--cyan); box-shadow: 0 20px 60px rgba(6, 214, 160, 0.15); transform: translateY(-4px); }
+        
+        .btn-primary { background: linear-gradient(135deg, var(--cyan), var(--lime)); color: var(--bg); font-weight: 700; transition: all 0.3s; }
+        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 40px rgba(6, 214, 160, 0.4); }
+        .btn-secondary { background: transparent; border: 2px solid rgba(255, 255, 255, 0.2); color: #f8fafc; font-weight: 600; }
+        
+        .tldr-box { background: linear-gradient(135deg, rgba(6, 214, 160, 0.1), rgba(6, 214, 160, 0.03)); border-left: 4px solid var(--cyan); }
+        
+        /* Interactive Data Table */
+        .data-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+        .data-table th { background: rgba(6, 214, 160, 0.1); color: var(--cyan); padding: 1rem; text-align: left; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+        .data-table th:hover { background: rgba(6, 214, 160, 0.2); }
+        .data-table td { padding: 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .data-table tr { cursor: pointer; transition: all 0.3s; }
+        .data-table tr:hover td { background: rgba(6, 214, 160, 0.1); }
+        .data-table tr.expanded { background: rgba(6, 214, 160, 0.05); }
+        .row-details { display: none; padding: 1rem; background: rgba(26, 31, 58, 0.8); }
+        .row-details.visible { display: block; }
+        
+        /* Saturation Meter */
+        .saturation-meter { height: 12px; background: rgba(255, 255, 255, 0.1); border-radius: 6px; overflow: hidden; position: relative; }
+        .saturation-fill { height: 100%; border-radius: 6px; transition: width 1.5s ease-out; }
+        .saturation-fill.low { background: linear-gradient(90deg, var(--cyan), var(--lime)); width: 0%; }
+        
+        /* Keyword Highlight */
+        .highlight-word { position: relative; display: inline-block; }
+        .highlight-word::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 30%; background: rgba(163, 255, 18, 0.3); z-index: -1; transition: width 0.8s ease-out; }
+        .highlight-word.active::after { width: 100%; }
+        
+        .sticky-nav { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 100; }
+        footer { background: rgba(5, 8, 22, 0.9); border-top: 1px solid rgba(255, 255, 255, 0.05); }
+        .back-to-top { position: fixed; bottom: 6rem; right: 2rem; width: 48px; height: 48px; border-radius: 50%; background: rgba(26, 31, 58, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s; z-index: 50; }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: var(--cyan); color: var(--bg); }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="progress-bar" id="progress-bar"></div>
+    <div class="gradient-bg"><div class="gradient-orb orb-1"></div><div class="gradient-orb orb-2"></div></div>
+    
+    <nav class="glass-strong sticky top-0 z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index-premium.html" class="text-2xl font-bold neon-cyan">JaZeR</a>
+            <div class="hidden md:flex space-x-6">
+                <a href="modules.html" class="text-slate-300 hover:text-cyan-400 transition">All Modules</a>
+                <a href="dashboard.html" class="text-slate-300 hover:text-cyan-400 transition">Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Animation -->
+    <section class="py-20 px-6">
+        <div class="max-w-5xl mx-auto text-center">
+            <span class="badge-cyan mb-6 inline-block hero-badge opacity-0">MODULE 02 · INTELLIGENCE</span>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                <span class="hero-title opacity-0">Spotify Market</span><br/>
+                <span class="gradient-text hero-title opacity-0">Landscape</span>
+            </h1>
+            <p class="text-xl text-slate-400 hero-subtitle opacity-0">Competitive positioning analysis · Mapping Austin's hip-hop ecosystem</p>
+            <a href="../02 - Spotify Market Landscape/02 - Markdown Notes/JaZeR-02-Spotify-Market-Landscape.md" download class="btn-primary px-8 py-4 rounded-full mt-8 inline-block hero-cta opacity-0">Download Markdown</a>
+        </div>
+    </section>
+
+    <!-- TL;DR -->
+    <section class="py-8 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="tldr-box p-8 rounded-2xl content-card">
+                <h2 class="text-2xl font-bold mb-4 neon-cyan">📌 TL;DR</h2>
+                <p class="text-lg text-slate-300 mb-4">Austin's Hip-Hop scene is a <strong>"sleeping giant"</strong> - small but quality-focused. The winning sound is "Neo-Soul Rap" and "Jazz Rap." There's a <span class="highlight-word" id="highlight-void">massive void</span> for <strong class="highlight-word" id="highlight-electronic">"Electronic-Soul" Hip-Hop</strong> (ProbCause/Mac Miller lane).</p>
+                <ul class="space-y-2 text-slate-300 mt-4">
+                    <li>→ Position as <span class="highlight-word" id="highlight-curator">"The Vibe Curator"</span> - electronic-infused, melodic, introspective</li>
+                    <li>→ Study JaRon Marshall's path (400k+ listeners from Austin)</li>
+                    <li>→ Bridge Austin live scene with global "Chill Hop" digital market</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-12 px-6">
+        <div class="max-w-5xl mx-auto space-y-12">
+            <!-- Interactive Competitive Matrix -->
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-4">📊 Competitive Matrix</h2>
+                <p class="text-slate-400 mb-6 text-sm">Click any row to expand details</p>
+                <div class="overflow-x-auto">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable(0)">Artist ↕</th>
+                                <th onclick="sortTable(1)">Tier ↕</th>
+                                <th onclick="sortTable(2)">Monthly Listeners ↕</th>
+                                <th>Growth Driver</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-slate-300" id="competitorTableBody">
+                            <tr data-details="deezie">
+                                <td class="font-bold">Deezie Brown</td>
+                                <td><span class="badge-cyan text-xs">Established (Local)</span></td>
+                                <td>~2,000</td>
+                                <td>Southern soundscapes branding</td>
+                            </tr>
+                            <tr class="row-details" id="deezie">
+                                <td colspan="4">
+                                    <div class="grid md:grid-cols-2 gap-4 p-4">
+                                        <div>
+                                            <h4 class="font-bold text-cyan-400 mb-2">Key Strengths</h4>
+                                            <ul class="text-sm space-y-1"><li>• Consistent releases</li><li>• Strong local branding</li><li>• Southern aesthetic</li></ul>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-cyan-400 mb-2">Relevance to JaZeR</h4>
+                                            <p class="text-sm">Direct competitor in Austin melodic rap space</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-details="blackillac">
+                                <td class="font-bold">Blackillac</td>
+                                <td><span class="badge-cyan text-xs">Established (Local)</span></td>
+                                <td>Active</td>
+                                <td>High-energy live shows, SXSW</td>
+                            </tr>
+                            <tr class="row-details" id="blackillac">
+                                <td colspan="4">
+                                    <div class="grid md:grid-cols-2 gap-4 p-4">
+                                        <div>
+                                            <h4 class="font-bold text-cyan-400 mb-2">Key Strengths</h4>
+                                            <ul class="text-sm space-y-1"><li>• Live performance</li><li>• SXSW presence</li><li>• Soul-influenced sound</li></ul>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-cyan-400 mb-2">Relevance to JaZeR</h4>
+                                            <p class="text-sm">Shows importance of live scene in Austin</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-details="magna">
+                                <td class="font-bold">Magna Carda</td>
+                                <td><span class="badge-cyan text-xs" style="background: rgba(199,125,255,0.2); color: var(--violet); border-color: rgba(199,125,255,0.4)">Standard Bearer</span></td>
+                                <td class="font-bold text-violet-400">~15,000+</td>
+                                <td>Live instrumentation, touring</td>
+                            </tr>
+                            <tr class="row-details" id="magna">
+                                <td colspan="4">
+                                    <div class="grid md:grid-cols-2 gap-4 p-4">
+                                        <div>
+                                            <h4 class="font-bold text-violet-400 mb-2">Key Strengths</h4>
+                                            <ul class="text-sm space-y-1"><li>• Live instrumentation</li><li>• Strong local branding</li><li>• Touring infrastructure</li></ul>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-violet-400 mb-2">Relevance to JaZeR</h4>
+                                            <p class="text-sm">Primary benchmark for "Austin Roots" positioning</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-details="jaron">
+                                <td class="font-bold neon-cyan">JaRon Marshall ⭐</td>
+                                <td><span class="badge-cyan text-xs" style="background: rgba(163,255,18,0.2); color: var(--lime); border-color: rgba(163,255,18,0.4)">Peer/Collab</span></td>
+                                <td class="neon-cyan font-bold">~400,000+</td>
+                                <td>Black Pumas keyboardist, Jazz Rap crossover</td>
+                            </tr>
+                            <tr class="row-details" id="jaron">
+                                <td colspan="4">
+                                    <div class="grid md:grid-cols-2 gap-4 p-4">
+                                        <div>
+                                            <h4 class="font-bold" style="color: var(--lime)">Key Strengths</h4>
+                                            <ul class="text-sm space-y-1"><li>• Jazz-rap fusion</li><li>• Black Pumas association</li><li>• Global reach</li></ul>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold" style="color: var(--lime)">Relevance to JaZeR</h4>
+                                            <p class="text-sm">Proves viability of jazz/soul + hip-hop in Austin → global success</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Market Dynamics with Saturation Meter -->
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-8">🎯 Market Dynamics</h2>
+                <div class="space-y-6">
+                    <div class="p-6 rounded-xl" style="border: 2px solid var(--cyan)">
+                        <h3 class="text-2xl font-bold neon-cyan mb-3">The "Austin Factor"</h3>
+                        <p class="text-slate-300">The scene is a "sleeping giant" - smaller than Houston or Atlanta but highly concentrated on <strong>quality and live performance</strong>. Gatekeepers: KUTX 98.9 ("The Breaks"), KOOP 91.7, Empire Control Room.</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-6 bg-slate-900/50 rounded-xl">
+                            <h4 class="font-bold text-lg mb-3 text-cyan-400">Winning Sound</h4>
+                            <p class="text-slate-300">"Neo-Soul Rap" and "Jazz Rap." The market rejects generic "SoundCloud Trap."</p>
+                        </div>
+                        <div class="p-6 bg-slate-900/50 rounded-xl">
+                            <h4 class="font-bold text-lg mb-3 text-cyan-400">Saturation Index</h4>
+                            <div class="flex items-center gap-4 mb-3">
+                                <span class="text-2xl font-black" style="color: var(--lime)">LOW</span>
+                                <span class="text-slate-400">= OPPORTUNITY</span>
+                            </div>
+                            <div class="saturation-meter">
+                                <div class="saturation-fill low" id="saturation-bar"></div>
+                            </div>
+                            <p class="text-slate-400 text-sm mt-3">Very few executing Mac Miller / ProbCause style at high level</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blue Ocean Section -->
+            <div class="content-card p-10 rounded-3xl">
+                <h2 class="text-3xl font-bold mb-8">🌊 "Blue Ocean" Opportunity</h2>
+                <div class="glass p-8 rounded-2xl" style="border: 2px solid var(--lime)">
+                    <h3 class="text-3xl font-bold mb-4" style="color: var(--lime)">The "Electronic-Soul" Niche</h3>
+                    <p class="text-slate-300 mb-6">Most Austin rap is either "Live Band Organic" (Magna Carda) or "Street" (Trap). There is a <strong class="highlight-word" id="highlight-void-2">massive void</strong> for the ProbCause/Mac Miller lane.</p>
+                    <div class="p-6 bg-slate-900/50 rounded-xl">
+                        <h4 class="font-bold text-lg mb-3" style="color: var(--lime)">The Strategy:</h4>
+                        <p class="text-slate-300">Position JaZeR not just as a "Rapper," but as a <strong class="highlight-word" id="highlight-curator-2">"Vibe Curator."</strong> Use electronic production elements that appeal to the "Lofi Study" and "Chill Electronic" crowds.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="sticky-nav">
+        <div class="glass-strong px-6 py-3 rounded-full flex items-center gap-4">
+            <a href="module-01.html" class="btn-secondary px-4 py-2 rounded-full text-sm hover:border-cyan-400 transition">← Prev</a>
+            <span class="text-slate-400 text-sm">2 of 10</span>
+            <a href="module-03.html" class="btn-primary px-4 py-2 rounded-full text-sm">Next →</a>
+        </div>
+    </div>
+
+    <button class="back-to-top" id="back-to-top">↑</button>
+
+    <footer class="py-12 px-6 mt-20">
+        <div class="max-w-5xl mx-auto text-center">
+            <span class="text-2xl font-bold neon-cyan">JaZeR</span>
+            <p class="text-slate-600 text-sm mt-4">© 2026 JaZeR Strategic Research System · Module 02</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/premium-ui.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            document.getElementById('progress-bar').style.width = 
+                (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100) + '%';
+        });
+        
+        // Back to Top
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => backToTop.classList.toggle('visible', window.scrollY > 500));
+        backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        
+        // Hero Animation
+        gsap.set('.hero-badge, .hero-title, .hero-subtitle, .hero-cta', { y: 30 });
+        const heroTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        heroTL
+            .to('.hero-badge', { opacity: 1, y: 0, duration: 0.6, delay: 0.2 })
+            .to('.hero-title', { opacity: 1, y: 0, duration: 0.8, stagger: 0.2 }, '-=0.3')
+            .to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
+            .to('.hero-cta', { opacity: 1, y: 0, duration: 0.5 }, '-=0.2');
+        
+        // Content Card Animations
+        gsap.from('.content-card', {
+            y: 60, opacity: 0, stagger: 0.15, duration: 0.8, ease: 'power2.out',
+            scrollTrigger: { trigger: '.content-card', start: 'top 85%' }
+        });
+        
+        // Expandable Table Rows
+        document.querySelectorAll('tr[data-details]').forEach(row => {
+            row.addEventListener('click', () => {
+                const detailsId = row.getAttribute('data-details');
+                const detailsRow = document.getElementById(detailsId);
+                
+                // Close all other details
+                document.querySelectorAll('.row-details').forEach(r => {
+                    if (r.id !== detailsId) r.classList.remove('visible');
+                });
+                document.querySelectorAll('tr[data-details]').forEach(r => {
+                    if (r !== row) r.classList.remove('expanded');
+                });
+                
+                // Toggle current
+                detailsRow.classList.toggle('visible');
+                row.classList.toggle('expanded');
+            });
+        });
+        
+        // Saturation Meter Animation
+        ScrollTrigger.create({
+            trigger: '#saturation-bar',
+            start: 'top 85%',
+            once: true,
+            onEnter: () => {
+                document.getElementById('saturation-bar').style.width = '25%';
+            }
+        });
+        
+        // Keyword Highlight Animation
+        const highlightWords = document.querySelectorAll('.highlight-word');
+        highlightWords.forEach(word => {
+            ScrollTrigger.create({
+                trigger: word,
+                start: 'top 80%',
+                once: true,
+                onEnter: () => word.classList.add('active')
+            });
+        });
+        
+        // Floating Orbs
+        gsap.to('.orb-1', { x: 50, y: 30, duration: 15, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+        gsap.to('.orb-2', { x: -30, y: -50, duration: 20, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+        
+        // Table Sorting (simple implementation)
+        function sortTable(columnIndex) {
+            const table = document.getElementById('competitorTableBody');
+            const rows = Array.from(table.querySelectorAll('tr[data-details]'));
+            
+            rows.sort((a, b) => {
+                const aText = a.cells[columnIndex].textContent.trim();
+                const bText = b.cells[columnIndex].textContent.trim();
+                return aText.localeCompare(bText);
+            });
+            
+            rows.forEach(row => {
+                const detailsRow = document.getElementById(row.getAttribute('data-details'));
+                table.appendChild(row);
+                table.appendChild(detailsRow);
+            });
+        }
+    </script>
+</body>
+</html>
