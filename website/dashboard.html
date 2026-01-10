@@ -23,6 +23,9 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
+    <!-- Enhanced UI Styles -->
+    <link rel="stylesheet" href="assets/css/enhanced-ui.css">
+
     <style>
         :root {
             --color-bg-primary: #050816;
@@ -345,6 +348,10 @@
     <!-- Premium UI Components -->
     <div class="cursor"></div>
     <div class="transition-overlay fixed inset-0 bg-slate-950 z-[10000] pointer-events-none opacity-0"></div>
+    
+    <!-- Skip to Content -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+    
     <!-- Animated Background -->
     <div class="gradient-bg">
         <div class="gradient-orb orb-1"></div>
@@ -360,16 +367,16 @@
                     <span class="text-slate-500 text-sm mono">// STRATEGIC_DASHBOARD</span>
                 </div>
                 <div class="hidden md:flex items-center space-x-6">
-                    <a href="index-premium.html" class="text-slate-300 hover:text-cyan-400 transition-colors">Home</a>
-                    <a href="modules.html" class="text-slate-300 hover:text-cyan-400 transition-colors">Modules</a>
-                    <a href="downloads.html" class="text-slate-300 hover:text-cyan-400 transition-colors">Downloads</a>
+                    <a href="index-premium.html" class="nav-link text-slate-300 hover:text-cyan-400 transition-colors">Home</a>
+                    <a href="modules.html" class="nav-link text-slate-300 hover:text-cyan-400 transition-colors">Modules</a>
+                    <a href="downloads.html" class="nav-link text-slate-300 hover:text-cyan-400 transition-colors">Downloads</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Header -->
-    <section class="py-16 px-6">
+    <section id="main-content" class="py-16 px-6">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-8">
                 <h1 class="text-3xl md:text-7xl font-bold mb-4 break-words">
@@ -381,22 +388,22 @@
             </div>
 
             <!-- Tab Navigation -->
-            <div class="flex flex-wrap justify-center gap-4 mb-8">
-                <button class="tab active" data-tab="overview">Overview</button>
-                <button class="tab" data-tab="health">Health Score</button>
-                <button class="tab" data-tab="audience">Audience</button>
-                <button class="tab" data-tab="market">Market Intelligence</button>
-                <button class="tab" data-tab="playlist">Playlist Strategy</button>
-                <button class="tab" data-tab="algorithm">Algorithm</button>
-                <button class="tab" data-tab="venues">Venues & Touring</button>
-                <button class="tab" data-tab="monetization">Monetization</button>
-                <button class="tab" data-tab="timeline">90-Day Plan</button>
+            <div class="flex flex-wrap justify-center gap-4 mb-8" role="tablist" aria-label="Dashboard sections">
+                <button class="tab active" data-tab="overview" role="tab" aria-selected="true" aria-controls="overview-tab">Overview</button>
+                <button class="tab" data-tab="health" role="tab" aria-selected="false" aria-controls="health-tab">Health Score</button>
+                <button class="tab" data-tab="audience" role="tab" aria-selected="false" aria-controls="audience-tab">Audience</button>
+                <button class="tab" data-tab="market" role="tab" aria-selected="false" aria-controls="market-tab">Market Intelligence</button>
+                <button class="tab" data-tab="playlist" role="tab" aria-selected="false" aria-controls="playlist-tab">Playlist Strategy</button>
+                <button class="tab" data-tab="algorithm" role="tab" aria-selected="false" aria-controls="algorithm-tab">Algorithm</button>
+                <button class="tab" data-tab="venues" role="tab" aria-selected="false" aria-controls="venues-tab">Venues & Touring</button>
+                <button class="tab" data-tab="monetization" role="tab" aria-selected="false" aria-controls="monetization-tab">Monetization</button>
+                <button class="tab" data-tab="timeline" role="tab" aria-selected="false" aria-controls="timeline-tab">90-Day Plan</button>
             </div>
         </div>
     </section>
 
     <!-- Overview Tab -->
-    <section id="overview-tab" class="tab-content py-12 px-6">
+    <section id="overview-tab" class="tab-content py-12 px-6" role="tabpanel" aria-labelledby="overview">
         <div class="max-w-7xl mx-auto">
             <!-- KPI Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
@@ -1317,8 +1324,12 @@
             tab.addEventListener('click', () => {
                 const targetTab = tab.dataset.tab;
 
-                tabs.forEach(t => t.classList.remove('active'));
+                tabs.forEach(t => {
+                    t.classList.remove('active');
+                    t.setAttribute('aria-selected', 'false');
+                });
                 tab.classList.add('active');
+                tab.setAttribute('aria-selected', 'true');
 
                 tabContents.forEach(content => {
                     content.classList.add('hidden');
@@ -1332,6 +1343,11 @@
                         }
                     }
                 });
+                
+                // Show toast notification
+                if (window.showToast) {
+                    showToast(`Loaded ${targetTab} section`, 1500);
+                }
             });
         });
 

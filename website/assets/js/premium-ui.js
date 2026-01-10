@@ -1,11 +1,12 @@
 /**
- * JaZeR Premium UI System (Tier 1: The Flow)
+ * JaZeR Premium UI System (Enhanced Edition)
  * Includes: Vibe Orb Cursor, Magnetic Buttons, Seamless Page Transitions
+ * Enhanced: Smooth Scrolling, Toast Notifications, Keyboard Shortcuts, Theme Toggle
  */
 
 // Initialize GSAP Physics
 const initPremiumUI = () => {
-    console.log('✨ Initializing JaZeR Premium Flow...');
+    console.log('✨ Initializing JaZeR Premium Flow (Enhanced)...');
 
     const cursor = document.querySelector('.cursor');
     const transitionOverlay = document.querySelector('.transition-overlay');
@@ -180,7 +181,285 @@ const initPremiumUI = () => {
         }
     });
 
-    console.log('✨ Premium Flow Loaded: ', currentPath);
+    // ============================================
+    // 7. Toast Notification System
+    // ============================================
+    window.showToast = (message, duration = 3000) => {
+        let toast = document.querySelector('.toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.className = 'toast';
+            document.body.appendChild(toast);
+        }
+        
+        toast.textContent = message;
+        toast.classList.add('show');
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, duration);
+    };
+
+    // ============================================
+    // 8. Scroll Progress Indicator
+    // ============================================
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress';
+    progressBar.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #06d6a0, #a3ff12, #c77dff);
+        z-index: 10001;
+        transform-origin: left;
+        transform: scaleX(0);
+        transition: transform 0.1s ease;
+        box-shadow: 0 0 10px rgba(6, 214, 160, 0.5);
+    `;
+    document.body.appendChild(progressBar);
+
+    const updateScrollProgress = () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = scrollTop / docHeight;
+        progressBar.style.transform = `scaleX(${scrollPercent})`;
+    };
+
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+
+    // ============================================
+    // 9. Keyboard Shortcuts
+    // ============================================
+    document.addEventListener('keydown', (e) => {
+        // Ctrl/Cmd + K for command palette (if exists)
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            const commandPalette = document.getElementById('commandPalette');
+            if (commandPalette) {
+                commandPalette.classList.toggle('active');
+                const input = commandPalette.querySelector('input');
+                if (input) input.focus();
+            }
+        }
+        
+        // Escape key to close modals/palettes
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.command-palette, .modal, #mobile-menu').forEach(el => {
+                el.classList.remove('active', 'show');
+                el.classList.add('hidden');
+            });
+        }
+        
+        // Arrow keys for navigation (on module pages)
+        if (e.key === 'ArrowRight' && !e.target.matches('input, textarea')) {
+            const nextBtn = document.querySelector('[data-nav="next"]');
+            if (nextBtn) nextBtn.click();
+        }
+        if (e.key === 'ArrowLeft' && !e.target.matches('input, textarea')) {
+            const prevBtn = document.querySelector('[data-nav="prev"]');
+            if (prevBtn) prevBtn.click();
+        }
+    });
+
+    // ============================================
+    // 10. Smooth Scroll Navigation Enhancement
+    // ============================================
+    document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            const target = document.querySelector(href);
+            
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // Update URL without jumping
+                history.pushState(null, null, href);
+            }
+        });
+    });
+
+    // ============================================
+    // 11. Enhanced Nav on Scroll
+    // ============================================
+    let lastScroll = 0;
+    const nav = document.querySelector('nav');
+    
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY;
+        
+        if (nav) {
+            if (currentScroll > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+            
+            // Auto-hide on scroll down, show on scroll up
+            if (currentScroll > lastScroll && currentScroll > 200) {
+                nav.style.transform = 'translateY(-100%)';
+            } else {
+                nav.style.transform = 'translateY(0)';
+            }
+        }
+        
+        lastScroll = currentScroll;
+    }, { passive: true });
+
+    // ============================================
+    // 12. Back to Top Button
+    // ============================================
+    const backToTop = document.createElement('button');
+    backToTop.className = 'fab';
+    backToTop.innerHTML = '↑';
+    backToTop.title = 'Back to top';
+    backToTop.setAttribute('aria-label', 'Scroll to top');
+    backToTop.style.cssText = `
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #06d6a0, #a3ff12);
+        color: #0f172a;
+        border: none;
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(100px);
+        transition: all 0.3s ease;
+        z-index: 100;
+        box-shadow: 0 8px 32px rgba(6, 214, 160, 0.4);
+    `;
+    
+    document.body.appendChild(backToTop);
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            backToTop.style.opacity = '1';
+            backToTop.style.transform = 'translateY(0)';
+        } else {
+            backToTop.style.opacity = '0';
+            backToTop.style.transform = 'translateY(100px)';
+        }
+    }, { passive: true });
+    
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ============================================
+    // 13. Copy to Clipboard Helper
+    // ============================================
+    window.copyToClipboard = async (text, successMessage = 'Copied to clipboard!') => {
+        try {
+            await navigator.clipboard.writeText(text);
+            showToast(successMessage);
+        } catch (err) {
+            console.error('Failed to copy:', err);
+            showToast('Failed to copy', 2000);
+        }
+    };
+
+    // ============================================
+    // 14. Enhanced Module Cards Click-to-Expand
+    // ============================================
+    document.querySelectorAll('.module-card').forEach(card => {
+        const isAlreadyLinked = card.querySelector('a[href^="module-"]');
+        if (!isAlreadyLinked) {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', function() {
+                // Extract module number or navigate
+                const moduleNum = this.querySelector('.badge')?.textContent.match(/\d+/)?.[0];
+                if (moduleNum) {
+                    window.location.href = `module-${moduleNum.padStart(2, '0')}.html`;
+                }
+            });
+        }
+    });
+
+    // ============================================
+    // 15. Lazy Load Images (if not using native)
+    // ============================================
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src || img.src;
+                    img.classList.add('loaded');
+                    imageObserver.unobserve(img);
+                }
+            });
+        }, { rootMargin: '50px' });
+
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+
+    // ============================================
+    // 16. Performance Monitoring
+    // ============================================
+    if ('PerformanceObserver' in window) {
+        const perfObserver = new PerformanceObserver((list) => {
+            for (const entry of list.getEntries()) {
+                if (entry.duration > 100) {
+                    console.warn('⚠️ Slow interaction detected:', entry.name, entry.duration);
+                }
+            }
+        });
+        
+        try {
+            perfObserver.observe({ entryTypes: ['measure', 'navigation'] });
+        } catch (e) {
+            // Silently fail for browsers that don't support all entry types
+        }
+    }
+
+    // ============================================
+    // 17. Accessibility - Skip to Content Link
+    // ============================================
+    if (!document.querySelector('.skip-to-content')) {
+        const skipLink = document.createElement('a');
+        skipLink.href = '#main-content';
+        skipLink.className = 'skip-to-content';
+        skipLink.textContent = 'Skip to main content';
+        document.body.insertBefore(skipLink, document.body.firstChild);
+        
+        // Ensure main content has ID
+        const mainContent = document.querySelector('main, section');
+        if (mainContent && !mainContent.id) {
+            mainContent.id = 'main-content';
+        }
+    }
+
+    // ============================================
+    // 18. Auto-save Form Data (for dashboard inputs)
+    // ============================================
+    document.querySelectorAll('input[contenteditable], [contenteditable="true"]').forEach(input => {
+        const saveKey = `jazer_autosave_${input.id || input.className}`;
+        
+        // Load saved value
+        const savedValue = localStorage.getItem(saveKey);
+        if (savedValue && !input.textContent) {
+            input.textContent = savedValue;
+        }
+        
+        // Auto-save on change
+        input.addEventListener('blur', () => {
+            localStorage.setItem(saveKey, input.textContent);
+        });
+    });
+
+    console.log('✨ Premium Flow Loaded (Enhanced): ', currentPath);
+    console.log('💡 Shortcuts: Ctrl+K (Command Palette) | Esc (Close) | ←→ (Navigate)');
 };
 
 // Run initialization
