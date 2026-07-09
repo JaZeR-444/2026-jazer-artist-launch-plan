@@ -1,0 +1,11 @@
+# .gitignore (added during workspace security cleanup)
+node_modules/
+**/node_modules/
+.env
+.env.*
+!.env.example
+**/settings.local.json
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
